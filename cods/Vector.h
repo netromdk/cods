@@ -8,9 +8,9 @@
 CODS_BEGIN_NAMESPACE
 
 /// Implementation of a container class similar to the std::vector.
-template <typename T,            ///< Item type.
-          int InitCap = 64,      ///< Initial capacity size.
-          int CapMultiplier = 2> ///< Capacity multiplier.
+template <typename T,        ///< Item type.
+          int INIT_CAP = 64, ///< Initial capacity size.
+          int CAP_MULT = 2>  ///< Capacity multiplier.
 class Vector {
 public:
   /// Create empty vector with no capacity.
@@ -146,7 +146,7 @@ private:
 
   void checkAlloc() {
     if (items != cap) return;
-    alloc(cap == 0 ? InitCap : cap * CapMultiplier);
+    alloc(cap == 0 ? INIT_CAP : cap * CAP_MULT);
   }
 
   /// Appends value but only checks capacity if check is set.
