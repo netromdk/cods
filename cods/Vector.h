@@ -19,7 +19,7 @@ public:
   /// Create vector filled with \p size elements of value \p val.
   Vector(int size, T val) : Vector() {
     alloc(size);
-    for (auto i = 0; i < size; i++) {
+    for (decltype(size) i = 0; i < size; i++) {
       // Don't check capacity because we just allocated all. Will speed up a lot.
       _append(val, false);
     }
@@ -28,7 +28,7 @@ public:
   /// Create vector from the values of raw array \p values.
   Vector(int size, T *values) : Vector() {
     alloc(size);
-    for (auto i = 0; i < size; i++) {
+    for (decltype(size) i = 0; i < size; i++) {
       _append(values[i], false);
     }
   }
@@ -80,7 +80,7 @@ public:
     if (isEmpty()) {
       cout << "empty";
     }
-    for (auto i = 0; i < cap; i++) {
+    for (decltype(cap) i = 0; i < cap; i++) {
       cout << convert(data[i]);
       if (i < cap - 1) {
         cout << ", ";
@@ -125,7 +125,7 @@ public:
 
 private:
   void fillDefault(T *ptr, int n) {
-    for (auto i = 0; i < n; i++) {
+    for (decltype(n) i = 0; i < n; i++) {
       ptr[i] = T();
     }
   }
@@ -159,19 +159,19 @@ private:
   }
 
   void shiftRight(int pos) {
-    for (auto i = pos; i < items; i++) {
+    for (decltype(pos) i = pos; i < items; i++) {
       std::swap(data[i], data[i+1]);
     }
   }
 
   void shiftLeft(int pos) {
-    for (auto i = items; i >= pos; i--) {
+    for (decltype(pos) i = items; i >= pos; i--) {
       std::swap(data[i], data[i+1]);
     }
   }
 
   void removeFrom(const T &val, int pos = 0) {
-    for (auto i = pos; i < items; i++) {
+    for (decltype(pos) i = pos; i < items; i++) {
       auto &item = data[i];
       if (item == val) {
         item = T(); // Clear.
