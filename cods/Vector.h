@@ -1,3 +1,6 @@
+#ifndef CODS_VECTOR_H
+#define CODS_VECTOR_H
+
 #include "cods/Global.h"
 #include "cods/Utility.h"
 
@@ -69,3 +72,5 @@ private:
 #include "cods/Vector.hpp"
 
 CODS_END_NAMESPACE
+
+#endif // CODS_VECTOR_H
