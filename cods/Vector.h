@@ -1,7 +1,3 @@
-#include <cassert>
-#include <cstring> // memcpy
-#include <utility> // swap
-
 #include "cods/Global.h"
 #include "cods/Utility.h"
 

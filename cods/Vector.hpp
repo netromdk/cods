@@ -1,3 +1,8 @@
+#include <cassert>
+#include <cstring>  // memcpy
+#include <utility>  // swap
+#include <iostream> // cout, endl
+
 template <typename T, int INIT_CAP, int CAP_MULT>
 Vector<T, INIT_CAP, CAP_MULT>::Vector() : items(0), cap(0), data(nullptr) { }
 
@@ -69,6 +74,7 @@ void Vector<T, INIT_CAP, CAP_MULT>::insert(int pos, const T &val) {
 
 template <typename T, int INIT_CAP, int CAP_MULT>
 void Vector<T, INIT_CAP, CAP_MULT>::print() const {
+  using namespace std;
   cout << "[ ";
   if (isEmpty()) {
     cout << "empty";
