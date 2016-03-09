@@ -45,11 +45,14 @@ public:
 
   void shrinkToFit();
 
+  void remove(const T &val);
+  void removeAt(int pos);
+
   T operator[](int pos);
   const T &operator[](int pos) const;
 
-  void remove(const T &val);
-  void removeAt(int pos);
+  /// Append value to the vector.
+  Vector &operator<<(const T &value);
 
 private:
   void fillDefault(T *ptr, int n);

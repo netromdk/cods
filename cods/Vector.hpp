@@ -104,6 +104,19 @@ void Vector<T, INIT_CAP, CAP_MULT>::shrinkToFit() {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
+void Vector<T, INIT_CAP, CAP_MULT>::remove(const T &val) {
+  removeFrom(val);
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+void Vector<T, INIT_CAP, CAP_MULT>::removeAt(int pos) {
+  assert(pos >= 0 && pos < cap && "Position out of bounds!");
+  data[pos] = T();
+  items--;
+  shiftRight(pos); // Effectively moving left.
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
 T Vector<T, INIT_CAP, CAP_MULT>::operator[](int pos) {
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
   return data[pos];
@@ -116,16 +129,9 @@ const T &Vector<T, INIT_CAP, CAP_MULT>::operator[](int pos) const {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::remove(const T &val) {
-  removeFrom(val);
-}
-
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::removeAt(int pos) {
-  assert(pos >= 0 && pos < cap && "Position out of bounds!");
-  data[pos] = T();
-  items--;
-  shiftRight(pos); // Effectively moving left.
+Vector<T, INIT_CAP, CAP_MULT> &Vector<T, INIT_CAP, CAP_MULT>::operator<<(const T &value) {
+  append(value);
+  return *this;
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
