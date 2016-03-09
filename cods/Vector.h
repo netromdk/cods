@@ -54,6 +54,9 @@ public:
   /// Append value to the vector.
   Vector &operator<<(const T &value);
 
+  bool operator==(const Vector &other) const;
+  bool operator!=(const Vector &other) const;
+
 private:
   void fillDefault(T *ptr, int n);
   void alloc(int size);

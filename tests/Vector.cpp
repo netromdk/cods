@@ -194,6 +194,38 @@ TEST(Vector, streamOperator) {
   EXPECT_EQ(vec[2], 3);
 }
 
+TEST(Vector, equalsOperator) {
+  Vector<int> vec;
+  vec << 1 << 2 << 3;
+
+  decltype(vec) vec2;
+  vec2 << 1 << 2 << 3;
+  EXPECT_TRUE(vec == vec2);
+
+  decltype(vec) vec3;
+  EXPECT_FALSE(vec == vec3);
+
+  decltype(vec) vec4;
+  vec4 << 3 << 2 << 1;
+  EXPECT_FALSE(vec == vec4);
+}
+
+TEST(Vector, notEqualsOperator) {
+  Vector<int> vec;
+  vec << 1 << 2 << 3;
+
+  decltype(vec) vec2;
+  vec2 << 1 << 2 << 3;
+  EXPECT_FALSE(vec != vec2);
+
+  decltype(vec) vec3;
+  EXPECT_TRUE(vec != vec3);
+
+  decltype(vec) vec4;
+  vec4 << 3 << 2 << 1;
+  EXPECT_TRUE(vec != vec4);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

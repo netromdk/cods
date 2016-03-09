@@ -135,6 +135,24 @@ Vector<T, INIT_CAP, CAP_MULT> &Vector<T, INIT_CAP, CAP_MULT>::operator<<(const T
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
+bool Vector<T, INIT_CAP, CAP_MULT>::operator==(const Vector &other) const {
+  if (items != other.size()) {
+    return false;
+  }
+  for (decltype(items) i = 0; i < items; i++) {
+    if (data[i] != other[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+bool Vector<T, INIT_CAP, CAP_MULT>::operator!=(const Vector &other) const {
+  return !(*this == other);
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
 void Vector<T, INIT_CAP, CAP_MULT>::fillDefault(T *ptr, int n) {
   for (decltype(n) i = 0; i < n; i++) {
     ptr[i] = T();
