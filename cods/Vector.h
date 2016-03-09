@@ -15,6 +15,9 @@ public:
   /// Create empty vector with no capacity.
   Vector();
 
+  /// Copy-constructor.
+  Vector(const Vector &other);
+
   /// Create vector filled with \p size elements of value \p val.
   Vector(int size, T val);
 

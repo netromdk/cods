@@ -12,6 +12,14 @@ TEST(Vector, instantiate) {
   Vector<int, 3, 10> vec3;
 }
 
+TEST(Vector, copyCtor) {
+  Vector<int> vec;
+  vec << 1 << 2 << 3;
+
+  decltype(vec) vec2(vec);
+  EXPECT_TRUE(vec == vec2);
+}
+
 TEST(Vector, ctor1) {
   Vector<int> vec;
   EXPECT_EQ(vec.size(), 0);
