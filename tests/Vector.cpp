@@ -1,5 +1,6 @@
 #include <array>
 #include <vector>
+#include <utility> // move
 
 #include "gtest/gtest.h"
 
@@ -18,6 +19,17 @@ TEST(Vector, copyCtor) {
 
   decltype(vec) vec2(vec);
   EXPECT_TRUE(vec == vec2);
+}
+
+TEST(Vector, moveCtor) {
+  Vector<int> vec;
+  vec << 1 << 2 << 3;
+
+  decltype(vec) temp(vec);
+
+  decltype(vec) vec2(std::move(vec));
+  EXPECT_TRUE(vec.isEmpty());
+  EXPECT_TRUE(vec2 == temp);
 }
 
 TEST(Vector, ctor1) {

@@ -18,6 +18,9 @@ public:
   /// Copy-constructor.
   Vector(const Vector &other);
 
+  /// Move-constructor.
+  Vector(Vector &&other);
+
   /// Create vector filled with \p size elements of value \p val.
   Vector(int size, T val);
 
@@ -74,6 +77,7 @@ private:
 
   void removeFrom(const T &val, int pos = 0);
 
+protected:
   int items, cap;
   T *data;
 };

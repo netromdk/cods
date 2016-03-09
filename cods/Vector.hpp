@@ -17,6 +17,17 @@ Vector<T, INIT_CAP, CAP_MULT>::Vector(const Vector &other) : Vector() {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
+Vector<T, INIT_CAP, CAP_MULT>::Vector(Vector &&other) : Vector() {
+  data = other.data;
+  items = other.items;
+  cap = other.cap;
+
+  // Nullify original container.
+  other.data = nullptr;
+  other.items = other.cap = 0;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
 Vector<T, INIT_CAP, CAP_MULT>::Vector(int size, T val) : Vector() {
   alloc(size);
   for (decltype(size) i = 0; i < size; i++) {
