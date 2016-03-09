@@ -15,7 +15,11 @@ endif()
 include(platform)
 include(target)
 
-add_subdirectory(examples)
+#add_subdirectory(examples)
+
+include(CTest)
+enable_testing()
+add_subdirectory(tests)
 
 message(STATUS "--------------------------------------------------")
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
