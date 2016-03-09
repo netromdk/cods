@@ -7,8 +7,8 @@ CODS_BEGIN_NAMESPACE
 
 /// Convert value into a string.
 template <typename T>
-string convert(const T &val) {
-  ostringstream ss;
+std::string convert(const T &val) {
+  std::ostringstream ss;
   ss << val;
   return ss.str();
 }
