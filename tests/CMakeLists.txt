@@ -31,3 +31,8 @@ add_cods_test(
   Vector
   Vector.cpp
   )
+
+add_cods_test(
+  HashMap
+  HashMap.cpp
+  )
