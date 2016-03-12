@@ -4,15 +4,18 @@
 #include "cods/Global.h"
 #include "cods/Vector.h"
 
-#include <utility> // pair
+#include <utility> // tuple
 #include <cstddef> // size_t
 
 CODS_BEGIN_NAMESPACE
 
-template <typename Key, typename T>
+/// Implementation of a hash-table-based dictionary.
+template <typename Key,      ///< Key type.
+          typename T,        ///< Item type.
+          int INIT_CAP = 64, ///< Initial capacity size.
+          int CAP_MULT = 2>  ///< Capacity multiplier.
 class HashMap {
-  using ValuePair = std::pair<Key, T>;
-  using IndexPair = std::pair<std::size_t, int>; // hash -> index
+  using Value = std::tuple<Key, T, bool>;
 
 public:
   HashMap();
@@ -21,9 +24,12 @@ public:
   T value(const Key &key) const;
 
 private:
-  // TODO: Use a Set here instead of a Vector!
-  Vector<ValuePair> valuePairs; // (key, value), ..
-  Vector<IndexPair> indexPairs; // (hash, index), ..
+  Value defaultValue() const;
+  std::size_t hashIndex(const Key &key) const;
+  void checkRehash();
+
+  Vector<Value, INIT_CAP, CAP_MULT> buckets;
+  int items;
 };
 
 #include "cods/HashMap.hpp"
