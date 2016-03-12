@@ -6,6 +6,21 @@ HashMap<Key, T, INIT_CAP, CAP_MULT>::HashMap()
 { }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+bool HashMap<Key, T, INIT_CAP, CAP_MULT>::isEmpty() const {
+  return items == 0;
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+int HashMap<Key, T, INIT_CAP, CAP_MULT>::size() const {
+  return items;
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+int HashMap<Key, T, INIT_CAP, CAP_MULT>::capacity() const {
+  return buckets.capacity();
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 void HashMap<Key, T, INIT_CAP, CAP_MULT>::insert(const Key &key, const T &value) {
   checkRehash();
   buckets[hashIndex(key)] = Value(key, value, true);
@@ -13,8 +28,67 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::insert(const Key &key, const T &value)
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+void HashMap<Key, T, INIT_CAP, CAP_MULT>::remove(const Key &key) {
+  if (contains(key)) {
+    buckets[hashIndex(key)] = defaultValue();
+    items--;
+  }
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key) const {
   return std::get<1>(buckets[hashIndex(key)]);
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key,
+                                             const T &defaultValue) const {
+  if (!contains(key)) {
+    return defaultValue;
+  }
+  return std::get<1>(buckets[hashIndex(key)]);
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+Vector<Key> HashMap<Key, T, INIT_CAP, CAP_MULT>::keys() const {
+  Vector<Key> res;
+  auto size = buckets.size();
+  for (decltype(size) i = 0; i < size; i++) {
+    const auto &value = buckets[i];
+    if (std::get<2>(value)) {
+      res << std::get<0>(value);
+    }
+  }
+  return res;
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+Vector<T> HashMap<Key, T, INIT_CAP, CAP_MULT>::values() const {
+  Vector<T> res;
+  auto size = buckets.size();
+  for (decltype(size) i = 0; i < size; i++) {
+    const auto &value = buckets[i];
+    if (std::get<2>(value)) {
+      res << std::get<1>(value);
+    }
+  }
+  return res;
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+bool HashMap<Key, T, INIT_CAP, CAP_MULT>::contains(const Key &key) const {
+  return std::get<2>(buckets[hashIndex(key)]);
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+void HashMap<Key, T, INIT_CAP, CAP_MULT>::clear() {
+  buckets.clear();
+  items = 0;
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+void HashMap<Key, T, INIT_CAP, CAP_MULT>::shrinkToFit() {
+  buckets.shrinkToFit();
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
@@ -40,7 +114,7 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::checkRehash() {
 
   auto size = buckets.size();
   for (decltype(size) i = 0; i < size; i++) {
-    auto &value = buckets[i];
+    const auto &value = buckets[i];
     if (std::get<2>(value)) {
       buckets[hashIndex(std::get<0>(value))] = value;
       buckets[i] = defaultValue(); // Clear old index.

@@ -20,8 +20,26 @@ class HashMap {
 public:
   HashMap();
 
+  bool isEmpty() const;
+  int size() const;
+  int capacity() const;
+
   void insert(const Key &key, const T &value);
+  void remove(const Key &key);
+
   T value(const Key &key) const;
+
+  /// If \p key is not contained then \p defaultValue is returned.
+  T value(const Key &key, const T &defaultValue) const;
+
+  Vector<Key> keys() const;
+  Vector<T> values() const;
+
+  bool contains(const Key &key) const;
+
+  void clear();
+
+  void shrinkToFit();
 
 private:
   Value defaultValue() const;
