@@ -62,7 +62,7 @@ public:
 private:
   Value defaultValue() const;
   std::size_t hashIndex(const Key &key) const;
-  void checkRehash();
+  void checkRehash(const Key &key);
 
   Vector<Value, INIT_CAP, CAP_MULT> buckets;
   int items;

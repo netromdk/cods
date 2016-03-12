@@ -35,7 +35,7 @@ int HashMap<Key, T, INIT_CAP, CAP_MULT>::capacity() const {
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 void HashMap<Key, T, INIT_CAP, CAP_MULT>::insert(const Key &key, const T &value) {
-  checkRehash();
+  checkRehash(key);
   buckets[hashIndex(key)] = Value(key, value, true);
   items++;
 }
@@ -165,7 +165,12 @@ std::size_t HashMap<Key, T, INIT_CAP, CAP_MULT>::hashIndex(const Key &key) const
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-void HashMap<Key, T, INIT_CAP, CAP_MULT>::checkRehash() {
+void HashMap<Key, T, INIT_CAP, CAP_MULT>::checkRehash(const Key &key) {
+  // Since each bucket only can contain one value then we need to increase if there is a collision.
+  while (contains(key)) {
+    buckets.append(defaultValue());
+  }
+
   // If next item fits then stop.
   if (items + 1 <= buckets.capacity()) {
     return;
