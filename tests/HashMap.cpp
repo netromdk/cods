@@ -224,6 +224,15 @@ TEST(HashMap, notEqualsOperator) {
   EXPECT_TRUE(map != map3);
 }
 
+TEST(HashMap, insertCollision) {
+  HashMap<int, int> map;
+  map.insert(1, 1);
+  map.insert(1, 2);
+  map.insert(1, 42);
+  EXPECT_EQ(map.size(), 1);
+  EXPECT_EQ(map[1], 42);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
