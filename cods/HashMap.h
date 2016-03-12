@@ -18,7 +18,14 @@ class HashMap {
   using Value = std::tuple<Key, T, bool>;
 
 public:
+  /// Create empty map with maximum capacity.
   HashMap();
+
+  /// Copy-constructor.
+  HashMap(const HashMap &other);
+
+  /// Move-constructor.
+  HashMap(HashMap &&other);
 
   bool isEmpty() const;
   int size() const;

@@ -6,6 +6,19 @@ HashMap<Key, T, INIT_CAP, CAP_MULT>::HashMap()
 { }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+HashMap<Key, T, INIT_CAP, CAP_MULT>::HashMap(const HashMap &other)
+  : buckets(other.buckets), items(other.items)
+{ }
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+HashMap<Key, T, INIT_CAP, CAP_MULT>::HashMap(HashMap &&other)
+  : buckets(std::move(other.buckets)), items(other.items)
+{
+  // Clear the other instance.
+  other.items = 0;
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 bool HashMap<Key, T, INIT_CAP, CAP_MULT>::isEmpty() const {
   return items == 0;
 }
@@ -111,7 +124,28 @@ T HashMap<Key, T, INIT_CAP, CAP_MULT>::operator[](const Key &key) const {
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 bool HashMap<Key, T, INIT_CAP, CAP_MULT>::operator==(const HashMap &other) const {
-  return keys() == other.keys() && values() == other.values();
+  auto ourKeys = keys();
+  auto theirKeys = other.keys();
+  if (ourKeys.size() != theirKeys.size()) {
+    return false;
+  }
+  for (int i = 0; i < ourKeys.size(); i++) {
+    if (!theirKeys.contains(ourKeys[i])) {
+      return false;
+    }
+  }
+
+  auto ourValues = values();
+  auto theirValues = other.values();
+  if (ourValues.size() != theirValues.size()) {
+    return false;
+  }
+  for (int i = 0; i < ourValues.size(); i++) {
+    if (!theirValues.contains(ourValues[i])) {
+      return false;
+    }
+  }
+  return true;
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>

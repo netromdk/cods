@@ -9,6 +9,29 @@ TEST(HashMap, instantiate) {
   HashMap<std::string, int, 12, 20> map3;
 }
 
+TEST(HashMap, copyCtor) {
+  HashMap<int, int> map;
+  map.insert(1, 3);
+  map.insert(2, 2);
+  map.insert(3, 1);
+
+  decltype(map) map2(map);
+  EXPECT_TRUE(map == map2);
+}
+
+TEST(HashMap, moveCtor) {
+  HashMap<int, int> map;
+  map.insert(1, 3);
+  map.insert(2, 2);
+  map.insert(3, 1);
+
+  decltype(map) temp(map);
+
+  decltype(map) map2(std::move(map));
+  EXPECT_TRUE(map.isEmpty());
+  EXPECT_TRUE(map2 == temp);
+}
+
 TEST(HashMap, insertAndGet) {
   HashMap<std::string, int> map;
   std::string key = "hello";

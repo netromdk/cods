@@ -80,7 +80,6 @@ private:
 
   void removeFrom(const T &val, int pos = 0);
 
-protected:
   int items, cap;
   T *data;
 };
