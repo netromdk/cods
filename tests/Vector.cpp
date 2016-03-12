@@ -150,6 +150,21 @@ TEST(Vector, clear) {
   EXPECT_EQ(vec.capacity(), 0);
 }
 
+TEST(Vector, reserve) {
+  Vector<int, 1, 2> vec;
+  vec.append(1);
+  vec.append(2);
+  vec.append(3);
+  EXPECT_EQ(vec.size(), 3);
+  EXPECT_EQ(vec.capacity(), 4);
+
+  vec.reserve(10);
+  EXPECT_EQ(vec.capacity(), 10);
+
+  vec.reserve(3);
+  EXPECT_EQ(vec.capacity(), 10);
+}
+
 TEST(Vector, shrinkToFit) {
   Vector<int, 1, 2> vec;
   vec.append(1);
@@ -203,6 +218,15 @@ TEST(Vector, isEmpty) {
 
   vec.clear();
   EXPECT_TRUE(vec.isEmpty());
+}
+
+TEST(Vector, contains) {
+  Vector<int> vec;
+  EXPECT_FALSE(vec.contains(1));
+
+  vec << 1 << 2 << 3;
+  EXPECT_TRUE(vec.contains(1));
+  EXPECT_FALSE(vec.contains(4));
 }
 
 TEST(Vector, streamOperator) {

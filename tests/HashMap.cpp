@@ -122,6 +122,21 @@ TEST(HashMap, values) {
   EXPECT_EQ(values[2], 1);
 }
 
+TEST(HashMap, reserve) {
+  HashMap<int, int, 1, 2> map;
+  map.insert(1, 3);
+  map.insert(2, 2);
+  map.insert(3, 1);
+  EXPECT_EQ(map.size(), 3);
+  EXPECT_EQ(map.capacity(), 4);
+
+  map.reserve(10);
+  EXPECT_EQ(map.capacity(), 10);
+
+  map.reserve(3);
+  EXPECT_EQ(map.capacity(), 10);
+}
+
 TEST(HashMap, shrinkToFit) {
   HashMap<int, int, 2> map;
   map.insert(1, 3);

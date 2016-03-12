@@ -87,6 +87,11 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::clear() {
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+void HashMap<Key, T, INIT_CAP, CAP_MULT>::reserve(int cap_) {
+  buckets.reserve(cap_);
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 void HashMap<Key, T, INIT_CAP, CAP_MULT>::shrinkToFit() {
   buckets.shrinkToFit();
 }

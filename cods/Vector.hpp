@@ -93,6 +93,16 @@ void Vector<T, INIT_CAP, CAP_MULT>::insert(int pos, const T &val) {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
+bool Vector<T, INIT_CAP, CAP_MULT>::contains(const T &val) const {
+  for (decltype(items) i = 0; i < items; i++) {
+    if (data[i] == val) {
+      return true;
+    }
+  }
+  return false;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
 void Vector<T, INIT_CAP, CAP_MULT>::print() const {
   using namespace std;
   cout << "[ ";
@@ -115,6 +125,12 @@ void Vector<T, INIT_CAP, CAP_MULT>::clear() {
     data = nullptr;
   }
   items = cap = 0;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+void Vector<T, INIT_CAP, CAP_MULT>::reserve(int cap_) {
+  if (cap >= cap_) return;
+  alloc(cap_);
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>

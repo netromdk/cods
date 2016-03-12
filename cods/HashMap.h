@@ -39,6 +39,7 @@ public:
 
   void clear();
 
+  void reserve(int capacity);
   void shrinkToFit();
 
 private:

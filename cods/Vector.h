@@ -45,10 +45,13 @@ public:
 
   void insert(int pos, const T &val);
 
+  bool contains(const T &val) const;
+
   void print() const;
 
   void clear();
 
+  void reserve(int capacity);
   void shrinkToFit();
 
   void remove(const T &val);
