@@ -233,6 +233,16 @@ TEST(HashMap, insertCollision) {
   EXPECT_EQ(map[1], 42);
 }
 
+TEST(HashMap, insertVectorKey) {
+  Vector<int> vec;
+  vec << 1 << 2 << 3;
+
+  HashMap<decltype(vec), int> map;
+  map.insert(vec, 42);
+  EXPECT_EQ(map.size(), 1);
+  EXPECT_EQ(map[vec], 42);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

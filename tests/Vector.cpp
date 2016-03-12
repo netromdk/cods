@@ -270,6 +270,18 @@ TEST(Vector, notEqualsOperator) {
   EXPECT_TRUE(vec != vec4);
 }
 
+TEST(Vector, hash) {
+  Vector<int> vec;
+  vec << 1 << 2 << 3;
+  auto h = std::hash<decltype(vec)>()(vec);
+
+  decltype(vec) vec2;
+  vec2 << 3 << 2 << 1;
+  auto h2 = std::hash<decltype(vec2)>()(vec2);
+
+  EXPECT_NE(h, h2);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
