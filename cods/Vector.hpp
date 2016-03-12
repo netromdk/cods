@@ -189,6 +189,17 @@ bool Vector<T, INIT_CAP, CAP_MULT>::operator!=(const Vector &other) const {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
+typename Vector<T, INIT_CAP, CAP_MULT>::Vector&
+Vector<T, INIT_CAP, CAP_MULT>::operator=(const Vector &other) {
+  clear();
+  auto size = other.size();
+  for (decltype(size) i = 0; i < size; i++) {
+    append(other[i]);
+  }
+  return *this;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
 void Vector<T, INIT_CAP, CAP_MULT>::fillDefault(T *ptr, int n) {
   for (decltype(n) i = 0; i < n; i++) {
     ptr[i] = T();
