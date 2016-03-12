@@ -54,7 +54,7 @@ public:
   void remove(const T &val);
   void removeAt(int pos);
 
-  T operator[](int pos);
+  T &operator[](int pos);
   const T &operator[](int pos) const;
 
   /// Append value to the vector.

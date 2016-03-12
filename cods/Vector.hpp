@@ -137,7 +137,7 @@ void Vector<T, INIT_CAP, CAP_MULT>::removeAt(int pos) {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-T Vector<T, INIT_CAP, CAP_MULT>::operator[](int pos) {
+T &Vector<T, INIT_CAP, CAP_MULT>::operator[](int pos) {
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
   return data[pos];
 }
