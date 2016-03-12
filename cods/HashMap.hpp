@@ -97,6 +97,39 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::shrinkToFit() {
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+T &HashMap<Key, T, INIT_CAP, CAP_MULT>::operator[](const Key &key) {
+  if (!contains(key)) {
+    insert(key, T());
+  }
+  return std::get<1>(buckets[hashIndex(key)]);
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+T HashMap<Key, T, INIT_CAP, CAP_MULT>::operator[](const Key &key) const {
+  return value(key);
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+bool HashMap<Key, T, INIT_CAP, CAP_MULT>::operator==(const HashMap &other) const {
+  auto keys_ = keys();
+  if (keys_ != other.keys()) {
+    return false;
+  }
+  for (int i = 0; i < keys_.size(); i++) {
+    const auto &key = keys_[i];
+    if (value(key) != other[key]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+bool HashMap<Key, T, INIT_CAP, CAP_MULT>::operator!=(const HashMap &other) const {
+  return !(*this == other);
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Value
 HashMap<Key, T, INIT_CAP, CAP_MULT>::defaultValue() const {
   return Value(Key(), T(), false);

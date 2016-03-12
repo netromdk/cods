@@ -150,6 +150,57 @@ TEST(HashMap, shrinkToFit) {
   EXPECT_EQ(map.capacity(), 3);
 }
 
+TEST(HashMap, squareBracketsOperator) {
+  HashMap<int, int> map;
+  map.insert(1, 3);
+  map.insert(2, 2);
+  map.insert(3, 1);
+  EXPECT_EQ(map[1], 3);
+  EXPECT_EQ(map[2], 2);
+  EXPECT_EQ(map[3], 1);
+
+  // Get default value when nonexistent, and it inserts the key.
+  EXPECT_FALSE(map.contains(42));
+  EXPECT_EQ(map[42], int());
+  EXPECT_TRUE(map.contains(42));
+
+  // Set values via reference.
+  map[42] = 10;
+  EXPECT_EQ(map[42], 10);
+}
+
+TEST(HashMap, equalsOperator) {
+  HashMap<int, int> map;
+  map.insert(1, 3);
+  map.insert(2, 2);
+  map.insert(3, 1);
+
+  decltype(map) map2;
+  map2.insert(1, 3);
+  map2.insert(2, 2);
+  map2.insert(3, 1);
+  EXPECT_TRUE(map == map2);
+
+  decltype(map) map3;
+  EXPECT_FALSE(map == map3);
+}
+
+TEST(HashMap, notEqualsOperator) {
+  HashMap<int, int> map;
+  map.insert(1, 3);
+  map.insert(2, 2);
+  map.insert(3, 1);
+
+  decltype(map) map2;
+  map2.insert(1, 3);
+  map2.insert(2, 2);
+  map2.insert(3, 1);
+  EXPECT_FALSE(map != map2);
+
+  decltype(map) map3;
+  EXPECT_TRUE(map != map3);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

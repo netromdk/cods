@@ -42,6 +42,16 @@ public:
   void reserve(int capacity);
   void shrinkToFit();
 
+  /// Returns reference to value pointed to by \p key.
+  /** If it doesn't exist then a default-constructed value will be inserted with the \p key and a
+      reference return to it. */
+  T &operator[](const Key &key);
+
+  T operator[](const Key &key) const;
+
+  bool operator==(const HashMap &other) const;
+  bool operator!=(const HashMap &other) const;
+
 private:
   Value defaultValue() const;
   std::size_t hashIndex(const Key &key) const;
