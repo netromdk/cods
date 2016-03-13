@@ -96,6 +96,18 @@ TEST(Vector, append) {
   EXPECT_EQ(vec.capacity(), 4);
 }
 
+TEST(Vector, appendVector) {
+  Vector<int> vec, vec2;
+  vec2 << 1 << 2 << 3;
+
+  vec.append(vec2);
+  EXPECT_EQ(vec, vec2);
+
+  vec.clear();
+  vec << vec2;
+  EXPECT_EQ(vec, vec2);
+}
+
 TEST(Vector, prepend) {
   Vector<int, 2, 2> vec;
   vec.prepend(1);

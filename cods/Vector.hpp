@@ -98,13 +98,18 @@ int Vector<T, INIT_CAP, CAP_MULT>::capacity() const {
   return cap;
 }
 
-/// Insert value at the end.
 template <typename T, int INIT_CAP, int CAP_MULT>
 void Vector<T, INIT_CAP, CAP_MULT>::append(const T &val) {
   _append(val);
 }
 
-/// Insert value at the beginning.
+template <typename T, int INIT_CAP, int CAP_MULT>
+void Vector<T, INIT_CAP, CAP_MULT>::append(const Vector<T> &vals) {
+  for (const auto &val : vals) {
+    append(val);
+  }
+}
+
 template <typename T, int INIT_CAP, int CAP_MULT>
 void Vector<T, INIT_CAP, CAP_MULT>::prepend(const T &val) {
   insert(0, val);
@@ -230,6 +235,12 @@ const T &Vector<T, INIT_CAP, CAP_MULT>::operator[](int pos) const {
 template <typename T, int INIT_CAP, int CAP_MULT>
 Vector<T, INIT_CAP, CAP_MULT> &Vector<T, INIT_CAP, CAP_MULT>::operator<<(const T &value) {
   append(value);
+  return *this;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+Vector<T, INIT_CAP, CAP_MULT> &Vector<T, INIT_CAP, CAP_MULT>::operator<<(const Vector<T> &values) {
+  append(values);
   return *this;
 }
 

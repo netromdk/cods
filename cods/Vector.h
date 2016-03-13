@@ -66,6 +66,9 @@ public:
   /// Insert value at the end.
   void append(const T &val);
 
+  /// Insert values at the end.
+  void append(const Vector<T> &vals);
+
   /// Insert value at the beginning.
   void prepend(const T &val);
 
@@ -96,6 +99,9 @@ public:
 
   /// Append value to the vector.
   Vector &operator<<(const T &value);
+
+  /// Append values to the vector.
+  Vector &operator<<(const Vector<T> &values);
 
   bool operator==(const Vector &other) const;
   bool operator!=(const Vector &other) const;
