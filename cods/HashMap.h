@@ -4,7 +4,6 @@
 #include "cods/Global.h"
 #include "cods/Vector.h"
 
-#include <utility> // tuple
 #include <cstddef> // size_t
 
 CODS_BEGIN_NAMESPACE
@@ -15,7 +14,12 @@ template <typename Key,      ///< Key type.
           int INIT_CAP = 64, ///< Initial capacity size.
           int CAP_MULT = 2>  ///< Capacity multiplier.
 class HashMap {
-  using Bucket = std::tuple<Key, T, bool>;
+  struct Bucket {
+    Bucket(const Key &key, const T &value) : key(key), value(value) { }
+
+    Key key;
+    T value;
+  };
 
 public:
   /// Create empty map with maximum capacity.
@@ -36,8 +40,8 @@ public:
 
   T value(const Key &key) const;
 
-  /// If \p key is not contained then \p defaultBucket is returned.
-  T value(const Key &key, const T &defaultBucket) const;
+  /// If \p key is not contained then \p defaultValue is returned.
+  T value(const Key &key, const T &defaultValue) const;
 
   Vector<Key> keys() const;
   Vector<T> values() const;
@@ -60,11 +64,10 @@ public:
   bool operator!=(const HashMap &other) const;
 
 private:
-  Bucket defaultBucket() const;
   std::size_t hashIndex(const Key &key) const;
   void checkRehash();
 
-  Vector<Bucket, INIT_CAP, CAP_MULT> buckets;
+  Vector<Bucket*, INIT_CAP, CAP_MULT> buckets;
   int items;
 };
 

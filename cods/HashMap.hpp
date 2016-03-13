@@ -2,8 +2,12 @@
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 HashMap<Key, T, INIT_CAP, CAP_MULT>::HashMap()
-  : buckets(INIT_CAP, defaultBucket()), items(0)
-{ }
+  : buckets(), items(0)
+{
+  for (int i = 0; i < INIT_CAP; i++) {
+    buckets << nullptr;
+  }
+}
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 HashMap<Key, T, INIT_CAP, CAP_MULT>::HashMap(const HashMap &other)
@@ -38,52 +42,50 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::insert(const Key &key, const T &value)
   // Since each bucket only can contain one value then we need to increase if there is a collision,
   // but if the key is the same then override the value instead.
   for (;;) {
-    auto &bucket = buckets[hashIndex(key)];
-    if (!std::get<2>(bucket)) {
-      break;
-    }
+    auto *bucket = buckets[hashIndex(key)];
+    if (!bucket) break;
 
-    if (std::get<0>(bucket) == key) {
-      bucket = Bucket(key, value, true);
+    if (bucket->key == key) {
+      bucket->value = value;
       return;
     }
 
-    buckets.append(defaultBucket());
+    buckets.append(nullptr);
   }
 
   checkRehash();
-  buckets[hashIndex(key)] = Bucket(key, value, true);
+  buckets[hashIndex(key)] = new Bucket(key, value);
   items++;
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 void HashMap<Key, T, INIT_CAP, CAP_MULT>::remove(const Key &key) {
   if (contains(key)) {
-    buckets[hashIndex(key)] = defaultBucket();
+    buckets[hashIndex(key)] = nullptr;
     items--;
   }
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key) const {
-  return std::get<1>(buckets[hashIndex(key)]);
+  return buckets[hashIndex(key)]->value;
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key,
-                                             const T &defaultBucket) const {
+                                             const T &defaultValue) const {
   if (!contains(key)) {
-    return defaultBucket;
+    return defaultValue;
   }
-  return std::get<1>(buckets[hashIndex(key)]);
+  return buckets[hashIndex(key)]->value;
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 Vector<Key> HashMap<Key, T, INIT_CAP, CAP_MULT>::keys() const {
   Vector<Key> res;
-  for (const auto &bucket : buckets) {
-    if (std::get<2>(bucket)) {
-      res << std::get<0>(bucket);
+  for (const auto *bucket : buckets) {
+    if (bucket) {
+      res << bucket->key;
     }
   }
   return res;
@@ -92,9 +94,9 @@ Vector<Key> HashMap<Key, T, INIT_CAP, CAP_MULT>::keys() const {
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 Vector<T> HashMap<Key, T, INIT_CAP, CAP_MULT>::values() const {
   Vector<T> res;
-  for (const auto &bucket : buckets) {
-    if (std::get<2>(bucket)) {
-      res << std::get<1>(bucket);
+  for (const auto *bucket : buckets) {
+    if (bucket) {
+      res << bucket->value;
     }
   }
   return res;
@@ -102,7 +104,7 @@ Vector<T> HashMap<Key, T, INIT_CAP, CAP_MULT>::values() const {
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 bool HashMap<Key, T, INIT_CAP, CAP_MULT>::contains(const Key &key) const {
-  return std::get<2>(buckets[hashIndex(key)]);
+  return buckets[hashIndex(key)];
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
@@ -121,8 +123,8 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::shrinkToFit() {
   // Remove any unused buckets so the vector can shrink as much as possible.
   Vector<int> del;
   int i = 0;
-  for (const auto &bucket : buckets) {
-    if (!std::get<2>(bucket)) {
+  for (const auto *bucket : buckets) {
+    if (!bucket) {
       del << i++;
     }
   }
@@ -139,7 +141,7 @@ T &HashMap<Key, T, INIT_CAP, CAP_MULT>::operator[](const Key &key) {
   if (!contains(key)) {
     insert(key, T());
   }
-  return std::get<1>(buckets[hashIndex(key)]);
+  return buckets[hashIndex(key)]->value;
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
@@ -161,14 +163,14 @@ bool HashMap<Key, T, INIT_CAP, CAP_MULT>::operator==(const HashMap &other) const
     }
   }
 
-  auto ourBuckets = values();
-  auto theirBuckets = other.values();
-  if (ourBuckets.size() != theirBuckets.size()) {
+  auto ourValues = values();
+  auto theirValues = other.values();
+  if (ourValues.size() != theirValues.size()) {
     return false;
   }
 
-  for (const auto &value : ourBuckets) {
-    if (!theirBuckets.contains(value)) {
+  for (const auto &value : ourValues) {
+    if (!theirValues.contains(value)) {
       return false;
     }
   }
@@ -178,12 +180,6 @@ bool HashMap<Key, T, INIT_CAP, CAP_MULT>::operator==(const HashMap &other) const
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 bool HashMap<Key, T, INIT_CAP, CAP_MULT>::operator!=(const HashMap &other) const {
   return !(*this == other);
-}
-
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket
-HashMap<Key, T, INIT_CAP, CAP_MULT>::defaultBucket() const {
-  return Bucket(Key(), T(), false);
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
@@ -199,13 +195,13 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::checkRehash() {
   }
 
   // Force growing!
-  buckets.append(defaultBucket());
+  buckets.append(nullptr);
 
   int i = 0;
-  for (auto &bucket : buckets) {
-    if (std::get<2>(bucket)) {
-      buckets[hashIndex(std::get<0>(bucket))] = bucket;
-      buckets[i] = defaultBucket(); // Clear old index.
+  for (auto *bucket : buckets) {
+    if (bucket) {
+      buckets[hashIndex(bucket->key)] = bucket;
+      buckets[i] = nullptr; // Clear old index.
     }
     i++;
   }
