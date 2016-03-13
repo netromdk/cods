@@ -4,6 +4,34 @@
 #include <iostream> // cout, endl
 
 template <typename T, int INIT_CAP, int CAP_MULT>
+Vector<T, INIT_CAP, CAP_MULT>::Iterator::Iterator(Vector *vec, int pos)
+  : vec(vec), pos(pos)
+{ }
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+T &Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator*() {
+  return (*vec)[pos];
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+T *Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator->() {
+  return &(*vec)[pos];
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+typename Vector<T, INIT_CAP, CAP_MULT>::Iterator&
+Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator++() {
+  pos++;
+  return *this;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator++(int i) {
+  return Iterator(vec, pos + i);
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
 Vector<T, INIT_CAP, CAP_MULT>::Vector() : items(0), cap(0), data(nullptr) { }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
@@ -44,8 +72,8 @@ Vector<T, INIT_CAP, CAP_MULT>::Vector(int size, T *values) : Vector() {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-template <typename Iterator>
-Vector<T, INIT_CAP, CAP_MULT>::Vector(Iterator first, Iterator last) : Vector() {
+template <typename Iter>
+Vector<T, INIT_CAP, CAP_MULT>::Vector(Iter first, Iter last) : Vector() {
   for (; first != last; first++) {
     append(*first);
   }
@@ -150,6 +178,42 @@ void Vector<T, INIT_CAP, CAP_MULT>::removeAt(int pos) {
   data[pos] = T();
   items--;
   shiftRight(pos); // Effectively moving left.
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+Vector<T, INIT_CAP, CAP_MULT>::begin() {
+  return Iterator(this, 0);
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+Vector<T, INIT_CAP, CAP_MULT>::begin() const {
+  return Iterator(this, 0);
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+Vector<T, INIT_CAP, CAP_MULT>::cbegin() const {
+  return Iterator(this, 0);
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+Vector<T, INIT_CAP, CAP_MULT>::end() {
+  return Iterator(this, size());
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+Vector<T, INIT_CAP, CAP_MULT>::end() const {
+  return Iterator(this, size());
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+Vector<T, INIT_CAP, CAP_MULT>::cend() const {
+  return Iterator(this, size());
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>

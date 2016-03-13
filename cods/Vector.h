@@ -1,6 +1,8 @@
 #ifndef CODS_VECTOR_H
 #define CODS_VECTOR_H
 
+#include <iterator>
+
 #include "cods/Global.h"
 #include "cods/Utility.h"
 
@@ -12,6 +14,29 @@ template <typename T,        ///< Item type.
           int CAP_MULT = 2>  ///< Capacity multiplier.
 class Vector {
 public:
+  /// Iterator for Vector.
+  class Iterator : public std::iterator<std::output_iterator_tag, T> {
+  public:
+    Iterator(Vector *vec, int pos);
+
+    T &operator*();
+    T *operator->();
+    Iterator &operator++();
+    Iterator operator++(int i);
+
+    friend bool operator==(Iterator lhs, Iterator rhs) {
+      return lhs.pos == rhs.pos;
+    }
+
+    friend bool operator!=(Iterator lhs, Iterator rhs) {
+      return !(lhs == rhs);
+    }
+
+  private:
+    Vector *vec;
+    int pos;
+  };
+
   /// Create empty vector with no capacity.
   Vector();
 
@@ -28,8 +53,8 @@ public:
   Vector(int size, T *values);
 
   /// Create vector from iterator range.
-  template <typename Iterator>
-  Vector(Iterator first, Iterator last);
+  template <typename Iter>
+  Vector(Iter first, Iter last);
 
   ~Vector();
 
@@ -56,6 +81,14 @@ public:
 
   void remove(const T &val);
   void removeAt(int pos);
+
+  Iterator begin();
+  Iterator begin() const;
+  Iterator cbegin() const;
+
+  Iterator end();
+  Iterator end() const;
+  Iterator cend() const;
 
   T &operator[](int pos);
   const T &operator[](int pos) const;

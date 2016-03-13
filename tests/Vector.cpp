@@ -282,6 +282,17 @@ TEST(Vector, hash) {
   EXPECT_NE(h, h2);
 }
 
+TEST(Vector, iterator) {
+  Vector<int> vec;
+  vec << 1 << 2 << 3;
+
+  int i = 0;
+  for (const auto &elm : vec) {
+    EXPECT_EQ(vec[i], elm);
+    i++;
+  }
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
