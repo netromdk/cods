@@ -161,18 +161,7 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::reserve(int cap_) {
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 void HashMap<Key, T, INIT_CAP, CAP_MULT>::shrinkToFit() {
   // Remove any unused buckets so the vector can shrink as much as possible.
-  Vector<int> del;
-  int i = 0;
-  for (const auto *bucket : buckets) {
-    if (!bucket) {
-      del << i++;
-    }
-  }
-
-  for (const auto &idx : del) {
-    buckets.removeAt(idx);
-  }
-
+  buckets.remove(nullptr);
   buckets.shrinkToFit();
 }
 
