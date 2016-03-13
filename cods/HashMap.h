@@ -14,11 +14,44 @@ template <typename Key,      ///< Key type.
           int INIT_CAP = 64, ///< Initial capacity size.
           int CAP_MULT = 2>  ///< Capacity multiplier.
 class HashMap {
-  struct Bucket {
-    Bucket(const Key &key, const T &value) : key(key), value(value) { }
+  class Bucket {
+  public:
+    Bucket(const Key &key, const T &value) : key_(key) {
+      setValue(value);
+    }
 
-    Key key;
-    T value;
+    void setValue(const T &value) {
+      if (values_.size() == 0) {
+        values_ << value;
+      }
+      else {
+        values_[0] = value;
+      }
+    }
+
+    void addValue(const T &value) {
+      values_.prepend(value);
+    }
+
+    Key key() const {
+      return key_;
+    }
+
+    T &value() {
+      return values_[0];
+    }
+
+    T value() const {
+      return values_[0];
+    }
+
+    const Vector<T> &values() const {
+      return values_;
+    }
+
+  private:
+    Key key_;
+    Vector<T> values_;
   };
 
 public:
@@ -36,6 +69,8 @@ public:
   int capacity() const;
 
   void insert(const Key &key, const T &value);
+  void insertMulti(const Key &key, const T &value);
+
   void remove(const Key &key);
 
   T value(const Key &key) const;
@@ -44,7 +79,9 @@ public:
   T value(const Key &key, const T &defaultValue) const;
 
   Vector<Key> keys() const;
+
   Vector<T> values() const;
+  Vector<T> values(const Key &key) const;
 
   bool contains(const Key &key) const;
 
@@ -66,6 +103,7 @@ public:
 private:
   std::size_t hashIndex(const Key &key) const;
   void checkRehash();
+  void _insert(const Key &key, const T &value, bool multi = false);
 
   Vector<Bucket*, INIT_CAP, CAP_MULT> buckets;
   int items;

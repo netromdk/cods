@@ -243,6 +243,33 @@ TEST(HashMap, insertVectorKey) {
   EXPECT_EQ(map[vec], 42);
 }
 
+TEST(HashMap, insertMulti) {
+  HashMap<int, int> map;
+  map.insertMulti(1, 1);
+  map.insertMulti(1, 2);
+  map.insertMulti(1, 42);
+  EXPECT_EQ(map.size(), 3);
+  EXPECT_EQ(map[1], 42);
+}
+
+TEST(HashMap, multiValues) {
+  HashMap<int, int> map;
+  map.insertMulti(1, 1);
+  map.insertMulti(1, 2);
+  map.insertMulti(1, 42);
+  EXPECT_EQ(map.size(), 3);
+
+  Vector<int> vec;
+  vec << 42 << 2 << 1;
+  EXPECT_EQ(map.values(1), vec);
+
+  map.insert(2, 23);
+  EXPECT_EQ(map.size(), 4);
+
+  vec << 23;
+  EXPECT_EQ(map.values(), vec);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

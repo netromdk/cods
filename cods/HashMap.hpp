@@ -39,23 +39,12 @@ int HashMap<Key, T, INIT_CAP, CAP_MULT>::capacity() const {
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 void HashMap<Key, T, INIT_CAP, CAP_MULT>::insert(const Key &key, const T &value) {
-  // Since each bucket only can contain one value then we need to increase if there is a collision,
-  // but if the key is the same then override the value instead.
-  for (;;) {
-    auto *bucket = buckets[hashIndex(key)];
-    if (!bucket) break;
+  _insert(key, value);
+}
 
-    if (bucket->key == key) {
-      bucket->value = value;
-      return;
-    }
-
-    buckets.append(nullptr);
-  }
-
-  checkRehash();
-  buckets[hashIndex(key)] = new Bucket(key, value);
-  items++;
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+void HashMap<Key, T, INIT_CAP, CAP_MULT>::insertMulti(const Key &key, const T &value) {
+  _insert(key, value, true);
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
@@ -68,7 +57,7 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::remove(const Key &key) {
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key) const {
-  return buckets[hashIndex(key)]->value;
+  return buckets[hashIndex(key)]->value();
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
@@ -77,7 +66,7 @@ T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key,
   if (!contains(key)) {
     return defaultValue;
   }
-  return buckets[hashIndex(key)]->value;
+  return buckets[hashIndex(key)]->value();
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
@@ -85,7 +74,7 @@ Vector<Key> HashMap<Key, T, INIT_CAP, CAP_MULT>::keys() const {
   Vector<Key> res;
   for (const auto *bucket : buckets) {
     if (bucket) {
-      res << bucket->key;
+      res << bucket->key();
     }
   }
   return res;
@@ -96,7 +85,18 @@ Vector<T> HashMap<Key, T, INIT_CAP, CAP_MULT>::values() const {
   Vector<T> res;
   for (const auto *bucket : buckets) {
     if (bucket) {
-      res << bucket->value;
+      res << bucket->values();
+    }
+  }
+  return res;
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+Vector<T> HashMap<Key, T, INIT_CAP, CAP_MULT>::values(const Key &key) const {
+  Vector<T> res;
+  for (const auto *bucket : buckets) {
+    if (bucket && bucket->key() == key) {
+      res << bucket->values();
     }
   }
   return res;
@@ -141,7 +141,7 @@ T &HashMap<Key, T, INIT_CAP, CAP_MULT>::operator[](const Key &key) {
   if (!contains(key)) {
     insert(key, T());
   }
-  return buckets[hashIndex(key)]->value;
+  return buckets[hashIndex(key)]->value();
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
@@ -200,9 +200,36 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::checkRehash() {
   int i = 0;
   for (auto *bucket : buckets) {
     if (bucket) {
-      buckets[hashIndex(bucket->key)] = bucket;
+      buckets[hashIndex(bucket->key())] = bucket;
       buckets[i] = nullptr; // Clear old index.
     }
     i++;
   }
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+void HashMap<Key, T, INIT_CAP, CAP_MULT>::_insert(const Key &key, const T &value, bool multi) {
+  // Since each bucket only can contain one value then we need to increase if there is a collision,
+  // but if the key is the same then override the value instead.
+  for (;;) {
+    auto *bucket = buckets[hashIndex(key)];
+    if (!bucket) break;
+
+    if (bucket->key() == key) {
+      if (!multi) {
+        bucket->setValue(value);
+      }
+      else {
+        bucket->addValue(value);
+        items++;
+      }
+      return;
+    }
+
+    buckets.append(nullptr);
+  }
+
+  checkRehash();
+  buckets[hashIndex(key)] = new Bucket(key, value);
+  items++;
 }
