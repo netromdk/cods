@@ -305,6 +305,16 @@ TEST(Vector, iterator) {
   }
 }
 
+TEST(Vector, refAssign) {
+  Vector<int> vec;
+  vec << 1 << 2 << 3;
+
+  EXPECT_EQ(vec[0], 1);
+
+  vec[0] = 42;
+  EXPECT_EQ(vec[0], 42);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
