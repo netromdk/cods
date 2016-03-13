@@ -102,7 +102,7 @@ Key HashMap<Key, T, INIT_CAP, CAP_MULT>::key(const T &value) const {
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 Key HashMap<Key, T, INIT_CAP, CAP_MULT>::key(const T &value, const Key &defaultKey) const {
-  for (const auto &bucket : buckets) {
+  for (const auto *bucket : buckets) {
     if (bucket && bucket->values().contains(value)) {
       return bucket->key();
     }
