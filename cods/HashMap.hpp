@@ -133,13 +133,7 @@ Vector<T> HashMap<Key, T, INIT_CAP, CAP_MULT>::values() const {
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 Vector<T> HashMap<Key, T, INIT_CAP, CAP_MULT>::values(const Key &key) const {
-  Vector<T> res;
-  for (const auto *bucket : buckets) {
-    if (bucket && bucket->key() == key) {
-      res << bucket->values();
-    }
-  }
-  return res;
+  return buckets[hashIndex(key)]->values();
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
