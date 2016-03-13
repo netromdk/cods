@@ -15,12 +15,13 @@ template <typename T,        ///< Item type.
 class Vector {
 public:
   /// Iterator for Vector.
-  class Iterator : public std::iterator<std::output_iterator_tag, T> {
+  class Iterator : public std::iterator<std::forward_iterator_tag, T> {
   public:
-    Iterator(Vector *vec, int pos);
+    Iterator(const Vector *vec, int pos);
 
-    T &operator*();
-    T *operator->();
+    const T &operator*() const;
+    const T *operator->() const;
+
     Iterator &operator++();
     Iterator operator++(int i);
 
@@ -33,7 +34,7 @@ public:
     }
 
   private:
-    Vector *vec;
+    const Vector *vec;
     int pos;
   };
 

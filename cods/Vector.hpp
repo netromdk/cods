@@ -4,17 +4,17 @@
 #include <iostream> // cout, endl
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT>::Iterator::Iterator(Vector *vec, int pos)
+Vector<T, INIT_CAP, CAP_MULT>::Iterator::Iterator(const Vector *vec, int pos)
   : vec(vec), pos(pos)
 { }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-T &Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator*() {
+const T &Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator*() const {
   return (*vec)[pos];
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-T *Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator->() {
+const T *Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator->() const {
   return &(*vec)[pos];
 }
 
