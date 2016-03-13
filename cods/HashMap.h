@@ -16,38 +16,15 @@ template <typename Key,      ///< Key type.
 class HashMap {
   class Bucket {
   public:
-    Bucket(const Key &key, const T &value) : key_(key) {
-      setValue(value);
-    }
+    Bucket(const Key &key, const T &value);
 
-    void setValue(const T &value) {
-      if (values_.size() == 0) {
-        values_ << value;
-      }
-      else {
-        values_[0] = value;
-      }
-    }
+    void setValue(const T &value);
+    void addValue(const T &value);
 
-    void addValue(const T &value) {
-      values_.prepend(value);
-    }
-
-    Key key() const {
-      return key_;
-    }
-
-    T &value() {
-      return values_[0];
-    }
-
-    T value() const {
-      return values_[0];
-    }
-
-    const Vector<T> &values() const {
-      return values_;
-    }
+    const Key &key() const;
+    T &value();
+    const T &value() const;
+    const Vector<T> &values() const;
 
   private:
     Key key_;

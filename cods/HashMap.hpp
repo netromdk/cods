@@ -1,6 +1,46 @@
 #include <functional> // hash
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::Bucket(const Key &key, const T &value) : key_(key) {
+  setValue(value);
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+void HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::setValue(const T &value) {
+  if (values_.size() == 0) {
+    values_ << value;
+  }
+  else {
+    values_[0] = value;
+  }
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+void HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::addValue(const T &value) {
+  values_.prepend(value);
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+const Key &HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::key() const {
+  return key_;
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+T &HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::value() {
+  return values_[0];
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+const T &HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::value() const {
+  return values_[0];
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+const Vector<T> &HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::values() const {
+  return values_;
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 HashMap<Key, T, INIT_CAP, CAP_MULT>::HashMap()
   : buckets(), items(0)
 {
