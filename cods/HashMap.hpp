@@ -249,8 +249,8 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::checkRehash() {
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 void HashMap<Key, T, INIT_CAP, CAP_MULT>::_insert(const Key &key, const T &value, bool multi) {
-  // Since each bucket only can contain one value then we need to increase if there is a collision,
-  // but if the key is the same then override the value instead.
+  // If there is a collision on a key then either override or prepend if multi mode. Otherwise, if
+  // the keys are different then make room for the new one and rehash.
   for (;;) {
     auto *bucket = buckets[hashIndex(key)];
     if (!bucket) break;
