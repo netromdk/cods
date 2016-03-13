@@ -15,7 +15,7 @@ template <typename Key,      ///< Key type.
           int INIT_CAP = 64, ///< Initial capacity size.
           int CAP_MULT = 2>  ///< Capacity multiplier.
 class HashMap {
-  using Value = std::tuple<Key, T, bool>;
+  using Bucket = std::tuple<Key, T, bool>;
 
 public:
   /// Create empty map with maximum capacity.
@@ -36,8 +36,8 @@ public:
 
   T value(const Key &key) const;
 
-  /// If \p key is not contained then \p defaultValue is returned.
-  T value(const Key &key, const T &defaultValue) const;
+  /// If \p key is not contained then \p defaultBucket is returned.
+  T value(const Key &key, const T &defaultBucket) const;
 
   Vector<Key> keys() const;
   Vector<T> values() const;
@@ -60,11 +60,11 @@ public:
   bool operator!=(const HashMap &other) const;
 
 private:
-  Value defaultValue() const;
+  Bucket defaultBucket() const;
   std::size_t hashIndex(const Key &key) const;
   void checkRehash();
 
-  Vector<Value, INIT_CAP, CAP_MULT> buckets;
+  Vector<Bucket, INIT_CAP, CAP_MULT> buckets;
   int items;
 };
 
