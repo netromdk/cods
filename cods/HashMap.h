@@ -50,12 +50,15 @@ public:
 
   void remove(const Key &key);
 
+  Key key(const T &value) const;
+  Key key(const T &value, const Key &defaultKey) const;
+
+  Vector<Key> keys() const;
+
   T value(const Key &key) const;
 
   /// If \p key is not contained then \p defaultValue is returned.
   T value(const Key &key, const T &defaultValue) const;
-
-  Vector<Key> keys() const;
 
   Vector<T> values() const;
   Vector<T> values(const Key &key) const;

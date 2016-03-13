@@ -96,17 +96,18 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::remove(const Key &key) {
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key) const {
-  return buckets[hashIndex(key)]->value();
+Key HashMap<Key, T, INIT_CAP, CAP_MULT>::key(const T &value) const {
+  return key(value, Key());
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key,
-                                             const T &defaultValue) const {
-  if (!contains(key)) {
-    return defaultValue;
+Key HashMap<Key, T, INIT_CAP, CAP_MULT>::key(const T &value, const Key &defaultKey) const {
+  for (const auto &bucket : buckets) {
+    if (bucket && bucket->values().contains(value)) {
+      return bucket->key();
+    }
   }
-  return buckets[hashIndex(key)]->value();
+  return defaultKey;
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
@@ -118,6 +119,20 @@ Vector<Key> HashMap<Key, T, INIT_CAP, CAP_MULT>::keys() const {
     }
   }
   return res;
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key) const {
+  return buckets[hashIndex(key)]->value();
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key,
+                                             const T &defaultValue) const {
+  if (!contains(key)) {
+    return defaultValue;
+  }
+  return buckets[hashIndex(key)]->value();
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>

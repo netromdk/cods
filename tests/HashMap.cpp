@@ -117,6 +117,15 @@ TEST(HashMap, remove) {
   EXPECT_TRUE(map.isEmpty());
 }
 
+TEST(HashMap, key) {
+  HashMap<int, int> map;
+  map.insert(1, 3);
+  map.insert(2, 2);
+  map.insert(3, 1);
+  EXPECT_EQ(map.key(1), 3);
+  EXPECT_EQ(map.key(20, 42), 42);
+}
+
 TEST(HashMap, keys) {
   HashMap<int, int> map;
   map.insert(1, 3);
