@@ -36,11 +36,10 @@ Vector<T, INIT_CAP, CAP_MULT>::Vector() : items(0), cap(0), data(nullptr) { }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
 Vector<T, INIT_CAP, CAP_MULT>::Vector(const Vector &other) : Vector() {
-  auto size = other.size();
-  alloc(size);
-  for (decltype(size) i = 0; i < size; i++) {
+  alloc(other.size());
+  for (const auto &elm : other) {
     // Don't check capacity because we just allocated all. Will speed up a lot.
-    _append(other[i], false);
+    _append(elm, false);
   }
 }
 

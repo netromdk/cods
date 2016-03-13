@@ -81,11 +81,9 @@ T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key,
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 Vector<Key> HashMap<Key, T, INIT_CAP, CAP_MULT>::keys() const {
   Vector<Key> res;
-  auto size = buckets.size();
-  for (decltype(size) i = 0; i < size; i++) {
-    const auto &value = buckets[i];
-    if (std::get<2>(value)) {
-      res << std::get<0>(value);
+  for (const auto &bucket : buckets) {
+    if (std::get<2>(bucket)) {
+      res << std::get<0>(bucket);
     }
   }
   return res;
@@ -94,11 +92,9 @@ Vector<Key> HashMap<Key, T, INIT_CAP, CAP_MULT>::keys() const {
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 Vector<T> HashMap<Key, T, INIT_CAP, CAP_MULT>::values() const {
   Vector<T> res;
-  auto size = buckets.size();
-  for (decltype(size) i = 0; i < size; i++) {
-    const auto &value = buckets[i];
-    if (std::get<2>(value)) {
-      res << std::get<1>(value);
+  for (const auto &bucket : buckets) {
+    if (std::get<2>(bucket)) {
+      res << std::get<1>(bucket);
     }
   }
   return res;
@@ -124,15 +120,15 @@ template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 void HashMap<Key, T, INIT_CAP, CAP_MULT>::shrinkToFit() {
   // Remove any unused buckets so the vector can shrink as much as possible.
   Vector<int> del;
-  auto size = buckets.size();
-  for (decltype(size) i = 0; i < size; i++) {
-    if (!std::get<2>(buckets[i])) {
-      del << i;
+  int i = 0;
+  for (const auto &bucket : buckets) {
+    if (!std::get<2>(bucket)) {
+      del << i++;
     }
   }
-  size = del.size();
-  for (decltype(size) i = size - 1; i >= 0; i--) {
-    buckets.removeAt(del[i]);
+
+  for (const auto &idx : del) {
+    buckets.removeAt(idx);
   }
 
   buckets.shrinkToFit();
@@ -158,8 +154,9 @@ bool HashMap<Key, T, INIT_CAP, CAP_MULT>::operator==(const HashMap &other) const
   if (ourKeys.size() != theirKeys.size()) {
     return false;
   }
-  for (int i = 0; i < ourKeys.size(); i++) {
-    if (!theirKeys.contains(ourKeys[i])) {
+
+  for (const auto &key : ourKeys) {
+    if (!theirKeys.contains(key)) {
       return false;
     }
   }
@@ -169,8 +166,9 @@ bool HashMap<Key, T, INIT_CAP, CAP_MULT>::operator==(const HashMap &other) const
   if (ourValues.size() != theirValues.size()) {
     return false;
   }
-  for (int i = 0; i < ourValues.size(); i++) {
-    if (!theirValues.contains(ourValues[i])) {
+
+  for (const auto &value : ourValues) {
+    if (!theirValues.contains(value)) {
       return false;
     }
   }
@@ -203,12 +201,12 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::checkRehash() {
   // Force growing!
   buckets.append(defaultValue());
 
-  auto size = buckets.size();
-  for (decltype(size) i = 0; i < size; i++) {
-    const auto &value = buckets[i];
-    if (std::get<2>(value)) {
-      buckets[hashIndex(std::get<0>(value))] = value;
+  int i = 0;
+  for (auto &bucket : buckets) {
+    if (std::get<2>(bucket)) {
+      buckets[hashIndex(std::get<0>(bucket))] = bucket;
       buckets[i] = defaultValue(); // Clear old index.
     }
+    i++;
   }
 }
