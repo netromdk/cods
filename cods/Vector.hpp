@@ -104,7 +104,7 @@ void Vector<T, INIT_CAP, CAP_MULT>::append(const T &val) {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::append(const Vector<T> &vals) {
+void Vector<T, INIT_CAP, CAP_MULT>::append(const Vector &vals) {
   for (const auto &val : vals) {
     append(val);
   }
@@ -270,7 +270,7 @@ Vector<T, INIT_CAP, CAP_MULT> &Vector<T, INIT_CAP, CAP_MULT>::operator<<(const T
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT> &Vector<T, INIT_CAP, CAP_MULT>::operator<<(const Vector<T> &values) {
+Vector<T, INIT_CAP, CAP_MULT> &Vector<T, INIT_CAP, CAP_MULT>::operator<<(const Vector &values) {
   append(values);
   return *this;
 }
