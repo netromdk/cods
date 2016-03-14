@@ -365,6 +365,24 @@ TEST(Vector, moveAssignOperator) {
   EXPECT_TRUE(vec.isEmpty());
 }
 
+TEST(Vector, plusEqualsOperator) {
+  Vector<int> vec;
+  vec += 1;
+  vec += 2;
+  vec += 3;
+  EXPECT_EQ(vec.size(), 3);
+  EXPECT_EQ(vec[0], 1);
+  EXPECT_EQ(vec[1], 2);
+  EXPECT_EQ(vec[2], 3);
+
+  Vector<int> vec2;
+  vec2 += vec;
+  EXPECT_EQ(vec2.size(), 3);
+  EXPECT_EQ(vec2[0], 1);
+  EXPECT_EQ(vec2[1], 2);
+  EXPECT_EQ(vec2[2], 3);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

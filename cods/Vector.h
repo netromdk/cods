@@ -111,6 +111,12 @@ public:
   /// Append values to the vector.
   Vector &operator<<(const Vector &values);
 
+  /// Append value to the vector.
+  Vector &operator+=(const T &value);
+
+  /// Append values to the vector.
+  Vector &operator+=(const Vector &other);
+
   bool operator==(const Vector &other) const;
   bool operator!=(const Vector &other) const;
 
