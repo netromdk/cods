@@ -5,30 +5,30 @@
 
 template <typename T, int INIT_CAP, int CAP_MULT>
 Vector<T, INIT_CAP, CAP_MULT>::Iterator::Iterator(const Vector *vec, int pos)
-  : vec(vec), pos(pos)
+  : vec(vec), pos_(pos)
 { }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
 const T &Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator*() const {
-  return (*vec)[pos];
+  return (*vec)[pos_];
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
 const T *Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator->() const {
-  return &(*vec)[pos];
+  return &(*vec)[pos_];
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
 typename Vector<T, INIT_CAP, CAP_MULT>::Iterator&
 Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator++() {
-  pos++;
+  pos_++;
   return *this;
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
 typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
 Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator++(int i) {
-  return Iterator(vec, pos + i);
+  return Iterator(vec, pos_ + i);
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
@@ -116,13 +116,19 @@ void Vector<T, INIT_CAP, CAP_MULT>::prepend(const T &val) {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
-Vector<T, INIT_CAP, CAP_MULT>::insert(int pos, const T &val) {
+void Vector<T, INIT_CAP, CAP_MULT>::insert(int pos, const T &value) {
   checkAlloc();
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
   shiftLeft(pos); // Effectively moving right.
-  data[pos] = val;
+  data[pos] = value;
   items++;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+Vector<T, INIT_CAP, CAP_MULT>::insert(Iterator before, const T &value) {
+  int pos = before.pos();
+  insert(pos, value);
   return Iterator(this, pos);
 }
 

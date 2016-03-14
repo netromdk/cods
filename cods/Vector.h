@@ -26,16 +26,20 @@ public:
     Iterator operator++(int i);
 
     friend bool operator==(Iterator lhs, Iterator rhs) {
-      return lhs.pos == rhs.pos;
+      return lhs.pos() == rhs.pos();
     }
 
     friend bool operator!=(Iterator lhs, Iterator rhs) {
       return !(lhs == rhs);
     }
 
+    int pos() const {
+      return pos_;
+    }
+
   private:
     const Vector *vec;
-    int pos;
+    int pos_;
   };
 
   /// Create empty vector with no capacity.
@@ -72,9 +76,13 @@ public:
   /// Insert value at the beginning.
   void prepend(const T &val);
 
-  Iterator insert(int pos, const T &val);
+  void insert(int pos, const T &value);
+  Iterator insert(Iterator before, const T &value);
 
   bool contains(const T &val) const;
+
+  int indexOf(const T &value, int from = 0) const;
+  int lastIndexOf(const T &value, int from = -1) const;
 
   void print() const;
 
