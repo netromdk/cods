@@ -116,12 +116,14 @@ void Vector<T, INIT_CAP, CAP_MULT>::prepend(const T &val) {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::insert(int pos, const T &val) {
+typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+Vector<T, INIT_CAP, CAP_MULT>::insert(int pos, const T &val) {
   checkAlloc();
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
   shiftLeft(pos); // Effectively moving right.
   data[pos] = val;
   items++;
+  return Iterator(this, pos);
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>

@@ -131,23 +131,26 @@ TEST(Vector, prepend) {
 
 TEST(Vector, insert) {
   Vector<int, 2, 2> vec;
-  vec.insert(0, 1);
+  auto it = vec.insert(0, 1);
   EXPECT_EQ(vec[0], 1);
   EXPECT_EQ(vec.size(), 1);
   EXPECT_EQ(vec.capacity(), 2);
+  EXPECT_EQ(*it, 1);
 
-  vec.insert(1, 2);
+  it = vec.insert(1, 2);
   EXPECT_EQ(vec[0], 1);
   EXPECT_EQ(vec[1], 2);
   EXPECT_EQ(vec.size(), 2);
   EXPECT_EQ(vec.capacity(), 2);
+  EXPECT_EQ(*it, 2);
 
-  vec.insert(1, 3);
+  it = vec.insert(1, 3);
   EXPECT_EQ(vec[0], 1);
   EXPECT_EQ(vec[1], 3);
   EXPECT_EQ(vec[2], 2);
   EXPECT_EQ(vec.size(), 3);
   EXPECT_EQ(vec.capacity(), 4);
+  EXPECT_EQ(*it, 3);
 }
 
 TEST(Vector, clear) {

@@ -72,7 +72,7 @@ public:
   /// Insert value at the beginning.
   void prepend(const T &val);
 
-  void insert(int pos, const T &val);
+  Iterator insert(int pos, const T &val);
 
   bool contains(const T &val) const;
 
