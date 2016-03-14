@@ -383,6 +383,18 @@ TEST(Vector, plusEqualsOperator) {
   EXPECT_EQ(vec2[2], 3);
 }
 
+TEST(Vector, plusOperator) {
+  Vector<int> vec, vec2;
+  vec << 1 << 2;
+  vec2 << vec;
+
+  auto both = vec + vec2;
+  EXPECT_EQ(both[0], 1);
+  EXPECT_EQ(both[1], 2);
+  EXPECT_EQ(both[2], 1);
+  EXPECT_EQ(both[3], 2);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

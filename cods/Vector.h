@@ -117,6 +117,9 @@ public:
   /// Append values to the vector.
   Vector &operator+=(const Vector &other);
 
+  /// Returns vector with the values of this vector appended the ones from \p other.
+  Vector operator+(const Vector &other);
+
   bool operator==(const Vector &other) const;
   bool operator!=(const Vector &other) const;
 

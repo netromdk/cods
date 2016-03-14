@@ -282,6 +282,12 @@ Vector<T, INIT_CAP, CAP_MULT> &Vector<T, INIT_CAP, CAP_MULT>::operator+=(const V
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
+Vector<T, INIT_CAP, CAP_MULT> Vector<T, INIT_CAP, CAP_MULT>::operator+(const Vector &values) {
+  append(values);
+  return *this;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
 bool Vector<T, INIT_CAP, CAP_MULT>::operator==(const Vector &other) const {
   if (items != other.size()) {
     return false;
