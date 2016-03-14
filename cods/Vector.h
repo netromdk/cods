@@ -115,6 +115,7 @@ public:
   bool operator!=(const Vector &other) const;
 
   Vector &operator=(const Vector &other);
+  Vector &operator=(Vector &&other);
 
 private:
   void fillDefault(T *ptr, int n);

@@ -349,6 +349,22 @@ TEST(Vector, lastIndexOf) {
   EXPECT_EQ(vec.lastIndexOf(2, 2), 2);
 }
 
+TEST(Vector, assignOperator) {
+  Vector<int> vec, vec2;
+  vec << 1 << 2 << 3;
+  vec2 = vec;
+  EXPECT_EQ(vec, vec2);
+}
+
+TEST(Vector, moveAssignOperator) {
+  Vector<int> vec, vec2, tmp;
+  vec << 1 << 2 << 3;
+  tmp = vec;
+  vec2 = std::move(vec);
+  EXPECT_EQ(vec2, tmp);
+  EXPECT_TRUE(vec.isEmpty());
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

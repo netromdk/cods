@@ -45,13 +45,7 @@ Vector<T, INIT_CAP, CAP_MULT>::Vector(const Vector &other) : Vector() {
 
 template <typename T, int INIT_CAP, int CAP_MULT>
 Vector<T, INIT_CAP, CAP_MULT>::Vector(Vector &&other) : Vector() {
-  data = other.data;
-  items = other.items;
-  cap = other.cap;
-
-  // Nullify original container.
-  other.data = nullptr;
-  other.items = other.cap = 0;
+  *this = std::move(other);
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
@@ -301,6 +295,21 @@ Vector<T, INIT_CAP, CAP_MULT>::operator=(const Vector &other) {
   for (decltype(size) i = 0; i < size; i++) {
     append(other[i]);
   }
+  return *this;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+typename Vector<T, INIT_CAP, CAP_MULT>::Vector&
+Vector<T, INIT_CAP, CAP_MULT>::operator=(Vector &&other) {
+  clear();
+
+  data = other.data;
+  items = other.items;
+  cap = other.cap;
+
+  // Nullify original container.
+  other.data = nullptr;
+  other.items = other.cap = 0;
   return *this;
 }
 
