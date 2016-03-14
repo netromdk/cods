@@ -326,6 +326,29 @@ TEST(Vector, refAssign) {
   EXPECT_EQ(vec[0], 42);
 }
 
+TEST(Vector, indexOf) {
+  Vector<int> vec;
+  vec << 1 << 2 << 3;
+
+  EXPECT_EQ(vec.indexOf(1), 0);
+  EXPECT_EQ(vec.indexOf(3), 2);
+  EXPECT_EQ(vec.indexOf(30), -1);
+  EXPECT_EQ(vec.indexOf(2, 1), 1);
+  EXPECT_EQ(vec.indexOf(2, 2), -1);
+}
+
+TEST(Vector, lastIndexOf) {
+  Vector<int> vec;
+  vec << 1 << 2 << 2 << 3 << 1;
+
+  EXPECT_EQ(vec.lastIndexOf(1), 4);
+  EXPECT_EQ(vec.lastIndexOf(3), 3);
+  EXPECT_EQ(vec.lastIndexOf(30), -1);
+  EXPECT_EQ(vec.lastIndexOf(2, 0), -1);
+  EXPECT_EQ(vec.lastIndexOf(2, 1), 1);
+  EXPECT_EQ(vec.lastIndexOf(2, 2), 2);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

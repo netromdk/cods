@@ -143,6 +143,29 @@ bool Vector<T, INIT_CAP, CAP_MULT>::contains(const T &val) const {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
+int Vector<T, INIT_CAP, CAP_MULT>::indexOf(const T &value, int from) const {
+  assert(from >= 0 && from < items && "'from' out of bounds!");
+  for (decltype(items) i = from; i < items; i++) {
+    if (data[i] == value) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+int Vector<T, INIT_CAP, CAP_MULT>::lastIndexOf(const T &value, int from) const {
+  assert(from >= -1 && from < items && "'from' out of bounds!");
+  if (from == -1) from = items - 1;
+  for (decltype(items) i = from; i >= 0; i--) {
+    if (data[i] == value) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
 void Vector<T, INIT_CAP, CAP_MULT>::print() const {
   using namespace std;
   cout << "[ ";
