@@ -279,6 +279,16 @@ TEST(HashMap, multiValues) {
   EXPECT_EQ(map.values(), vec);
 }
 
+TEST(HashMap, count) {
+  HashMap<int, int> map;
+  map.insert(1, 3);
+  map.insert(2, 2);
+  map.insert(3, 1);
+  map.insertMulti(1, 4);
+  EXPECT_EQ(map.size(), map.count());
+  EXPECT_EQ(map.count(1), 2);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

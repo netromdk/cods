@@ -78,6 +78,16 @@ int HashMap<Key, T, INIT_CAP, CAP_MULT>::capacity() const {
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+int HashMap<Key, T, INIT_CAP, CAP_MULT>::count() const {
+  return size();
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+int HashMap<Key, T, INIT_CAP, CAP_MULT>::count(const Key &key) const {
+  return buckets[hashIndex(key)]->values().size();
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 void HashMap<Key, T, INIT_CAP, CAP_MULT>::insert(const Key &key, const T &value) {
   _insert(key, value);
 }
@@ -93,11 +103,6 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::remove(const Key &key) {
     buckets[hashIndex(key)] = nullptr;
     items--;
   }
-}
-
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-Key HashMap<Key, T, INIT_CAP, CAP_MULT>::key(const T &value) const {
-  return key(value, Key());
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
@@ -119,11 +124,6 @@ Vector<Key> HashMap<Key, T, INIT_CAP, CAP_MULT>::keys() const {
     }
   }
   return res;
-}
-
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key) const {
-  return buckets[hashIndex(key)]->value();
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>

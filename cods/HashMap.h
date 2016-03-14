@@ -45,21 +45,18 @@ public:
   int size() const;
   int capacity() const;
 
+  int count() const;
+  int count(const Key &key) const;
+
   void insert(const Key &key, const T &value);
   void insertMulti(const Key &key, const T &value);
 
   void remove(const Key &key);
 
-  Key key(const T &value) const;
-  Key key(const T &value, const Key &defaultKey) const;
-
+  Key key(const T &value, const Key &defaultKey = Key()) const;
   Vector<Key> keys() const;
 
-  T value(const Key &key) const;
-
-  /// If \p key is not contained then \p defaultValue is returned.
-  T value(const Key &key, const T &defaultValue) const;
-
+  T value(const Key &key, const T &defaultValue = T()) const;
   Vector<T> values() const;
   Vector<T> values(const Key &key) const;
 
