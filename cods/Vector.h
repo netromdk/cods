@@ -46,7 +46,7 @@ class Vector {
   };
 
 public:
-  using Iterator =_Iterator<false>;
+  using Iterator = _Iterator<false>;
   using ConstIterator = _Iterator<true>;
 
   /// Create empty vector with no capacity.

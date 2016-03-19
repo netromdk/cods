@@ -289,6 +289,34 @@ TEST(HashMap, count) {
   EXPECT_EQ(map.count(1), 2);
 }
 
+TEST(HashMap, iterator) {
+  HashMap<int, int> map;
+  map.insert(10, 1);
+  map.insert(20, 2);
+  map.insert(30, 3);
+
+  int i = 10;
+  for (const auto &elm : map) {
+    EXPECT_EQ(elm, map[i]);
+    i += 10;
+  }
+
+  for (auto it = map.begin(); it != map.end(); ++it) {
+    EXPECT_EQ(*it, it.value());
+    EXPECT_EQ(it.value(), map[it.key()]);
+  }
+
+  auto it = map.begin();
+  EXPECT_EQ(*it, 1);
+  *it = 42;
+  EXPECT_EQ(*it, 42);
+
+  // Testing bidirectional functionality.
+  EXPECT_EQ(*--map.end(), 3);
+  EXPECT_EQ(*--(--map.end()), 2);
+  EXPECT_EQ(*++(--(--map.end())), 3);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

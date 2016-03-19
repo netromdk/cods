@@ -31,7 +31,44 @@ class HashMap {
     Vector<T> values_;
   };
 
+  template <bool IS_CONST = true>
+  class _Iterator : public std::iterator<std::bidirectional_iterator_tag, T> {
+    using PtrType =
+      typename std::conditional<IS_CONST, const Vector<Bucket*>*, Vector<Bucket*>*>::type;
+    using KeyType = const Key&;
+    using ValueType = typename std::conditional<IS_CONST, const T&, T&>::type;
+
+  public:
+    _Iterator(PtrType vec, int pos);
+
+    /// Conversion from non-const to const iterator.
+    _Iterator(const _Iterator<false> &other);
+
+    ValueType value() const;
+    ValueType operator*();
+
+    KeyType key() const;
+
+    _Iterator &operator++(); // prefix
+    _Iterator operator++(int); // postfix
+
+    _Iterator &operator--();
+    _Iterator operator--(int);
+
+    bool operator==(const _Iterator &other) const;
+    bool operator!=(const _Iterator &other) const;
+
+    int pos() const;
+
+  private:
+    PtrType vec;
+    int pos_;
+  };
+
 public:
+  using Iterator = _Iterator<false>;
+  using ConstIterator = _Iterator<true>;
+
   /// Create empty map with maximum capacity.
   HashMap();
 
@@ -66,6 +103,14 @@ public:
 
   void reserve(int capacity);
   void shrinkToFit();
+
+  Iterator begin();
+  ConstIterator begin() const;
+  ConstIterator cbegin() const;
+
+  Iterator end();
+  ConstIterator end() const;
+  ConstIterator cend() const;
 
   /// Returns reference to value pointed to by \p key.
   /** If it doesn't exist then a default-constructed value will be inserted with the \p key and a
