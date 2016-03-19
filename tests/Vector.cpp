@@ -314,6 +314,22 @@ TEST(Vector, iterator) {
     EXPECT_EQ(vec[i], elm);
     i++;
   }
+
+  i = 0;
+  for (auto constIt = vec.cbegin(); constIt != vec.cend(); ++constIt, ++i) {
+    EXPECT_EQ(vec[i], *constIt);
+  }
+
+  // Using cbegin() would correctly fail to compile because the value would be const.
+  auto it = vec.begin();
+  EXPECT_EQ(*it, 1);
+  *it = 42;
+  EXPECT_EQ(*it, 42);
+
+  // Test bidirectional iterator functionality.
+  EXPECT_EQ(*--vec.end(), 3);
+  EXPECT_EQ(*--(--vec.end()), 2);
+  EXPECT_EQ(*++(--(--vec.end())), 3);
 }
 
 TEST(Vector, refAssign) {

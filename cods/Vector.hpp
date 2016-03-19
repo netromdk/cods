@@ -4,31 +4,77 @@
 #include <iostream> // cout, endl
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT>::Iterator::Iterator(const Vector *vec, int pos)
+template <bool IS_CONST>
+Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::_Iterator(PtrType vec, int pos)
   : vec(vec), pos_(pos)
 { }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-const T &Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator*() const {
+template <bool IS_CONST>
+Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::_Iterator(const _Iterator<false> &other)
+  : vec(other.vec), pos_(other.pos_)
+{ }
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+template <bool IS_CONST>
+typename Vector<T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>::ValueType
+Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator*() {
   return (*vec)[pos_];
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-const T *Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator->() const {
+template <bool IS_CONST>
+typename Vector<T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>::PtrType
+Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator->() {
   return &(*vec)[pos_];
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Iterator&
-Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator++() {
-  pos_++;
+template <bool IS_CONST>
+typename Vector<T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>&
+Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator++() {
+  ++pos_;
   return *this;
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
-Vector<T, INIT_CAP, CAP_MULT>::Iterator::operator++(int i) {
-  return Iterator(vec, pos_ + i);
+template <bool IS_CONST>
+typename Vector<T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>
+Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator++(int) {
+  return _Iterator(vec, pos_++);
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+template <bool IS_CONST>
+typename Vector<T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>&
+Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator--() {
+  --pos_;
+  return *this;
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+template <bool IS_CONST>
+typename Vector<T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>
+Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator--(int) {
+  return _Iterator(vec, pos_--);
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+template <bool IS_CONST>
+bool Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator==(const _Iterator &other) const {
+  return pos() == other.pos();
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+template <bool IS_CONST>
+bool Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator!=(const _Iterator &other) const {
+  return !(*this == other);
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+template <bool IS_CONST>
+int Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::pos() const {
+  return pos_;
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
@@ -216,15 +262,15 @@ Vector<T, INIT_CAP, CAP_MULT>::begin() {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+typename Vector<T, INIT_CAP, CAP_MULT>::ConstIterator
 Vector<T, INIT_CAP, CAP_MULT>::begin() const {
-  return Iterator(this, 0);
+  return ConstIterator(this, 0);
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+typename Vector<T, INIT_CAP, CAP_MULT>::ConstIterator
 Vector<T, INIT_CAP, CAP_MULT>::cbegin() const {
-  return Iterator(this, 0);
+  return ConstIterator(this, 0);
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
@@ -234,15 +280,15 @@ Vector<T, INIT_CAP, CAP_MULT>::end() {
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+typename Vector<T, INIT_CAP, CAP_MULT>::ConstIterator
 Vector<T, INIT_CAP, CAP_MULT>::end() const {
-  return Iterator(this, size());
+  return ConstIterator(this, size());
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+typename Vector<T, INIT_CAP, CAP_MULT>::ConstIterator
 Vector<T, INIT_CAP, CAP_MULT>::cend() const {
-  return Iterator(this, size());
+  return ConstIterator(this, size());
 }
 
 template <typename T, int INIT_CAP, int CAP_MULT>

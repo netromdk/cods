@@ -2,6 +2,7 @@
 #define CODS_VECTOR_H
 
 #include <iterator>
+#include <type_traits> // conditional
 
 #include "cods/Global.h"
 #include "cods/Utility.h"
@@ -13,34 +14,40 @@ template <typename T,        ///< Item type.
           int INIT_CAP = 64, ///< Initial capacity size.
           int CAP_MULT = 2>  ///< Capacity multiplier.
 class Vector {
-public:
-  /// Iterator for Vector.
-  class Iterator : public std::iterator<std::forward_iterator_tag, T> {
+  /// Const and non-const iterator class.
+  template <bool IS_CONST = true>
+  class _Iterator : public std::iterator<std::bidirectional_iterator_tag, T> {
+    using PtrType = typename std::conditional<IS_CONST, const Vector*, Vector*>::type;
+    using ValueType = typename std::conditional<IS_CONST, const T&, T&>::type;
+
   public:
-    Iterator(const Vector *vec, int pos);
+    _Iterator(PtrType vec, int pos);
 
-    const T &operator*() const;
-    const T *operator->() const;
+    /// Conversion from non-const to const iterator.
+    _Iterator(const _Iterator<false> &other);
 
-    Iterator &operator++();
-    Iterator operator++(int i);
+    ValueType operator*();
+    PtrType operator->();
 
-    friend bool operator==(Iterator lhs, Iterator rhs) {
-      return lhs.pos() == rhs.pos();
-    }
+    _Iterator &operator++();
+    _Iterator operator++(int);
 
-    friend bool operator!=(Iterator lhs, Iterator rhs) {
-      return !(lhs == rhs);
-    }
+    _Iterator &operator--();
+    _Iterator operator--(int);
 
-    int pos() const {
-      return pos_;
-    }
+    bool operator==(const _Iterator &other) const;
+    bool operator!=(const _Iterator &other) const;
+
+    int pos() const;
 
   private:
-    const Vector *vec;
+    PtrType vec;
     int pos_;
   };
+
+public:
+  using Iterator =_Iterator<false>;
+  using ConstIterator = _Iterator<true>;
 
   /// Create empty vector with no capacity.
   Vector();
@@ -95,12 +102,12 @@ public:
   void removeAt(int pos);
 
   Iterator begin();
-  Iterator begin() const;
-  Iterator cbegin() const;
+  ConstIterator begin() const;
+  ConstIterator cbegin() const;
 
   Iterator end();
-  Iterator end() const;
-  Iterator cend() const;
+  ConstIterator end() const;
+  ConstIterator cend() const;
 
   T &operator[](int pos);
   const T &operator[](int pos) const;
