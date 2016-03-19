@@ -1,4 +1,67 @@
 template <typename T>
+template <bool IS_CONST>
+Set<T>::_Iterator<IS_CONST>::_Iterator(IterType it)
+  : it(it)
+{ }
+
+template <typename T>
+template <bool IS_CONST>
+Set<T>::_Iterator<IS_CONST>::_Iterator(const _Iterator<false> &other)
+  : it(other.it)
+{ }
+
+template <typename T>
+template <bool IS_CONST>
+typename Set<T>::template _Iterator<IS_CONST>::ValueType
+Set<T>::_Iterator<IS_CONST>::operator*() const {
+  return it.key();
+}
+
+template <typename T>
+template <bool IS_CONST>
+typename Set<T>::template _Iterator<IS_CONST>&
+Set<T>::_Iterator<IS_CONST>::operator++() {
+  ++it;
+  return *this;
+}
+
+template <typename T>
+template <bool IS_CONST>
+typename Set<T>::template _Iterator<IS_CONST>
+Set<T>::_Iterator<IS_CONST>::operator++(int) {
+  ++it;
+  return *this;
+}
+
+template <typename T>
+template <bool IS_CONST>
+typename Set<T>::template _Iterator<IS_CONST>&
+Set<T>::_Iterator<IS_CONST>::operator--() {
+  --it;
+  return *this;
+}
+
+template <typename T>
+template <bool IS_CONST>
+typename Set<T>::template _Iterator<IS_CONST>
+Set<T>::_Iterator<IS_CONST>::operator--(int) {
+  --it;
+  return *this;
+}
+
+template <typename T>
+template <bool IS_CONST>
+bool Set<T>::_Iterator<IS_CONST>::operator==(const _Iterator &other) const {
+  return it == other.it;
+}
+
+template <typename T>
+template <bool IS_CONST>
+bool Set<T>::_Iterator<IS_CONST>::operator!=(const _Iterator &other) const {
+  return !(*this == other);
+}
+
+template <typename T>
 Set<T>::Set() : map() { }
 
 template <typename T>
@@ -52,8 +115,7 @@ bool Set<T>::contains(const T &value) const {
 
 template <typename T>
 bool Set<T>::contains(const Set &other) const {
-  // TODO: Implement iterators and then don't use the values() call.
-  for (const auto &elm : other.values()) {
+  for (const auto &elm : other) {
     if (!contains(elm)) {
       return false;
     }
@@ -69,6 +131,36 @@ Vector<T> Set<T>::values() const {
 template <typename T>
 Vector<T> Set<T>::toVector() const {
   return values();
+}
+
+template <typename T>
+typename Set<T>::Iterator Set<T>::begin() {
+  return Iterator(map.begin());
+}
+
+template <typename T>
+typename Set<T>::ConstIterator Set<T>::begin() const {
+  return ConstIterator(map.begin());
+}
+
+template <typename T>
+typename Set<T>::ConstIterator Set<T>::cbegin() const {
+  return ConstIterator(map.cbegin());
+}
+
+template <typename T>
+typename Set<T>::Iterator Set<T>::end() {
+  return Iterator(map.end());
+}
+
+template <typename T>
+typename Set<T>::ConstIterator Set<T>::end() const {
+  return ConstIterator(map.end());
+}
+
+template <typename T>
+typename Set<T>::ConstIterator Set<T>::cend() const {
+  return ConstIterator(map.cend());
 }
 
 template <typename T>

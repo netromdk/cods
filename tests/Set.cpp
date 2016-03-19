@@ -101,6 +101,19 @@ TEST(Set, shrinkToFit) {
   EXPECT_EQ(set.capacity(), 3);
 }
 
+TEST(Set, iterator) {
+  Set<int> set;
+  set << 1 << 2 << 3;
+
+  auto vec = set.toVector();
+
+  int i = 0;
+  for (const auto &elm : set) {
+    EXPECT_EQ(elm, vec[i]);
+    i++;
+  }
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
