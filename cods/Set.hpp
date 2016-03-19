@@ -17,6 +17,11 @@ int Set<T>::capacity() const {
 }
 
 template <typename T>
+void Set<T>::clear() {
+  map.clear();
+}
+
+template <typename T>
 void Set<T>::insert(const T &value) {
   map[value] = true;
 }
@@ -28,6 +33,32 @@ bool Set<T>::remove(const T &value) {
     return true;
   }
   return false;
+}
+
+template <typename T>
+void Set<T>::reserve(int capacity) {
+  map.reserve(capacity);
+}
+
+template <typename T>
+void Set<T>::shrinkToFit() {
+  map.shrinkToFit();
+}
+
+template <typename T>
+bool Set<T>::contains(const T &value) const {
+  return map.contains(value);
+}
+
+template <typename T>
+bool Set<T>::contains(const Set &other) const {
+  // TODO: Implement iterators and then don't use the values() call.
+  for (const auto &elm : other.values()) {
+    if (!contains(elm)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 template <typename T>

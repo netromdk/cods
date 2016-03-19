@@ -60,6 +60,47 @@ TEST(Set, streamOperator) {
   EXPECT_EQ(vec[0], 1);
 }
 
+TEST(Set, clear) {
+  Set<int> set;
+  set << 1 << 2 << 3;
+  EXPECT_EQ(set.size(), 3);
+
+  set.clear();
+  EXPECT_TRUE(set.isEmpty());
+}
+
+TEST(Set, contains) {
+  Set<int> set;
+  set << 1 << 2 << 3;
+  EXPECT_TRUE(set.contains(1));
+  EXPECT_TRUE(set.contains(2));
+  EXPECT_TRUE(set.contains(3));
+  EXPECT_FALSE(set.contains(4));
+
+  EXPECT_TRUE(set.contains(set));
+
+  Set<int> set2;
+  set << 1 << 2;
+  EXPECT_TRUE(set.contains(set2));
+  EXPECT_FALSE(set2.contains(set));
+}
+
+TEST(Set, reserve) {
+  Set<int> set;
+  set.reserve(100);
+  EXPECT_EQ(set.capacity(), 100);
+}
+
+TEST(Set, shrinkToFit) {
+  Set<int> set;
+  set.reserve(100);
+  EXPECT_EQ(set.capacity(), 100);
+
+  set << 1 << 2 << 3;
+  set.shrinkToFit();
+  EXPECT_EQ(set.capacity(), 3);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

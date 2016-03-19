@@ -16,11 +16,19 @@ public:
   int size() const;
   int capacity() const;
 
+  void clear();
+
   // TODO: return iterator when implemented.
   void insert(const T &value);
 
   /// Returns true if a value was removed.
   bool remove(const T &value);
+
+  void reserve(int capacity);
+  void shrinkToFit();
+
+  bool contains(const T &val) const;
+  bool contains(const Set &other) const;
 
   Vector<T> values() const;
   Vector<T> toVector() const;
