@@ -36,3 +36,8 @@ add_cods_test(
   HashMap
   HashMap.cpp
   )
+
+add_cods_test(
+  Set
+  Set.cpp
+  )
