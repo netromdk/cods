@@ -85,8 +85,10 @@ void Set<T>::clear() {
 }
 
 template <typename T>
-void Set<T>::insert(const T &value) {
+typename Set<T>::Iterator
+Set<T>::insert(const T &value) {
   map[value] = true;
+  return map.find(value);
 }
 
 template <typename T>

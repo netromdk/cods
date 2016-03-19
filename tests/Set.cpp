@@ -114,6 +114,16 @@ TEST(Set, iterator) {
   }
 }
 
+TEST(Set, insertIterator) {
+  Set<int> set;
+  set << 10 << 20 << 30;
+  auto it = set.insert(1);
+  auto it2 = set.insert(1);
+  EXPECT_EQ(set.size(), 4);
+  EXPECT_EQ(it, it2);
+  EXPECT_EQ(*it, 1);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

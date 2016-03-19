@@ -51,8 +51,7 @@ public:
 
   void clear();
 
-  // TODO: return iterator when implemented.
-  void insert(const T &value);
+  Iterator insert(const T &value);
 
   /// Returns true if a value was removed.
   bool remove(const T &value);
