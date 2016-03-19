@@ -311,6 +311,21 @@ HashMap<Key, T, INIT_CAP, CAP_MULT>::cend() const {
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
+HashMap<Key, T, INIT_CAP, CAP_MULT>::find(const Key &key) {
+  if (!contains(key)) {
+    return end();
+  }
+  return Iterator(&buckets, hashIndex(key));
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+typename HashMap<Key, T, INIT_CAP, CAP_MULT>::ConstIterator
+HashMap<Key, T, INIT_CAP, CAP_MULT>::find(const Key &key) const {
+  return find(key);
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 T &HashMap<Key, T, INIT_CAP, CAP_MULT>::operator[](const Key &key) {
   if (!contains(key)) {
     insert(key, T());

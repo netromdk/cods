@@ -112,6 +112,9 @@ public:
   ConstIterator end() const;
   ConstIterator cend() const;
 
+  Iterator find(const Key &key);
+  ConstIterator find(const Key &key) const;
+
   /// Returns reference to value pointed to by \p key.
   /** If it doesn't exist then a default-constructed value will be inserted with the \p key and a
       reference return to it. */

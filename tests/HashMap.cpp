@@ -317,6 +317,15 @@ TEST(HashMap, iterator) {
   EXPECT_EQ(*++(--(--map.end())), 3);
 }
 
+TEST(HashMap, find) {
+  HashMap<int, int> map;
+  map.insert(10, 1);
+  map.insert(20, 2);
+  map.insert(30, 3);
+  EXPECT_EQ(map.find(42), map.end());
+  EXPECT_EQ(*map.find(20), 2);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
