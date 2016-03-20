@@ -97,13 +97,16 @@ public:
   Set &operator<<(const T &value);
 
   /// Intersection.
-  Set &operator&(const Set &other);
+  Set operator&(const Set &other) const;
+  Set &operator&=(const Set &other);
 
   /// Subtraction.
-  Set &operator-(const Set &other);
+  Set operator-(const Set &other) const;
+  Set &operator-=(const Set &other);
 
   /// Union.
-  Set &operator+(const Set &other);
+  Set operator+(const Set &other) const;
+  Set &operator+=(const Set &other);
 
   bool operator==(const Set &other) const;
   bool operator!=(const Set &other) const;

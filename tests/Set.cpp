@@ -176,7 +176,10 @@ TEST(Set, intersect) {
   Set<int> set2;
   set2 << 2;
 
-  set & set2; // Same as: set.intersect(set2)
+  auto set3 = set & set2;
+  EXPECT_EQ(set3, set2);
+
+  set &= set2;
   EXPECT_EQ(set, set2);
 }
 
@@ -187,8 +190,11 @@ TEST(Set, subtract) {
   Set<int> set2;
   set2 << 2;
 
-  set - set2; // Same as: set.subtract(set2)
+  auto set3 = set - set2;
+
+  set -= set2;
   EXPECT_NE(set, set2);
+  EXPECT_EQ(set, set3);
 
   auto vec = set.toVector();
   ASSERT_EQ(vec.size(), 2);
@@ -203,8 +209,11 @@ TEST(Set, unite) {
   Set<int> set2;
   set2 << 2 << 42;
 
-  set + set2; // Same as: set.unite(set2)
+  auto set3 = set + set2;
+
+  set += set2;
   EXPECT_NE(set, set2);
+  EXPECT_EQ(set, set3);
 
   auto vec = set.toVector();
   ASSERT_EQ(vec.size(), 4);
