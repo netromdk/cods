@@ -141,6 +141,26 @@ TEST(Set, erase) {
   EXPECT_EQ(it, set.end());
 }
 
+TEST(Set, find) {
+  Set<int> set;
+  set << 1 << 2 << 3;
+
+  auto it = set.find(1);
+  EXPECT_NE(it, set.end());
+  EXPECT_EQ(*it, 1);
+
+  it = set.find(2);
+  EXPECT_NE(it, set.end());
+  EXPECT_EQ(*it, 2);
+
+  it = set.find(3);
+  EXPECT_NE(it, set.end());
+  EXPECT_EQ(*it, 3);
+
+  it = set.find(42);
+  EXPECT_EQ(it, set.end());
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

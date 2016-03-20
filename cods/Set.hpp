@@ -131,6 +131,16 @@ bool Set<T>::contains(const Set &other) const {
 }
 
 template <typename T>
+typename Set<T>::Iterator Set<T>::find(const T &value) {
+  return Iterator(map.find(value));
+}
+
+template <typename T>
+typename Set<T>::ConstIterator Set<T>::find(const T &value) const {
+  return find(value);
+}
+
+template <typename T>
 Vector<T> Set<T>::values() const {
   return map.keys();
 }

@@ -61,8 +61,11 @@ public:
   void reserve(int capacity);
   void shrinkToFit();
 
-  bool contains(const T &val) const;
+  bool contains(const T &value) const;
   bool contains(const Set &other) const;
+
+  Iterator find(const T &value);
+  ConstIterator find(const T &value) const;
 
   Vector<T> values() const;
   Vector<T> toVector() const;
