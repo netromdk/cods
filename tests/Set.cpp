@@ -124,6 +124,23 @@ TEST(Set, insertIterator) {
   EXPECT_EQ(*it, 1);
 }
 
+TEST(Set, erase) {
+  Set<int> set;
+  set << 1 << 2 << 3;
+
+  auto it = set.erase(set.begin());
+  EXPECT_EQ(set.size(), 2);
+
+  it = set.erase(it);
+  EXPECT_EQ(set.size(), 1);
+
+  it = set.erase(it);
+  EXPECT_EQ(set.size(), 0);
+
+  it = set.erase(it);
+  EXPECT_EQ(it, set.end());
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

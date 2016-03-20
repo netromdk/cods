@@ -35,6 +35,8 @@ class Set {
     bool operator==(const _Iterator &other) const;
     bool operator!=(const _Iterator &other) const;
 
+    IterType iter() const;
+
   private:
     IterType it;
   };
@@ -64,6 +66,8 @@ public:
 
   Vector<T> values() const;
   Vector<T> toVector() const;
+
+  Iterator erase(Iterator pos);
 
   Iterator begin();
   ConstIterator begin() const;

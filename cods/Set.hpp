@@ -62,6 +62,13 @@ bool Set<T>::_Iterator<IS_CONST>::operator!=(const _Iterator &other) const {
 }
 
 template <typename T>
+template <bool IS_CONST>
+typename Set<T>::template _Iterator<IS_CONST>::IterType
+Set<T>::_Iterator<IS_CONST>::iter() const {
+  return it;
+}
+
+template <typename T>
 Set<T>::Set() : map() { }
 
 template <typename T>
@@ -133,6 +140,11 @@ Vector<T> Set<T>::values() const {
 template <typename T>
 Vector<T> Set<T>::toVector() const {
   return values();
+}
+
+template <typename T>
+typename Set<T>::Iterator Set<T>::erase(Iterator pos) {
+  return map.erase(pos.iter());
 }
 
 template <typename T>
