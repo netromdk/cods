@@ -274,6 +274,9 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::shrinkToFit() {
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
 HashMap<Key, T, INIT_CAP, CAP_MULT>::erase(Iterator pos) {
+  if (pos == end()) {
+    return end();
+  }
   remove(pos.key());
   return ++pos;
 }
