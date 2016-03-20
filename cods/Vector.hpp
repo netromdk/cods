@@ -257,6 +257,13 @@ void Vector<T, INIT_CAP, CAP_MULT>::removeAt(int pos) {
 
 template <typename T, int INIT_CAP, int CAP_MULT>
 typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
+Vector<T, INIT_CAP, CAP_MULT>::erase(Iterator pos) {
+  removeAt(pos.pos());
+  return Iterator(this, pos.pos());
+}
+
+template <typename T, int INIT_CAP, int CAP_MULT>
+typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
 Vector<T, INIT_CAP, CAP_MULT>::begin() {
   return Iterator(this, 0);
 }

@@ -411,6 +411,23 @@ TEST(Vector, plusOperator) {
   EXPECT_EQ(both[3], 2);
 }
 
+TEST(Vector, erase) {
+  Vector<int> vec;
+  vec << 1 << 2 << 3;
+
+  auto it = vec.erase(vec.begin());
+  EXPECT_EQ(vec.size(), 2);
+  EXPECT_EQ(*it, 2);
+
+  it = vec.erase(it);
+  EXPECT_EQ(vec.size(), 1);
+  EXPECT_EQ(*it, 3);
+
+  it = vec.erase(it);
+  EXPECT_EQ(vec.size(), 0);
+  EXPECT_EQ(it, vec.end());
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

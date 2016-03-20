@@ -101,6 +101,9 @@ public:
   void remove(const T &val);
   void removeAt(int pos);
 
+  /// Erase iterator and return iterator to next value or \p end().
+  Iterator erase(Iterator pos);
+
   Iterator begin();
   ConstIterator begin() const;
   ConstIterator cbegin() const;
