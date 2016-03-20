@@ -3,85 +3,85 @@
 #include <utility>  // swap
 #include <iostream> // cout, endl
 
-template <typename T, int INIT_CAP, int CAP_MULT>
+template <typename T, int INIT_CAP>
 template <bool IS_CONST>
-Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::_Iterator(PtrType vec, int pos)
+Vector<T, INIT_CAP>::_Iterator<IS_CONST>::_Iterator(PtrType vec, int pos)
   : vec(vec), pos_(pos)
 { }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
+template <typename T, int INIT_CAP>
 template <bool IS_CONST>
-Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::_Iterator(const _Iterator<false> &other)
+Vector<T, INIT_CAP>::_Iterator<IS_CONST>::_Iterator(const _Iterator<false> &other)
   : vec(other.vec), pos_(other.pos_)
 { }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
+template <typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename Vector<T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>::ValueType
-Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator*() {
+typename Vector<T, INIT_CAP>::template _Iterator<IS_CONST>::ValueType
+Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator*() {
   return (*vec)[pos_];
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
+template <typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename Vector<T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>::PtrType
-Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator->() {
+typename Vector<T, INIT_CAP>::template _Iterator<IS_CONST>::PtrType
+Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator->() {
   return &(*vec)[pos_];
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
+template <typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename Vector<T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>&
-Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator++() {
+typename Vector<T, INIT_CAP>::template _Iterator<IS_CONST>&
+Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator++() {
   ++pos_;
   return *this;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
+template <typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename Vector<T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>
-Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator++(int) {
+typename Vector<T, INIT_CAP>::template _Iterator<IS_CONST>
+Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator++(int) {
   return _Iterator(vec, pos_++);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
+template <typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename Vector<T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>&
-Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator--() {
+typename Vector<T, INIT_CAP>::template _Iterator<IS_CONST>&
+Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator--() {
   --pos_;
   return *this;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
+template <typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename Vector<T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>
-Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator--(int) {
+typename Vector<T, INIT_CAP>::template _Iterator<IS_CONST>
+Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator--(int) {
   return _Iterator(vec, pos_--);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
+template <typename T, int INIT_CAP>
 template <bool IS_CONST>
-bool Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator==(const _Iterator &other) const {
+bool Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator==(const _Iterator &other) const {
   return pos() == other.pos();
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
+template <typename T, int INIT_CAP>
 template <bool IS_CONST>
-bool Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator!=(const _Iterator &other) const {
+bool Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator!=(const _Iterator &other) const {
   return !(*this == other);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
+template <typename T, int INIT_CAP>
 template <bool IS_CONST>
-int Vector<T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::pos() const {
+int Vector<T, INIT_CAP>::_Iterator<IS_CONST>::pos() const {
   return pos_;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT>::Vector() : items(0), cap(0), data(nullptr) { }
+template <typename T, int INIT_CAP>
+Vector<T, INIT_CAP>::Vector() : items(0), cap(0), data(nullptr) { }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT>::Vector(const Vector &other) : Vector() {
+template <typename T, int INIT_CAP>
+Vector<T, INIT_CAP>::Vector(const Vector &other) : Vector() {
   alloc(other.size());
   for (const auto &elm : other) {
     // Don't check capacity because we just allocated all. Will speed up a lot.
@@ -89,74 +89,74 @@ Vector<T, INIT_CAP, CAP_MULT>::Vector(const Vector &other) : Vector() {
   }
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT>::Vector(Vector &&other) : Vector() {
+template <typename T, int INIT_CAP>
+Vector<T, INIT_CAP>::Vector(Vector &&other) : Vector() {
   *this = std::move(other);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT>::Vector(int size, T val) : Vector() {
+template <typename T, int INIT_CAP>
+Vector<T, INIT_CAP>::Vector(int size, T val) : Vector() {
   alloc(size);
   for (decltype(size) i = 0; i < size; i++) {
     _append(val, false);
   }
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT>::Vector(int size, T *values) : Vector() {
+template <typename T, int INIT_CAP>
+Vector<T, INIT_CAP>::Vector(int size, T *values) : Vector() {
   alloc(size);
   for (decltype(size) i = 0; i < size; i++) {
     _append(values[i], false);
   }
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
+template <typename T, int INIT_CAP>
 template <typename Iter>
-Vector<T, INIT_CAP, CAP_MULT>::Vector(Iter first, Iter last) : Vector() {
+Vector<T, INIT_CAP>::Vector(Iter first, Iter last) : Vector() {
   for (; first != last; first++) {
     append(*first);
   }
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT>::~Vector() {
+template <typename T, int INIT_CAP>
+Vector<T, INIT_CAP>::~Vector() {
   clear();
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-bool Vector<T, INIT_CAP, CAP_MULT>::isEmpty() const {
+template <typename T, int INIT_CAP>
+bool Vector<T, INIT_CAP>::isEmpty() const {
   return items == 0;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-int Vector<T, INIT_CAP, CAP_MULT>::size() const {
+template <typename T, int INIT_CAP>
+int Vector<T, INIT_CAP>::size() const {
   return items;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-int Vector<T, INIT_CAP, CAP_MULT>::capacity() const {
+template <typename T, int INIT_CAP>
+int Vector<T, INIT_CAP>::capacity() const {
   return cap;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::append(const T &val) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::append(const T &val) {
   _append(val);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::append(const Vector &vals) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::append(const Vector &vals) {
   for (const auto &val : vals) {
     append(val);
   }
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::prepend(const T &val) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::prepend(const T &val) {
   insert(0, val);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::insert(int pos, const T &value) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::insert(int pos, const T &value) {
   checkAlloc();
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
   shiftLeft(pos); // Effectively moving right.
@@ -164,16 +164,16 @@ void Vector<T, INIT_CAP, CAP_MULT>::insert(int pos, const T &value) {
   items++;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
-Vector<T, INIT_CAP, CAP_MULT>::insert(Iterator before, const T &value) {
+template <typename T, int INIT_CAP>
+typename Vector<T, INIT_CAP>::Iterator
+Vector<T, INIT_CAP>::insert(Iterator before, const T &value) {
   int pos = before.pos();
   insert(pos, value);
   return Iterator(this, pos);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-bool Vector<T, INIT_CAP, CAP_MULT>::contains(const T &val) const {
+template <typename T, int INIT_CAP>
+bool Vector<T, INIT_CAP>::contains(const T &val) const {
   for (decltype(items) i = 0; i < items; i++) {
     if (data[i] == val) {
       return true;
@@ -182,8 +182,8 @@ bool Vector<T, INIT_CAP, CAP_MULT>::contains(const T &val) const {
   return false;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-int Vector<T, INIT_CAP, CAP_MULT>::indexOf(const T &value, int from) const {
+template <typename T, int INIT_CAP>
+int Vector<T, INIT_CAP>::indexOf(const T &value, int from) const {
   assert(from >= 0 && from < items && "'from' out of bounds!");
   for (decltype(items) i = from; i < items; i++) {
     if (data[i] == value) {
@@ -193,8 +193,8 @@ int Vector<T, INIT_CAP, CAP_MULT>::indexOf(const T &value, int from) const {
   return -1;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-int Vector<T, INIT_CAP, CAP_MULT>::lastIndexOf(const T &value, int from) const {
+template <typename T, int INIT_CAP>
+int Vector<T, INIT_CAP>::lastIndexOf(const T &value, int from) const {
   assert(from >= -1 && from < items && "'from' out of bounds!");
   if (from == -1) from = items - 1;
   for (decltype(items) i = from; i >= 0; i--) {
@@ -205,8 +205,8 @@ int Vector<T, INIT_CAP, CAP_MULT>::lastIndexOf(const T &value, int from) const {
   return -1;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::print() const {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::print() const {
   using namespace std;
   cout << "[ ";
   if (isEmpty()) {
@@ -221,8 +221,8 @@ void Vector<T, INIT_CAP, CAP_MULT>::print() const {
   cout << " ]" << endl;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::clear() {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::clear() {
   if (data) {
     delete[] data;
     data = nullptr;
@@ -230,118 +230,118 @@ void Vector<T, INIT_CAP, CAP_MULT>::clear() {
   items = cap = 0;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::reserve(int cap_) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::reserve(int cap_) {
   if (cap >= cap_) return;
   alloc(cap_);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::shrinkToFit() {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::shrinkToFit() {
   if (items == cap) return;
   alloc(items);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::remove(const T &val) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::remove(const T &val) {
   removeFrom(val);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::removeAt(int pos) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::removeAt(int pos) {
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
   data[pos] = T();
   items--;
   shiftRight(pos); // Effectively moving left.
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
-Vector<T, INIT_CAP, CAP_MULT>::erase(Iterator pos) {
+template <typename T, int INIT_CAP>
+typename Vector<T, INIT_CAP>::Iterator
+Vector<T, INIT_CAP>::erase(Iterator pos) {
   removeAt(pos.pos());
   return Iterator(this, pos.pos());
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
-Vector<T, INIT_CAP, CAP_MULT>::begin() {
+template <typename T, int INIT_CAP>
+typename Vector<T, INIT_CAP>::Iterator
+Vector<T, INIT_CAP>::begin() {
   return Iterator(this, 0);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::ConstIterator
-Vector<T, INIT_CAP, CAP_MULT>::begin() const {
+template <typename T, int INIT_CAP>
+typename Vector<T, INIT_CAP>::ConstIterator
+Vector<T, INIT_CAP>::begin() const {
   return ConstIterator(this, 0);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::ConstIterator
-Vector<T, INIT_CAP, CAP_MULT>::cbegin() const {
+template <typename T, int INIT_CAP>
+typename Vector<T, INIT_CAP>::ConstIterator
+Vector<T, INIT_CAP>::cbegin() const {
   return ConstIterator(this, 0);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Iterator
-Vector<T, INIT_CAP, CAP_MULT>::end() {
+template <typename T, int INIT_CAP>
+typename Vector<T, INIT_CAP>::Iterator
+Vector<T, INIT_CAP>::end() {
   return Iterator(this, size());
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::ConstIterator
-Vector<T, INIT_CAP, CAP_MULT>::end() const {
+template <typename T, int INIT_CAP>
+typename Vector<T, INIT_CAP>::ConstIterator
+Vector<T, INIT_CAP>::end() const {
   return ConstIterator(this, size());
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::ConstIterator
-Vector<T, INIT_CAP, CAP_MULT>::cend() const {
+template <typename T, int INIT_CAP>
+typename Vector<T, INIT_CAP>::ConstIterator
+Vector<T, INIT_CAP>::cend() const {
   return ConstIterator(this, size());
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-T &Vector<T, INIT_CAP, CAP_MULT>::operator[](int pos) {
+template <typename T, int INIT_CAP>
+T &Vector<T, INIT_CAP>::operator[](int pos) {
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
   return data[pos];
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-const T &Vector<T, INIT_CAP, CAP_MULT>::operator[](int pos) const {
+template <typename T, int INIT_CAP>
+const T &Vector<T, INIT_CAP>::operator[](int pos) const {
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
   return data[pos];
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT> &Vector<T, INIT_CAP, CAP_MULT>::operator<<(const T &value) {
+template <typename T, int INIT_CAP>
+Vector<T, INIT_CAP> &Vector<T, INIT_CAP>::operator<<(const T &value) {
   append(value);
   return *this;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT> &Vector<T, INIT_CAP, CAP_MULT>::operator<<(const Vector &values) {
+template <typename T, int INIT_CAP>
+Vector<T, INIT_CAP> &Vector<T, INIT_CAP>::operator<<(const Vector &values) {
   append(values);
   return *this;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT> &Vector<T, INIT_CAP, CAP_MULT>::operator+=(const T &value) {
+template <typename T, int INIT_CAP>
+Vector<T, INIT_CAP> &Vector<T, INIT_CAP>::operator+=(const T &value) {
   append(value);
   return *this;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT> &Vector<T, INIT_CAP, CAP_MULT>::operator+=(const Vector &values) {
+template <typename T, int INIT_CAP>
+Vector<T, INIT_CAP> &Vector<T, INIT_CAP>::operator+=(const Vector &values) {
   append(values);
   return *this;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-Vector<T, INIT_CAP, CAP_MULT> Vector<T, INIT_CAP, CAP_MULT>::operator+(const Vector &values) {
+template <typename T, int INIT_CAP>
+Vector<T, INIT_CAP> Vector<T, INIT_CAP>::operator+(const Vector &values) {
   append(values);
   return *this;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-bool Vector<T, INIT_CAP, CAP_MULT>::operator==(const Vector &other) const {
+template <typename T, int INIT_CAP>
+bool Vector<T, INIT_CAP>::operator==(const Vector &other) const {
   if (items != other.size()) {
     return false;
   }
@@ -353,14 +353,14 @@ bool Vector<T, INIT_CAP, CAP_MULT>::operator==(const Vector &other) const {
   return true;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-bool Vector<T, INIT_CAP, CAP_MULT>::operator!=(const Vector &other) const {
+template <typename T, int INIT_CAP>
+bool Vector<T, INIT_CAP>::operator!=(const Vector &other) const {
   return !(*this == other);
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Vector&
-Vector<T, INIT_CAP, CAP_MULT>::operator=(const Vector &other) {
+template <typename T, int INIT_CAP>
+typename Vector<T, INIT_CAP>::Vector&
+Vector<T, INIT_CAP>::operator=(const Vector &other) {
   clear();
   auto size = other.size();
   for (decltype(size) i = 0; i < size; i++) {
@@ -369,9 +369,9 @@ Vector<T, INIT_CAP, CAP_MULT>::operator=(const Vector &other) {
   return *this;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-typename Vector<T, INIT_CAP, CAP_MULT>::Vector&
-Vector<T, INIT_CAP, CAP_MULT>::operator=(Vector &&other) {
+template <typename T, int INIT_CAP>
+typename Vector<T, INIT_CAP>::Vector&
+Vector<T, INIT_CAP>::operator=(Vector &&other) {
   clear();
 
   data = other.data;
@@ -384,15 +384,15 @@ Vector<T, INIT_CAP, CAP_MULT>::operator=(Vector &&other) {
   return *this;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::fillDefault(T *ptr, int n) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::fillDefault(T *ptr, int n) {
   for (decltype(n) i = 0; i < n; i++) {
     ptr[i] = T();
   }
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::alloc(int size) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::alloc(int size) {
   auto newCap = size;
   auto *newData = new T[newCap];
   if (newCap > cap) {
@@ -406,38 +406,38 @@ void Vector<T, INIT_CAP, CAP_MULT>::alloc(int size) {
   cap = newCap;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::checkAlloc() {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::checkAlloc() {
   if (items != cap) return;
-  alloc(cap == 0 ? INIT_CAP : cap * CAP_MULT);
+  alloc(cap == 0 ? INIT_CAP : cap * 2);
 }
 
 /// Appends value but only checks capacity if check is set.
 /** This saves processing time when appending very many items. */
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::_append(const T &val, bool check) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::_append(const T &val, bool check) {
   if (check) {
     checkAlloc();
   }
   data[items++] = val;
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::shiftRight(int pos) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::shiftRight(int pos) {
   for (decltype(pos) i = pos; i < items; i++) {
     std::swap(data[i], data[i+1]);
   }
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::shiftLeft(int pos) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::shiftLeft(int pos) {
   for (decltype(pos) i = items; i >= pos; i--) {
     std::swap(data[i], data[i+1]);
   }
 }
 
-template <typename T, int INIT_CAP, int CAP_MULT>
-void Vector<T, INIT_CAP, CAP_MULT>::removeFrom(const T &val, int pos) {
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::removeFrom(const T &val, int pos) {
   for (decltype(pos) i = pos; i < items; i++) {
     auto &item = data[i];
     if (item == val) {

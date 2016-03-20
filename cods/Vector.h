@@ -11,8 +11,7 @@ CODS_BEGIN_NAMESPACE
 
 /// Implementation of a container class similar to the std::vector.
 template <typename T,        ///< Item type.
-          int INIT_CAP = 64, ///< Initial capacity size.
-          int CAP_MULT = 2>  ///< Capacity multiplier.
+          int INIT_CAP = 64> ///< Initial capacity size.
 class Vector {
   /// Const and non-const iterator class.
   template <bool IS_CONST = true>

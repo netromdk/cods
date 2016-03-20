@@ -11,8 +11,7 @@ CODS_BEGIN_NAMESPACE
 /// Implementation of a hash-table-based dictionary.
 template <typename Key,      ///< Key type.
           typename T,        ///< Item type.
-          int INIT_CAP = 64, ///< Initial capacity size.
-          int CAP_MULT = 2>  ///< Capacity multiplier.
+          int INIT_CAP = 64> ///< Initial capacity size.
 class HashMap {
   class Bucket {
   public:

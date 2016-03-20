@@ -6,7 +6,6 @@ using namespace cods;
 TEST(HashMap, instantiate) {
   HashMap<std::string, int> map;
   HashMap<std::string, int, 10> map2;
-  HashMap<std::string, int, 12, 20> map3;
 }
 
 TEST(HashMap, copyCtor) {
@@ -155,7 +154,7 @@ TEST(HashMap, values) {
 }
 
 TEST(HashMap, reserve) {
-  HashMap<int, int, 1, 2> map;
+  HashMap<int, int, 1> map;
   map.insert(1, 3);
   map.insert(2, 2);
   map.insert(3, 1);

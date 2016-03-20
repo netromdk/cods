@@ -10,7 +10,6 @@ using namespace cods;
 TEST(Vector, instantiate) {
   Vector<int> vec;
   Vector<int, 3> vec2;
-  Vector<int, 3, 10> vec3;
 }
 
 TEST(Vector, copyCtor) {
@@ -67,7 +66,7 @@ TEST(Vector, ctor3) {
 TEST(Vector, ctor4) {
   std::vector<int> svec{1, 3, 5};
 
-  Vector<int, 3, 3> vec(svec.begin(), svec.end());
+  Vector<int, 3> vec(svec.begin(), svec.end());
   EXPECT_EQ(vec.size(), svec.size());
   EXPECT_EQ(vec.capacity(), svec.size());
 
@@ -77,7 +76,7 @@ TEST(Vector, ctor4) {
 }
 
 TEST(Vector, append) {
-  Vector<int, 2, 2> vec;
+  Vector<int, 2> vec;
   vec.append(1);
   EXPECT_EQ(vec[0], 1);
   EXPECT_EQ(vec.size(), 1);
@@ -109,7 +108,7 @@ TEST(Vector, appendVector) {
 }
 
 TEST(Vector, prepend) {
-  Vector<int, 2, 2> vec;
+  Vector<int, 2> vec;
   vec.prepend(1);
   EXPECT_EQ(vec[0], 1);
   EXPECT_EQ(vec.size(), 1);
@@ -130,7 +129,7 @@ TEST(Vector, prepend) {
 }
 
 TEST(Vector, insert) {
-  Vector<int, 2, 2> vec;
+  Vector<int, 2> vec;
   vec.insert(0, 1);
   EXPECT_EQ(vec[0], 1);
   EXPECT_EQ(vec.size(), 1);
@@ -174,7 +173,7 @@ TEST(Vector, clear) {
 }
 
 TEST(Vector, reserve) {
-  Vector<int, 1, 2> vec;
+  Vector<int, 1> vec;
   vec.append(1);
   vec.append(2);
   vec.append(3);
@@ -189,7 +188,7 @@ TEST(Vector, reserve) {
 }
 
 TEST(Vector, shrinkToFit) {
-  Vector<int, 1, 2> vec;
+  Vector<int, 1> vec;
   vec.append(1);
   vec.append(2);
   vec.append(3);

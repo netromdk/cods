@@ -1,12 +1,12 @@
 #include <functional> // hash
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::Bucket(const Key &key, const T &value) : key_(key) {
+template <typename Key, typename T, int INIT_CAP>
+HashMap<Key, T, INIT_CAP>::Bucket::Bucket(const Key &key, const T &value) : key_(key) {
   setValue(value);
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-void HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::setValue(const T &value) {
+template <typename Key, typename T, int INIT_CAP>
+void HashMap<Key, T, INIT_CAP>::Bucket::setValue(const T &value) {
   if (values_.size() == 0) {
     values_ << value;
   }
@@ -15,68 +15,68 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::setValue(const T &value) {
   }
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-void HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::addValue(const T &value) {
+template <typename Key, typename T, int INIT_CAP>
+void HashMap<Key, T, INIT_CAP>::Bucket::addValue(const T &value) {
   values_.prepend(value);
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-const Key &HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::key() const {
+template <typename Key, typename T, int INIT_CAP>
+const Key &HashMap<Key, T, INIT_CAP>::Bucket::key() const {
   return key_;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-T &HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::value() {
+template <typename Key, typename T, int INIT_CAP>
+T &HashMap<Key, T, INIT_CAP>::Bucket::value() {
   return values_[0];
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-const T &HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::value() const {
+template <typename Key, typename T, int INIT_CAP>
+const T &HashMap<Key, T, INIT_CAP>::Bucket::value() const {
   return values_[0];
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-const Vector<T> &HashMap<Key, T, INIT_CAP, CAP_MULT>::Bucket::values() const {
+template <typename Key, typename T, int INIT_CAP>
+const Vector<T> &HashMap<Key, T, INIT_CAP>::Bucket::values() const {
   return values_;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
-HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::_Iterator(PtrType vec, int pos)
+HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::_Iterator(PtrType vec, int pos)
   : vec(vec), pos_(pos)
 { }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
-HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::_Iterator(const _Iterator<false> &other)
+HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::_Iterator(const _Iterator<false> &other)
   : vec(other.vec), pos_(other.pos_)
 { }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>::ValueType
-HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::value() const {
+typename HashMap<Key, T, INIT_CAP>::template _Iterator<IS_CONST>::ValueType
+HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::value() const {
   return (*vec)[pos_]->value();
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>::ValueType
-HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator*() {
+typename HashMap<Key, T, INIT_CAP>::template _Iterator<IS_CONST>::ValueType
+HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::operator*() {
   return value();
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>::KeyType
-HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::key() const {
+typename HashMap<Key, T, INIT_CAP>::template _Iterator<IS_CONST>::KeyType
+HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::key() const {
   return (*vec)[pos_]->key();
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>&
-HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator++() {
+typename HashMap<Key, T, INIT_CAP>::template _Iterator<IS_CONST>&
+HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::operator++() {
   auto cap = vec->capacity();
   for (;;) {
     ++pos_;
@@ -85,19 +85,19 @@ HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator++() {
   return *this;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>
-HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator++(int) {
+typename HashMap<Key, T, INIT_CAP>::template _Iterator<IS_CONST>
+HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::operator++(int) {
   _Iterator it(vec, pos_);
   ++it;
   return it;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>&
-HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator--() {
+typename HashMap<Key, T, INIT_CAP>::template _Iterator<IS_CONST>&
+HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::operator--() {
   for (;;) {
     --pos_;
     if (pos_ < 0 || (*vec)[pos_]) break;
@@ -105,37 +105,37 @@ HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator--() {
   return *this;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::template _Iterator<IS_CONST>
-HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::operator--(int) {
+typename HashMap<Key, T, INIT_CAP>::template _Iterator<IS_CONST>
+HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::operator--(int) {
   _Iterator it(vec, pos_);
   --it;
   return it;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
-bool HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::
+bool HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::
 operator==(const _Iterator &other) const {
   return pos() == other.pos();
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
-bool HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::
+bool HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::
 operator!=(const _Iterator &other) const {
   return !(*this == other);
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
-int HashMap<Key, T, INIT_CAP, CAP_MULT>::_Iterator<IS_CONST>::pos() const {
+int HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::pos() const {
   return pos_;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-HashMap<Key, T, INIT_CAP, CAP_MULT>::HashMap()
+template <typename Key, typename T, int INIT_CAP>
+HashMap<Key, T, INIT_CAP>::HashMap()
   : buckets(), items(0)
 {
   buckets.reserve(INIT_CAP);
@@ -144,66 +144,66 @@ HashMap<Key, T, INIT_CAP, CAP_MULT>::HashMap()
   }
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-HashMap<Key, T, INIT_CAP, CAP_MULT>::HashMap(const HashMap &other)
+template <typename Key, typename T, int INIT_CAP>
+HashMap<Key, T, INIT_CAP>::HashMap(const HashMap &other)
   : buckets(other.buckets), items(other.items)
 { }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-HashMap<Key, T, INIT_CAP, CAP_MULT>::HashMap(HashMap &&other)
+template <typename Key, typename T, int INIT_CAP>
+HashMap<Key, T, INIT_CAP>::HashMap(HashMap &&other)
   : buckets(std::move(other.buckets)), items(other.items)
 {
   // Clear the other instance.
   other.items = 0;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-bool HashMap<Key, T, INIT_CAP, CAP_MULT>::isEmpty() const {
+template <typename Key, typename T, int INIT_CAP>
+bool HashMap<Key, T, INIT_CAP>::isEmpty() const {
   return items == 0;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-int HashMap<Key, T, INIT_CAP, CAP_MULT>::size() const {
+template <typename Key, typename T, int INIT_CAP>
+int HashMap<Key, T, INIT_CAP>::size() const {
   return items;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-int HashMap<Key, T, INIT_CAP, CAP_MULT>::capacity() const {
+template <typename Key, typename T, int INIT_CAP>
+int HashMap<Key, T, INIT_CAP>::capacity() const {
   return buckets.capacity();
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-int HashMap<Key, T, INIT_CAP, CAP_MULT>::count() const {
+template <typename Key, typename T, int INIT_CAP>
+int HashMap<Key, T, INIT_CAP>::count() const {
   return size();
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-int HashMap<Key, T, INIT_CAP, CAP_MULT>::count(const Key &key) const {
+template <typename Key, typename T, int INIT_CAP>
+int HashMap<Key, T, INIT_CAP>::count(const Key &key) const {
   return buckets[hashIndex(key)]->values().size();
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
-HashMap<Key, T, INIT_CAP, CAP_MULT>::insert(const Key &key, const T &value) {
+template <typename Key, typename T, int INIT_CAP>
+typename HashMap<Key, T, INIT_CAP>::Iterator
+HashMap<Key, T, INIT_CAP>::insert(const Key &key, const T &value) {
   return _insert(key, value);
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
-HashMap<Key, T, INIT_CAP, CAP_MULT>::insertMulti(const Key &key, const T &value) {
+template <typename Key, typename T, int INIT_CAP>
+typename HashMap<Key, T, INIT_CAP>::Iterator
+HashMap<Key, T, INIT_CAP>::insertMulti(const Key &key, const T &value) {
   return _insert(key, value, true);
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-void HashMap<Key, T, INIT_CAP, CAP_MULT>::remove(const Key &key) {
+template <typename Key, typename T, int INIT_CAP>
+void HashMap<Key, T, INIT_CAP>::remove(const Key &key) {
   if (contains(key)) {
     buckets[hashIndex(key)] = nullptr;
     items--;
   }
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-Key HashMap<Key, T, INIT_CAP, CAP_MULT>::key(const T &value, const Key &defaultKey) const {
+template <typename Key, typename T, int INIT_CAP>
+Key HashMap<Key, T, INIT_CAP>::key(const T &value, const Key &defaultKey) const {
   for (const auto *bucket : buckets) {
     if (bucket && bucket->values().contains(value)) {
       return bucket->key();
@@ -212,8 +212,8 @@ Key HashMap<Key, T, INIT_CAP, CAP_MULT>::key(const T &value, const Key &defaultK
   return defaultKey;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-Vector<Key> HashMap<Key, T, INIT_CAP, CAP_MULT>::keys() const {
+template <typename Key, typename T, int INIT_CAP>
+Vector<Key> HashMap<Key, T, INIT_CAP>::keys() const {
   Vector<Key> res;
   for (const auto *bucket : buckets) {
     if (bucket) {
@@ -223,8 +223,8 @@ Vector<Key> HashMap<Key, T, INIT_CAP, CAP_MULT>::keys() const {
   return res;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key,
+template <typename Key, typename T, int INIT_CAP>
+T HashMap<Key, T, INIT_CAP>::value(const Key &key,
                                              const T &defaultValue) const {
   if (!contains(key)) {
     return defaultValue;
@@ -232,8 +232,8 @@ T HashMap<Key, T, INIT_CAP, CAP_MULT>::value(const Key &key,
   return buckets[hashIndex(key)]->value();
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-Vector<T> HashMap<Key, T, INIT_CAP, CAP_MULT>::values() const {
+template <typename Key, typename T, int INIT_CAP>
+Vector<T> HashMap<Key, T, INIT_CAP>::values() const {
   Vector<T> res;
   for (const auto *bucket : buckets) {
     if (bucket) {
@@ -243,37 +243,37 @@ Vector<T> HashMap<Key, T, INIT_CAP, CAP_MULT>::values() const {
   return res;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-Vector<T> HashMap<Key, T, INIT_CAP, CAP_MULT>::values(const Key &key) const {
+template <typename Key, typename T, int INIT_CAP>
+Vector<T> HashMap<Key, T, INIT_CAP>::values(const Key &key) const {
   return buckets[hashIndex(key)]->values();
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-bool HashMap<Key, T, INIT_CAP, CAP_MULT>::contains(const Key &key) const {
+template <typename Key, typename T, int INIT_CAP>
+bool HashMap<Key, T, INIT_CAP>::contains(const Key &key) const {
   return buckets[hashIndex(key)];
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-void HashMap<Key, T, INIT_CAP, CAP_MULT>::clear() {
+template <typename Key, typename T, int INIT_CAP>
+void HashMap<Key, T, INIT_CAP>::clear() {
   buckets.clear();
   items = 0;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-void HashMap<Key, T, INIT_CAP, CAP_MULT>::reserve(int cap_) {
+template <typename Key, typename T, int INIT_CAP>
+void HashMap<Key, T, INIT_CAP>::reserve(int cap_) {
   buckets.reserve(cap_);
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-void HashMap<Key, T, INIT_CAP, CAP_MULT>::shrinkToFit() {
+template <typename Key, typename T, int INIT_CAP>
+void HashMap<Key, T, INIT_CAP>::shrinkToFit() {
   // Remove any unused buckets so the vector can shrink as much as possible.
   buckets.remove(nullptr);
   buckets.shrinkToFit();
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
-HashMap<Key, T, INIT_CAP, CAP_MULT>::erase(Iterator pos) {
+template <typename Key, typename T, int INIT_CAP>
+typename HashMap<Key, T, INIT_CAP>::Iterator
+HashMap<Key, T, INIT_CAP>::erase(Iterator pos) {
   if (pos == end()) {
     return end();
   }
@@ -281,78 +281,78 @@ HashMap<Key, T, INIT_CAP, CAP_MULT>::erase(Iterator pos) {
   return ++pos;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
-HashMap<Key, T, INIT_CAP, CAP_MULT>::begin() {
+template <typename Key, typename T, int INIT_CAP>
+typename HashMap<Key, T, INIT_CAP>::Iterator
+HashMap<Key, T, INIT_CAP>::begin() {
   Iterator it(&buckets, -1);
   ++it;
   return it;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::ConstIterator
-HashMap<Key, T, INIT_CAP, CAP_MULT>::begin() const {
+template <typename Key, typename T, int INIT_CAP>
+typename HashMap<Key, T, INIT_CAP>::ConstIterator
+HashMap<Key, T, INIT_CAP>::begin() const {
   ConstIterator it(&buckets, -1);
   ++it;
   return it;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::ConstIterator
-HashMap<Key, T, INIT_CAP, CAP_MULT>::cbegin() const {
+template <typename Key, typename T, int INIT_CAP>
+typename HashMap<Key, T, INIT_CAP>::ConstIterator
+HashMap<Key, T, INIT_CAP>::cbegin() const {
   ConstIterator it(&buckets, -1);
   ++it;
   return it;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
-HashMap<Key, T, INIT_CAP, CAP_MULT>::end() {
+template <typename Key, typename T, int INIT_CAP>
+typename HashMap<Key, T, INIT_CAP>::Iterator
+HashMap<Key, T, INIT_CAP>::end() {
   return Iterator(&buckets, capacity());
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::ConstIterator
-HashMap<Key, T, INIT_CAP, CAP_MULT>::end() const {
+template <typename Key, typename T, int INIT_CAP>
+typename HashMap<Key, T, INIT_CAP>::ConstIterator
+HashMap<Key, T, INIT_CAP>::end() const {
   return ConstIterator(&buckets, capacity());
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::ConstIterator
-HashMap<Key, T, INIT_CAP, CAP_MULT>::cend() const {
+template <typename Key, typename T, int INIT_CAP>
+typename HashMap<Key, T, INIT_CAP>::ConstIterator
+HashMap<Key, T, INIT_CAP>::cend() const {
   return ConstIterator(&buckets, capacity());
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
-HashMap<Key, T, INIT_CAP, CAP_MULT>::find(const Key &key) {
+template <typename Key, typename T, int INIT_CAP>
+typename HashMap<Key, T, INIT_CAP>::Iterator
+HashMap<Key, T, INIT_CAP>::find(const Key &key) {
   if (!contains(key)) {
     return end();
   }
   return Iterator(&buckets, hashIndex(key));
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::ConstIterator
-HashMap<Key, T, INIT_CAP, CAP_MULT>::find(const Key &key) const {
+template <typename Key, typename T, int INIT_CAP>
+typename HashMap<Key, T, INIT_CAP>::ConstIterator
+HashMap<Key, T, INIT_CAP>::find(const Key &key) const {
   return find(key);
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-T &HashMap<Key, T, INIT_CAP, CAP_MULT>::operator[](const Key &key) {
+template <typename Key, typename T, int INIT_CAP>
+T &HashMap<Key, T, INIT_CAP>::operator[](const Key &key) {
   if (!contains(key)) {
     insert(key, T());
   }
   return buckets[hashIndex(key)]->value();
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-T HashMap<Key, T, INIT_CAP, CAP_MULT>::operator[](const Key &key) const {
+template <typename Key, typename T, int INIT_CAP>
+T HashMap<Key, T, INIT_CAP>::operator[](const Key &key) const {
   return value(key);
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-bool HashMap<Key, T, INIT_CAP, CAP_MULT>::operator==(const HashMap &other) const {
+template <typename Key, typename T, int INIT_CAP>
+bool HashMap<Key, T, INIT_CAP>::operator==(const HashMap &other) const {
   auto ourKeys = keys();
   auto theirKeys = other.keys();
   if (ourKeys.size() != theirKeys.size()) {
@@ -379,18 +379,18 @@ bool HashMap<Key, T, INIT_CAP, CAP_MULT>::operator==(const HashMap &other) const
   return true;
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-bool HashMap<Key, T, INIT_CAP, CAP_MULT>::operator!=(const HashMap &other) const {
+template <typename Key, typename T, int INIT_CAP>
+bool HashMap<Key, T, INIT_CAP>::operator!=(const HashMap &other) const {
   return !(*this == other);
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-std::size_t HashMap<Key, T, INIT_CAP, CAP_MULT>::hashIndex(const Key &key) const {
+template <typename Key, typename T, int INIT_CAP>
+std::size_t HashMap<Key, T, INIT_CAP>::hashIndex(const Key &key) const {
   return std::hash<Key>()(key) % buckets.size();
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-void HashMap<Key, T, INIT_CAP, CAP_MULT>::checkRehash() {
+template <typename Key, typename T, int INIT_CAP>
+void HashMap<Key, T, INIT_CAP>::checkRehash() {
   // If next item fits then stop.
   if (items + 1 <= buckets.capacity()) {
     return;
@@ -409,9 +409,9 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::checkRehash() {
   }
 }
 
-template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
-HashMap<Key, T, INIT_CAP, CAP_MULT>::_insert(const Key &key, const T &value, bool multi) {
+template <typename Key, typename T, int INIT_CAP>
+typename HashMap<Key, T, INIT_CAP>::Iterator
+HashMap<Key, T, INIT_CAP>::_insert(const Key &key, const T &value, bool multi) {
   // If there is a collision on a key then either override or prepend if multi mode. Otherwise, if
   // the keys are different then make room for the new one and rehash.
   for (;;) {
