@@ -264,7 +264,17 @@ typename Set<T>::Set Set<T>::operator+(const Set &other) const {
 }
 
 template <typename T>
+typename Set<T>::Set Set<T>::operator|(const Set &other) const {
+  return Set<T>(*this) + other;
+}
+
+template <typename T>
 typename Set<T>::Set &Set<T>::operator+=(const Set &other) {
+  return unite(other);
+}
+
+template <typename T>
+typename Set<T>::Set &Set<T>::operator|=(const Set &other) {
   return unite(other);
 }
 

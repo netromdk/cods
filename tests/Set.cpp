@@ -210,10 +210,18 @@ TEST(Set, unite) {
   set2 << 2 << 42;
 
   auto set3 = set + set2;
+  auto set4 = set | set2;
+
+  auto tmp = set;
 
   set += set2;
   EXPECT_NE(set, set2);
+
   EXPECT_EQ(set, set3);
+  EXPECT_EQ(set, set4);
+
+  tmp |= set2;
+  EXPECT_EQ(set, tmp);
 
   auto vec = set.toVector();
   ASSERT_EQ(vec.size(), 4);
