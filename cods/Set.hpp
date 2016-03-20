@@ -151,6 +151,16 @@ typename Set<T>::Set &Set<T>::intersect(const Set<T> &other) {
 }
 
 template <typename T>
+typename Set<T>::Set &Set<T>::subtract(const Set<T> &other) {
+  for (auto it = begin(); it != end(); ++it) {
+    if (other.contains(*it)) {
+      erase(it);
+    }
+  }
+  return *this;
+}
+
+template <typename T>
 typename Set<T>::Iterator Set<T>::find(const T &value) {
   return Iterator(map.find(value));
 }

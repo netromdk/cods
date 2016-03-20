@@ -180,6 +180,22 @@ TEST(Set, intersect) {
   EXPECT_EQ(set, set2);
 }
 
+TEST(Set, subtract) {
+  Set<int> set;
+  set << 1 << 2 << 3;
+
+  Set<int> set2;
+  set2 << 2;
+
+  set.subtract(set2);
+  EXPECT_NE(set, set2);
+
+  auto vec = set.toVector();
+  ASSERT_EQ(vec.size(), 2);
+  EXPECT_EQ(vec[0], 1);
+  EXPECT_EQ(vec[1], 3);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

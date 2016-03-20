@@ -69,6 +69,9 @@ public:
   /// Removes all items from this set that are not in \p other.
   Set &intersect(const Set<T> &other);
 
+  /// Removes all items from this set that are in \p other.
+  Set &subtract(const Set<T> &other);
+
   Iterator find(const T &value);
   ConstIterator find(const T &value) const;
 
