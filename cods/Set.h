@@ -66,6 +66,9 @@ public:
   bool contains(const T &value) const;
   bool contains(const Set &other) const;
 
+  /// Removes all items from this set that are not in \p other.
+  Set &intersect(const Set<T> &other);
+
   Iterator find(const T &value);
   ConstIterator find(const T &value) const;
 
@@ -83,6 +86,9 @@ public:
   ConstIterator cend() const;
 
   Set &operator<<(const T &value);
+
+  bool operator==(const Set &other) const;
+  bool operator!=(const Set &other) const;
 
 private:
   // Only lookup on key is used, the bool is irrelevant.

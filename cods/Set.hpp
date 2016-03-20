@@ -141,6 +141,16 @@ bool Set<T>::contains(const Set &other) const {
 }
 
 template <typename T>
+typename Set<T>::Set &Set<T>::intersect(const Set<T> &other) {
+  for (auto it = begin(); it != end(); ++it) {
+    if (!other.contains(*it)) {
+      erase(it);
+    }
+  }
+  return *this;
+}
+
+template <typename T>
 typename Set<T>::Iterator Set<T>::find(const T &value) {
   return Iterator(map.find(value));
 }
@@ -196,7 +206,17 @@ typename Set<T>::ConstIterator Set<T>::cend() const {
 }
 
 template <typename T>
-typename Set<T>::Set& Set<T>::operator<<(const T &value) {
+typename Set<T>::Set &Set<T>::operator<<(const T &value) {
   insert(value);
   return *this;
+}
+
+template <typename T>
+bool Set<T>::operator==(const Set &other) const {
+  return values() == other.values();
+}
+
+template <typename T>
+bool Set<T>::operator!=(const Set &other) const {
+  return !(*this == other);
 }

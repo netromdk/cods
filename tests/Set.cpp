@@ -169,6 +169,17 @@ TEST(Set, fromVector) {
   EXPECT_EQ(set.toVector(), vec);
 }
 
+TEST(Set, intersect) {
+  Set<int> set;
+  set << 1 << 2 << 3;
+
+  Set<int> set2;
+  set2 << 2;
+
+  set.intersect(set2);
+  EXPECT_EQ(set, set2);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
