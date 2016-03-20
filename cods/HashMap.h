@@ -85,8 +85,8 @@ public:
   int count() const;
   int count(const Key &key) const;
 
-  void insert(const Key &key, const T &value);
-  void insertMulti(const Key &key, const T &value);
+  Iterator insert(const Key &key, const T &value);
+  Iterator insertMulti(const Key &key, const T &value);
 
   void remove(const Key &key);
 
@@ -128,9 +128,9 @@ public:
 private:
   std::size_t hashIndex(const Key &key) const;
   void checkRehash();
-  void _insert(const Key &key, const T &value, bool multi = false);
+  Iterator _insert(const Key &key, const T &value, bool multi = false);
 
-  Vector<Bucket*, INIT_CAP, CAP_MULT> buckets;
+  Vector<Bucket*> buckets;
   int items;
 };
 

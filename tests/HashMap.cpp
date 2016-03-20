@@ -326,6 +326,21 @@ TEST(HashMap, find) {
   EXPECT_EQ(*map.find(20), 2);
 }
 
+TEST(HashMap, insertIteartor) {
+  HashMap<int, int> map;
+  auto it = map.insert(1, 1);
+  EXPECT_EQ(*it, 1);
+
+  it = map.insert(2, 2);
+  EXPECT_EQ(*it, 2);
+
+  it = map.insert(3, 3);
+  EXPECT_EQ(*it, 3);
+
+  it = map.insertMulti(3, 42);
+  EXPECT_EQ(*it, 42);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

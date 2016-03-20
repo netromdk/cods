@@ -138,6 +138,7 @@ template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 HashMap<Key, T, INIT_CAP, CAP_MULT>::HashMap()
   : buckets(), items(0)
 {
+  buckets.reserve(INIT_CAP);
   for (int i = 0; i < INIT_CAP; i++) {
     buckets << nullptr;
   }
@@ -182,13 +183,15 @@ int HashMap<Key, T, INIT_CAP, CAP_MULT>::count(const Key &key) const {
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-void HashMap<Key, T, INIT_CAP, CAP_MULT>::insert(const Key &key, const T &value) {
-  _insert(key, value);
+typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
+HashMap<Key, T, INIT_CAP, CAP_MULT>::insert(const Key &key, const T &value) {
+  return _insert(key, value);
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-void HashMap<Key, T, INIT_CAP, CAP_MULT>::insertMulti(const Key &key, const T &value) {
-  _insert(key, value, true);
+typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
+HashMap<Key, T, INIT_CAP, CAP_MULT>::insertMulti(const Key &key, const T &value) {
+  return _insert(key, value, true);
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
@@ -397,11 +400,13 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::checkRehash() {
 }
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
-void HashMap<Key, T, INIT_CAP, CAP_MULT>::_insert(const Key &key, const T &value, bool multi) {
+typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
+HashMap<Key, T, INIT_CAP, CAP_MULT>::_insert(const Key &key, const T &value, bool multi) {
   // If there is a collision on a key then either override or prepend if multi mode. Otherwise, if
   // the keys are different then make room for the new one and rehash.
   for (;;) {
-    auto *bucket = buckets[hashIndex(key)];
+    auto idx = hashIndex(key);
+    auto *bucket = buckets[idx];
     if (!bucket) break;
 
     if (bucket->key() == key) {
@@ -412,13 +417,15 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::_insert(const Key &key, const T &value
         bucket->addValue(value);
         items++;
       }
-      return;
+      return Iterator(&buckets, idx);
     }
 
     buckets.append(nullptr);
   }
 
   checkRehash();
-  buckets[hashIndex(key)] = new Bucket(key, value);
+  auto idx = hashIndex(key);
+  buckets[idx] = new Bucket(key, value);
   items++;
+  return Iterator(&buckets, idx);
 }
