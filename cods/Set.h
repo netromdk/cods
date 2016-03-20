@@ -50,6 +50,9 @@ public:
   // Copy-constructor.
   Set(const Set &other);
 
+  // Move-constructor.
+  Set(Set &&other);
+
   static Set fromVector(const Vector<T> &vector);
 
   bool isEmpty() const;
