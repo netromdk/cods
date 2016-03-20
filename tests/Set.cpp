@@ -214,6 +214,14 @@ TEST(Set, unite) {
   EXPECT_EQ(vec[3], 42);
 }
 
+TEST(Set, copyCtor) {
+  Set<int> set;
+  set << 1 << 2 << 3;
+
+  Set<int> set2(set);
+  EXPECT_EQ(set, set2);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

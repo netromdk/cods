@@ -70,6 +70,14 @@ template <typename T>
 Set<T>::Set() : map() { }
 
 template <typename T>
+Set<T>::Set(const Set &other) {
+  reserve(other.size());
+  for (const auto &elm : other) {
+    insert(elm);
+  }
+}
+
+template <typename T>
 Set<T> Set<T>::fromVector(const Vector<T> &vector) {
   Set<T> set;
   set.reserve(vector.size());

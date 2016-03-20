@@ -47,6 +47,9 @@ public:
 
   Set();
 
+  // Copy-constructor.
+  Set(const Set &other);
+
   static Set fromVector(const Vector<T> &vector);
 
   bool isEmpty() const;
