@@ -359,6 +359,31 @@ TEST(HashMap, erase) {
   EXPECT_EQ(it, map.end());
 }
 
+TEST(HashMap, assignment) {
+  HashMap<int, int> map;
+  map.insert(1, 1);
+  map.insert(2, 2);
+  map.insert(3, 3);
+
+  HashMap<int, int> map2;
+  map2 = map;
+  EXPECT_EQ(map, map2);
+}
+
+TEST(HashMap, moveAssignment) {
+  HashMap<int, int> map;
+  map.insert(1, 1);
+  map.insert(2, 2);
+  map.insert(3, 3);
+
+  auto tmp = map;
+
+  HashMap<int, int> map2;
+  map2 = std::move(map);
+  EXPECT_TRUE(map.isEmpty());
+  EXPECT_EQ(map2, tmp);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

@@ -126,6 +126,9 @@ public:
   bool operator==(const HashMap &other) const;
   bool operator!=(const HashMap &other) const;
 
+  HashMap &operator=(const HashMap &other);
+  HashMap &operator=(HashMap &&other);
+
 private:
   std::size_t hashIndex(const Key &key) const;
   void checkRehash();
