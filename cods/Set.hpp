@@ -161,6 +161,14 @@ typename Set<T>::Set &Set<T>::subtract(const Set<T> &other) {
 }
 
 template <typename T>
+typename Set<T>::Set &Set<T>::unite(const Set<T> &other) {
+  for (const auto &elm : other) {
+    insert(elm);
+  }
+  return *this;
+}
+
+template <typename T>
 typename Set<T>::Iterator Set<T>::find(const T &value) {
   return Iterator(map.find(value));
 }

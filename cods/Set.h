@@ -72,6 +72,9 @@ public:
   /// Removes all items from this set that are in \p other.
   Set &subtract(const Set<T> &other);
 
+  /// Adds each item from \p other that is not in this set.
+  Set &unite(const Set<T> &other);
+
   Iterator find(const T &value);
   ConstIterator find(const T &value) const;
 

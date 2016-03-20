@@ -196,6 +196,24 @@ TEST(Set, subtract) {
   EXPECT_EQ(vec[1], 3);
 }
 
+TEST(Set, unite) {
+  Set<int> set;
+  set << 1 << 2 << 3;
+
+  Set<int> set2;
+  set2 << 2 << 42;
+
+  set.unite(set2);
+  EXPECT_NE(set, set2);
+
+  auto vec = set.toVector();
+  ASSERT_EQ(vec.size(), 4);
+  EXPECT_EQ(vec[0], 1);
+  EXPECT_EQ(vec[1], 2);
+  EXPECT_EQ(vec[2], 3);
+  EXPECT_EQ(vec[3], 42);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
