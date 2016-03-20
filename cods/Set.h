@@ -112,6 +112,8 @@ public:
   Set operator|(const Set &other) const;
   Set &operator+=(const Set &other);
   Set &operator|=(const Set &other);
+  Set &operator+=(const T &value);
+  Set &operator|=(const T &value);
 
   bool operator==(const Set &other) const;
   bool operator!=(const Set &other) const;

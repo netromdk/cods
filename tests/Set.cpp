@@ -231,6 +231,19 @@ TEST(Set, unite) {
   EXPECT_EQ(vec[3], 42);
 }
 
+TEST(Set, operatorPlusEquals) { // and |=
+  Set<int> set;
+  set |= 1;
+  set |= 1;
+  set += 2;
+  set += 2;
+  EXPECT_EQ(set.size(), 2);
+
+  auto vec = set.toVector();
+  EXPECT_EQ(vec[0], 1);
+  EXPECT_EQ(vec[1], 2);
+}
+
 TEST(Set, copyCtor) {
   Set<int> set;
   set << 1 << 2 << 3;

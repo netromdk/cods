@@ -279,6 +279,18 @@ typename Set<T>::Set &Set<T>::operator|=(const Set &other) {
 }
 
 template <typename T>
+typename Set<T>::Set &Set<T>::operator+=(const T &value) {
+  insert(value);
+  return *this;
+}
+
+template <typename T>
+typename Set<T>::Set &Set<T>::operator|=(const T &value) {
+  insert(value);
+  return *this;
+}
+
+template <typename T>
 bool Set<T>::operator==(const Set &other) const {
   return values() == other.values();
 }
