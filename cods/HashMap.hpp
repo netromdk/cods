@@ -78,10 +78,9 @@ template <bool IS_CONST>
 typename HashMap<Key, T, INIT_CAP>::template _Iterator<IS_CONST>&
 HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::operator++() {
   auto cap = vec->capacity();
-  for (;;) {
+  do {
     ++pos_;
-    if (pos_ == cap || (*vec)[pos_]) break;
-  }
+  } while (pos_ < cap && !(*vec)[pos_]);
   return *this;
 }
 
@@ -89,19 +88,16 @@ template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
 typename HashMap<Key, T, INIT_CAP>::template _Iterator<IS_CONST>
 HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::operator++(int) {
-  _Iterator it(vec, pos_);
-  ++it;
-  return it;
+  return ++_Iterator(vec, pos_);
 }
 
 template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
 typename HashMap<Key, T, INIT_CAP>::template _Iterator<IS_CONST>&
 HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::operator--() {
-  for (;;) {
+  do {
     --pos_;
-    if (pos_ < 0 || (*vec)[pos_]) break;
-  }
+  } while (pos_ >= 0 && !(*vec)[pos_]);
   return *this;
 }
 
@@ -109,9 +105,7 @@ template <typename Key, typename T, int INIT_CAP>
 template <bool IS_CONST>
 typename HashMap<Key, T, INIT_CAP>::template _Iterator<IS_CONST>
 HashMap<Key, T, INIT_CAP>::_Iterator<IS_CONST>::operator--(int) {
-  _Iterator it(vec, pos_);
-  --it;
-  return it;
+  return --_Iterator(vec, pos_);
 }
 
 template <typename Key, typename T, int INIT_CAP>

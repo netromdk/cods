@@ -29,8 +29,7 @@ template <typename T>
 template <bool IS_CONST>
 typename Set<T>::template _Iterator<IS_CONST>
 Set<T>::_Iterator<IS_CONST>::operator++(int) {
-  ++it;
-  return *this;
+  return ++_Iterator(it);
 }
 
 template <typename T>
@@ -45,8 +44,7 @@ template <typename T>
 template <bool IS_CONST>
 typename Set<T>::template _Iterator<IS_CONST>
 Set<T>::_Iterator<IS_CONST>::operator--(int) {
-  --it;
-  return *this;
+  return --_Iterator(it);
 }
 
 template <typename T>

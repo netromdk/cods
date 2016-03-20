@@ -41,7 +41,7 @@ template <typename T, int INIT_CAP>
 template <bool IS_CONST>
 typename Vector<T, INIT_CAP>::template _Iterator<IS_CONST>
 Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator++(int) {
-  return _Iterator(vec, pos_++);
+  return ++_Iterator(vec, pos_);
 }
 
 template <typename T, int INIT_CAP>
@@ -56,7 +56,7 @@ template <typename T, int INIT_CAP>
 template <bool IS_CONST>
 typename Vector<T, INIT_CAP>::template _Iterator<IS_CONST>
 Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator--(int) {
-  return _Iterator(vec, pos_--);
+  return --_Iterator(vec, pos_);
 }
 
 template <typename T, int INIT_CAP>
