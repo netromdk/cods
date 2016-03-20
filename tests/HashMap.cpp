@@ -341,6 +341,25 @@ TEST(HashMap, insertIteartor) {
   EXPECT_EQ(*it, 42);
 }
 
+TEST(HashMap, erase) {
+  HashMap<int, int> map;
+  map.insert(1, 1);
+  map.insert(2, 2);
+  map.insert(3, 3);
+
+  auto it = map.erase(map.begin());
+  EXPECT_EQ(map.size(), 2);
+  EXPECT_NE(it, map.end());
+
+  it = map.erase(it);
+  EXPECT_EQ(map.size(), 1);
+  EXPECT_NE(it, map.end());
+
+  it = map.erase(it);
+  EXPECT_EQ(map.size(), 0);
+  EXPECT_EQ(it, map.end());
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

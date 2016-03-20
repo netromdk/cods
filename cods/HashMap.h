@@ -104,6 +104,8 @@ public:
   void reserve(int capacity);
   void shrinkToFit();
 
+  Iterator erase(Iterator pos);
+
   Iterator begin();
   ConstIterator begin() const;
   ConstIterator cbegin() const;

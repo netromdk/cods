@@ -273,6 +273,13 @@ void HashMap<Key, T, INIT_CAP, CAP_MULT>::shrinkToFit() {
 
 template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
 typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
+HashMap<Key, T, INIT_CAP, CAP_MULT>::erase(Iterator pos) {
+  remove(pos.key());
+  return ++pos;
+}
+
+template <typename Key, typename T, int INIT_CAP, int CAP_MULT>
+typename HashMap<Key, T, INIT_CAP, CAP_MULT>::Iterator
 HashMap<Key, T, INIT_CAP, CAP_MULT>::begin() {
   Iterator it(&buckets, -1);
   ++it;
