@@ -70,6 +70,16 @@ template <typename T>
 Set<T>::Set() : map() { }
 
 template <typename T>
+Set<T> Set<T>::fromVector(const Vector<T> &vector) {
+  Set<T> set;
+  set.reserve(vector.size());
+  for (const auto &elm : vector) {
+    set << elm;
+  }
+  return set;
+}
+
+template <typename T>
 bool Set<T>::isEmpty() const {
   return map.isEmpty();
 }

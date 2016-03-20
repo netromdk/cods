@@ -47,6 +47,8 @@ public:
 
   Set();
 
+  static Set fromVector(const Vector<T> &vector);
+
   bool isEmpty() const;
   int size() const;
   int capacity() const;

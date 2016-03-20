@@ -161,6 +161,14 @@ TEST(Set, find) {
   EXPECT_EQ(it, set.end());
 }
 
+TEST(Set, fromVector) {
+  Vector<int> vec;
+  vec << 1 << 2 << 3;
+
+  auto set = Set<int>::fromVector(vec);
+  EXPECT_EQ(set.toVector(), vec);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
