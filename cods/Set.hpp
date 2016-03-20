@@ -230,6 +230,21 @@ typename Set<T>::Set &Set<T>::operator<<(const T &value) {
 }
 
 template <typename T>
+typename Set<T>::Set &Set<T>::operator&(const Set &other) {
+  return intersect(other);
+}
+
+template <typename T>
+typename Set<T>::Set &Set<T>::operator-(const Set &other) {
+  return subtract(other);
+}
+
+template <typename T>
+typename Set<T>::Set &Set<T>::operator+(const Set &other) {
+  return unite(other);
+}
+
+template <typename T>
 bool Set<T>::operator==(const Set &other) const {
   return values() == other.values();
 }

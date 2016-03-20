@@ -176,7 +176,7 @@ TEST(Set, intersect) {
   Set<int> set2;
   set2 << 2;
 
-  set.intersect(set2);
+  set & set2; // Same as: set.intersect(set2)
   EXPECT_EQ(set, set2);
 }
 
@@ -187,7 +187,7 @@ TEST(Set, subtract) {
   Set<int> set2;
   set2 << 2;
 
-  set.subtract(set2);
+  set - set2; // Same as: set.subtract(set2)
   EXPECT_NE(set, set2);
 
   auto vec = set.toVector();
@@ -203,7 +203,7 @@ TEST(Set, unite) {
   Set<int> set2;
   set2 << 2 << 42;
 
-  set.unite(set2);
+  set + set2; // Same as: set.unite(set2)
   EXPECT_NE(set, set2);
 
   auto vec = set.toVector();
