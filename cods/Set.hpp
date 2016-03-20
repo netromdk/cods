@@ -299,3 +299,15 @@ template <typename T>
 bool Set<T>::operator!=(const Set &other) const {
   return !(*this == other);
 }
+
+template <typename T>
+typename Set<T>::Set &Set<T>::operator=(const Set &other) {
+  map = other.map;
+  return *this;
+}
+
+template <typename T>
+typename Set<T>::Set &Set<T>::operator=(Set &&other) {
+  map = std::move(other.map);
+  return *this;
+}

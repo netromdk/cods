@@ -263,6 +263,27 @@ TEST(Set, moveCtor) {
   EXPECT_EQ(set2, tmp);
 }
 
+TEST(Set, assignment) {
+  Set<int> set;
+  set << 1 << 2 << 3;
+
+  Set<int> set2;
+  set2 = set;
+  EXPECT_EQ(set, set2);
+}
+
+TEST(Set, moveAssignment) {
+  Set<int> set;
+  set << 1 << 2 << 3;
+
+  auto tmp = set;
+
+  Set<int> set2;
+  set2 = std::move(set);
+  EXPECT_TRUE(set.isEmpty());
+  EXPECT_EQ(set2, tmp);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

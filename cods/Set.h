@@ -118,6 +118,9 @@ public:
   bool operator==(const Set &other) const;
   bool operator!=(const Set &other) const;
 
+  Set &operator=(const Set &other);
+  Set &operator=(Set &&other);
+
 private:
   // Only lookup on key is used, the bool is irrelevant.
   Map map;
