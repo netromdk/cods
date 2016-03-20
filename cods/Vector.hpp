@@ -169,7 +169,7 @@ typename Vector<T, INIT_CAP>::Iterator
 Vector<T, INIT_CAP>::insert(Iterator before, const T &value) {
   int pos = before.pos();
   insert(pos, value);
-  return Iterator(this, pos);
+  return createIterator(pos);
 }
 
 template <typename T, int INIT_CAP>
@@ -259,43 +259,43 @@ template <typename T, int INIT_CAP>
 typename Vector<T, INIT_CAP>::Iterator
 Vector<T, INIT_CAP>::erase(Iterator pos) {
   removeAt(pos.pos());
-  return Iterator(this, pos.pos());
+  return createIterator(pos.pos());
 }
 
 template <typename T, int INIT_CAP>
 typename Vector<T, INIT_CAP>::Iterator
 Vector<T, INIT_CAP>::begin() {
-  return Iterator(this, 0);
+  return createIterator(0);
 }
 
 template <typename T, int INIT_CAP>
 typename Vector<T, INIT_CAP>::ConstIterator
 Vector<T, INIT_CAP>::begin() const {
-  return ConstIterator(this, 0);
+  return createIterator(0);
 }
 
 template <typename T, int INIT_CAP>
 typename Vector<T, INIT_CAP>::ConstIterator
 Vector<T, INIT_CAP>::cbegin() const {
-  return ConstIterator(this, 0);
+  return createIterator(0);
 }
 
 template <typename T, int INIT_CAP>
 typename Vector<T, INIT_CAP>::Iterator
 Vector<T, INIT_CAP>::end() {
-  return Iterator(this, size());
+  return createIterator(size());
 }
 
 template <typename T, int INIT_CAP>
 typename Vector<T, INIT_CAP>::ConstIterator
 Vector<T, INIT_CAP>::end() const {
-  return ConstIterator(this, size());
+  return createIterator(size());
 }
 
 template <typename T, int INIT_CAP>
 typename Vector<T, INIT_CAP>::ConstIterator
 Vector<T, INIT_CAP>::cend() const {
-  return ConstIterator(this, size());
+  return createIterator(size());
 }
 
 template <typename T, int INIT_CAP>
@@ -448,4 +448,16 @@ void Vector<T, INIT_CAP>::removeFrom(const T &val, int pos) {
       break;
     }
   }
+}
+
+template <typename T, int INIT_CAP>
+inline typename Vector<T, INIT_CAP>::Iterator
+Vector<T, INIT_CAP>::createIterator(int pos) {
+  return Iterator(this, pos);
+}
+
+template <typename T, int INIT_CAP>
+inline typename Vector<T, INIT_CAP>::ConstIterator
+Vector<T, INIT_CAP>::createIterator(int pos) const {
+  return ConstIterator(this, pos);
 }

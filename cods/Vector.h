@@ -149,6 +149,9 @@ private:
 
   void removeFrom(const T &val, int pos = 0);
 
+  inline Iterator createIterator(int pos);
+  inline ConstIterator createIterator(int pos) const;
+
   int items, cap;
   T *data;
 };

@@ -284,43 +284,38 @@ HashMap<Key, T, INIT_CAP>::erase(Iterator pos) {
 template <typename Key, typename T, int INIT_CAP>
 typename HashMap<Key, T, INIT_CAP>::Iterator
 HashMap<Key, T, INIT_CAP>::begin() {
-  Iterator it(&buckets, -1);
-  ++it;
-  return it;
+  // Start at -1 to find the first item. ++ will continue until an item is found.
+  return ++createIterator(-1);
 }
 
 template <typename Key, typename T, int INIT_CAP>
 typename HashMap<Key, T, INIT_CAP>::ConstIterator
 HashMap<Key, T, INIT_CAP>::begin() const {
-  ConstIterator it(&buckets, -1);
-  ++it;
-  return it;
+  return ++createIterator(-1);
 }
 
 template <typename Key, typename T, int INIT_CAP>
 typename HashMap<Key, T, INIT_CAP>::ConstIterator
 HashMap<Key, T, INIT_CAP>::cbegin() const {
-  ConstIterator it(&buckets, -1);
-  ++it;
-  return it;
+  return ++createIterator(-1);
 }
 
 template <typename Key, typename T, int INIT_CAP>
 typename HashMap<Key, T, INIT_CAP>::Iterator
 HashMap<Key, T, INIT_CAP>::end() {
-  return Iterator(&buckets, capacity());
+  return createIterator(capacity());
 }
 
 template <typename Key, typename T, int INIT_CAP>
 typename HashMap<Key, T, INIT_CAP>::ConstIterator
 HashMap<Key, T, INIT_CAP>::end() const {
-  return ConstIterator(&buckets, capacity());
+  return createIterator(capacity());
 }
 
 template <typename Key, typename T, int INIT_CAP>
 typename HashMap<Key, T, INIT_CAP>::ConstIterator
 HashMap<Key, T, INIT_CAP>::cend() const {
-  return ConstIterator(&buckets, capacity());
+  return createIterator(capacity());
 }
 
 template <typename Key, typename T, int INIT_CAP>
@@ -329,7 +324,7 @@ HashMap<Key, T, INIT_CAP>::find(const Key &key) {
   if (!contains(key)) {
     return end();
   }
-  return Iterator(&buckets, hashIndex(key));
+  return createIterator(hashIndex(key));
 }
 
 template <typename Key, typename T, int INIT_CAP>
@@ -427,7 +422,7 @@ HashMap<Key, T, INIT_CAP>::_insert(const Key &key, const T &value, bool multi) {
         bucket->addValue(value);
         items++;
       }
-      return Iterator(&buckets, idx);
+      return createIterator(idx);
     }
 
     buckets.append(nullptr);
@@ -437,5 +432,17 @@ HashMap<Key, T, INIT_CAP>::_insert(const Key &key, const T &value, bool multi) {
   auto idx = hashIndex(key);
   buckets[idx] = new Bucket(key, value);
   items++;
-  return Iterator(&buckets, idx);
+  return createIterator(idx);
+}
+
+template <typename Key, typename T, int INIT_CAP>
+inline typename HashMap<Key, T, INIT_CAP>::Iterator
+HashMap<Key, T, INIT_CAP>::createIterator(int pos) {
+  return Iterator(&buckets, pos);
+}
+
+template <typename Key, typename T, int INIT_CAP>
+inline typename HashMap<Key, T, INIT_CAP>::ConstIterator
+HashMap<Key, T, INIT_CAP>::createIterator(int pos) const {
+  return ConstIterator(&buckets, pos);
 }

@@ -131,6 +131,9 @@ private:
   void checkRehash();
   Iterator _insert(const Key &key, const T &value, bool multi = false);
 
+  inline Iterator createIterator(int pos);
+  inline ConstIterator createIterator(int pos) const;
+
   Vector<Bucket*> buckets;
   int items;
 };
