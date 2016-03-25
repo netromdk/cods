@@ -5,3 +5,4 @@ Contains the following data structures so far:
 - [Vector](cods/Vector.h "Vector")
 - [HashMap](cods/HashMap.h "HashMap")
 - [Set](cods/Set.h "Set")
+- [Queue](cods/Queue.h "Queue")
