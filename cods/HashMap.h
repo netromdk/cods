@@ -4,7 +4,9 @@
 #include "cods/Global.h"
 #include "cods/Vector.h"
 
+#include <utility> // pair
 #include <cstddef> // size_t
+#include <initializer_list>
 
 CODS_BEGIN_NAMESPACE
 
@@ -70,6 +72,9 @@ public:
 
   /// Create empty map with maximum capacity.
   HashMap();
+
+  /// Create map with initializer list.
+  HashMap(std::initializer_list<std::pair<Key, T>> args);
 
   /// Copy-constructor.
   HashMap(const HashMap &other);

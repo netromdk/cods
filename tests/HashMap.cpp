@@ -384,6 +384,14 @@ TEST(HashMap, moveAssignment) {
   EXPECT_EQ(map2, tmp);
 }
 
+TEST(HashMap, initializerList) {
+  HashMap<int, int> map({std::make_pair(1, 1), std::make_pair(2, 2), std::make_pair(3, 3)});
+  EXPECT_EQ(map.size(), 3);
+  EXPECT_EQ(map[1], 1);
+  EXPECT_EQ(map[2], 2);
+  EXPECT_EQ(map[3], 3);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
