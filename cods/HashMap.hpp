@@ -390,6 +390,7 @@ HashMap<Key, T, INIT_CAP>::operator=(HashMap &&other) {
   items = other.items;
   other.items = 0;
   return *this;
+  
 }
 
 template <typename Key, typename T, int INIT_CAP>

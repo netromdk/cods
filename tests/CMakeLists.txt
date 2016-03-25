@@ -41,3 +41,8 @@ add_cods_test(
   Set
   Set.cpp
   )
+
+add_cods_test(
+  Queue
+  Queue.cpp
+  )
