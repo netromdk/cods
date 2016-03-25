@@ -427,6 +427,14 @@ TEST(Vector, erase) {
   EXPECT_EQ(it, vec.end());
 }
 
+TEST(Vector, initializerList) {
+  Vector<int> vec({1, 2, 3});
+  EXPECT_EQ(vec.size(), 3);
+  EXPECT_EQ(vec[0], 1);
+  EXPECT_EQ(vec[1], 2);
+  EXPECT_EQ(vec[2], 3);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

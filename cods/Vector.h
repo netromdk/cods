@@ -3,6 +3,7 @@
 
 #include <iterator>
 #include <type_traits> // conditional
+#include <initializer_list>
 
 #include "cods/Global.h"
 #include "cods/Utility.h"
@@ -50,6 +51,9 @@ public:
 
   /// Create empty vector with no capacity.
   Vector();
+
+  /// Create vector with initializer list.
+  Vector(std::initializer_list<T> args);
 
   /// Copy-constructor.
   Vector(const Vector &other);
