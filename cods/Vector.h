@@ -167,8 +167,8 @@ CODS_END_NAMESPACE
 /// Define hashing of the Vector class.
 namespace std {
   template <typename T>
-  struct hash<cods::Vector<T>> {
-    std::size_t operator()(const cods::Vector<T> &vec) const {
+  struct hash<CODS_NAMESPACE::Vector<T>> {
+    std::size_t operator()(const CODS_NAMESPACE::Vector<T> &vec) const {
       std::size_t res = 0;
       auto size = vec.size();
       for (decltype(size) i = 0; i < size; i++) {
