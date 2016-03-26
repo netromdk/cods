@@ -105,6 +105,8 @@ public:
   void shrinkToFit();
 
   void remove(const T &val);
+  void removeFirst();
+  void removeLast();
   void removeAt(int pos);
 
   T takeFirst();

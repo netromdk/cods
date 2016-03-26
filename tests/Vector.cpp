@@ -477,6 +477,35 @@ TEST(Vector, takeLast) {
   EXPECT_EQ(vec.takeLast(), 1);
   EXPECT_EQ(vec.size(), 0);
 }
+
+TEST(Vector, removeFirst) {
+  Vector<int> vec({1, 2, 3});
+  vec.removeFirst();
+  EXPECT_EQ(vec.size(), 2);
+  EXPECT_EQ(vec[0], 2);
+
+  vec.removeFirst();
+  EXPECT_EQ(vec.size(), 1);
+  EXPECT_EQ(vec[0], 3);
+
+  vec.removeFirst();
+  EXPECT_EQ(vec.size(), 0);
+}
+
+TEST(Vector, removeLast) {
+  Vector<int> vec({1, 2, 3});
+  vec.removeLast();
+  EXPECT_EQ(vec.size(), 2);
+  EXPECT_EQ(vec[1], 2);
+
+  vec.removeLast();
+  EXPECT_EQ(vec.size(), 1);
+  EXPECT_EQ(vec[0], 1);
+
+  vec.removeLast();
+  EXPECT_EQ(vec.size(), 0);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

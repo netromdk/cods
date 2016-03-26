@@ -273,6 +273,16 @@ void Vector<T, INIT_CAP>::remove(const T &val) {
 }
 
 template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::removeFirst() {
+  removeAt(0);
+}
+
+template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::removeLast() {
+  removeAt(size() - 1);
+}
+
+template <typename T, int INIT_CAP>
 void Vector<T, INIT_CAP>::removeAt(int pos) {
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
   data[pos] = T();
