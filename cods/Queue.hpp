@@ -1,35 +1,25 @@
 template <typename T>
-Queue<T>::Queue() : data() { }
-
-template <typename T>
-bool Queue<T>::isEmpty() const {
-  return data.isEmpty();
-}
-
-template <typename T>
-int Queue<T>::size() const {
-  return data.size();
-}
+Queue<T>::Queue() : Queue<T>::Vector() { }
 
 template <typename T>
 void Queue<T>::enqueue(const T &value) {
-  data << value;
+  Queue<T>::append(value);
 }
 
 template <typename T>
 T Queue<T>::dequeue() {
-  auto it = data.begin();
+  auto it = Queue<T>::begin();
   auto value = *it;
-  data.erase(it);
+  Queue<T>::erase(it);
   return value;
 }
 
 template <typename T>
 T &Queue<T>::head() {
-  return *data.begin();
+  return *Queue<T>::begin();
 }
 
 template <typename T>
 const T &Queue<T>::head() const {
-  return *data.cbegin();
+  return *Queue<T>::cbegin();
 }

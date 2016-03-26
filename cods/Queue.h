@@ -6,23 +6,17 @@
 
 CODS_BEGIN_NAMESPACE
 
-/// Implementation of a queue container using Vector internally.
+/// Implementation of a queue container extending Vector.
 template <typename T> ///< Item type.
-class Queue {
+class Queue : public Vector<T> {
 public:
   Queue();
-
-  bool isEmpty() const;
-  int size() const;
 
   void enqueue(const T &value);
   T dequeue();
 
   T &head();
   const T &head() const;
-
-private:
-  Vector<T> data;
 };
 
 #include "cods/Queue.hpp"
