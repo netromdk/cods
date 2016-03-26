@@ -46,3 +46,8 @@ add_cods_test(
   Queue
   Queue.cpp
   )
+
+add_cods_test(
+  Stack
+  Stack.cpp
+  )
