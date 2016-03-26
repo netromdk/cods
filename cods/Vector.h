@@ -15,9 +15,10 @@
 
 CODS_BEGIN_NAMESPACE
 
-/// Implementation of a container class similar to the std::vector.
-template <typename T,        ///< Item type.
-          int INIT_CAP = 64> ///< Initial capacity size.
+/// Container class similar to \p std::vector.
+/** The template typename \p T denotes the element type of the container and the initial capacity is
+    set to \p INIT_CAP. */
+template <typename T, int INIT_CAP = 64>
 class Vector {
   /// Const and non-const iterator class.
   template <bool IS_CONST = true>
@@ -78,8 +79,8 @@ public:
   /// Move-constructor.
   Vector(Vector &&other);
 
-  /// Create vector filled with \p size elements of value \p val.
-  Vector(int size, T val);
+  /// Create vector filled with \p size elements of \p value.
+  Vector(int size, T value);
 
   /// Create vector from the values of raw array \p values.
   Vector(int size, T *values);
@@ -90,65 +91,115 @@ public:
 
   ~Vector();
 
+  /// Returns \p true if vector has size \p 0, otherwise \p false.
   bool isEmpty() const;
+
+  /// Returns the number of elements in the vector.
   int size() const;
+
+  /// Returns the number of elements the vector can contain.
   int capacity() const;
 
+  /// Returns the element at \p pos.
+  //@{
   T &at(int pos);
   const T &at(int pos) const;
+  //@}
 
-  /// Insert value at the end.
-  void append(const T &val);
+  /// Insert \p value at the end.
+  void append(const T &value);
 
-  /// Insert values at the end.
-  void append(const Vector &vals);
+  /// Insert \p values at the end.
+  void append(const Vector &values);
 
-  /// Insert value at the beginning.
-  void prepend(const T &val);
+  /// Insert \p value at the beginning.
+  void prepend(const T &value);
 
+  /// Insert \p value at \p pos.
   void insert(int pos, const T &value);
+
+  /// Insert \p value before iterator \p before.
   Iterator insert(Iterator before, const T &value);
 
-  bool contains(const T &val) const;
+  /// Check if vector contains \p value.
+  bool contains(const T &value) const;
 
+  /// Returns the first index of \p value found in the vector starting at \p from.
+  /** If nothing is found then it returns \p -1. */
   int indexOf(const T &value, int from = 0) const;
+
+  /// Returns the last index of \p value found starting from \p from.
+  /** If nothing is found then it returns \p -1. */
   int lastIndexOf(const T &value, int from = -1) const;
 
+  /// Print vector to stdout.
   void print() const;
 
+  /// Clear and empty vector.
   void clear();
 
+  /// Reserve room for \p capacity elements.
   void reserve(int capacity);
+
+  /// Shrink vector capacity to match the number of elements it contains.
   void shrinkToFit();
 
-  void remove(const T &val);
+  /// Remove \p value from vector
+  void remove(const T &value);
+
+  /// Remove first element from vector.
   void removeFirst();
+
+  /// Remove last element from vector.
   void removeLast();
+
+  /// Remove element at \p pos from vector.
   void removeAt(int pos);
 
+  /// Remove first element from vector and return it.
+  /** Assumes vector is not empty! */
   T takeFirst();
+
+  /// Remove last element from vector and return it.
+  /** Assumes vector is not empty! */
   T takeLast();
+
+  /// Remove element at \p pos from vector and return it.
+  /** Assumes vector is not empty! */
   T takeAt(int pos);
 
   /// Erase iterator and return iterator to next value or \p end().
   Iterator erase(Iterator pos);
 
+  /// Returns iterator to beginning of vector.
+  //@{
   Iterator begin();
   ConstIterator begin() const;
   ConstIterator cbegin() const;
+  //@}
 
+  /// Returns iterator to end of vector.
+  //@{
   Iterator end();
   ConstIterator end() const;
   ConstIterator cend() const;
+  //@}
 
+  /// Returns pointer to internal data.
+  //@{
   T *data();
   const T *data() const;
   const T *constData() const;
+  //@}
 
+  /// Returns \p std::vector<T> of elements of the vector.
   std::vector<T> toStdVector() const;
 
+  /// Access element at \p pos.
+  //@{
   T &operator[](int pos);
   const T &operator[](int pos) const;
+  //@}
 
   /// Append value to the vector.
   Vector &operator<<(const T &value);
@@ -165,10 +216,16 @@ public:
   /// Returns vector with the values of this vector appended the ones from \p other.
   Vector operator+(const Vector &other);
 
+  /// Returns \p true if all values are equal to those in \p other and in the same order.
   bool operator==(const Vector &other) const;
+
+  /// Returns \p true if all values are not equal to those in \p other or are not in the same order.
   bool operator!=(const Vector &other) const;
 
+  /// Copy-assigns \p other to \p this.
   Vector &operator=(const Vector &other);
+
+  /// Move-assigns \p other to \p this.
   Vector &operator=(Vector &&other);
 
 private:
