@@ -85,7 +85,6 @@ Vector<T, INIT_CAP>::Vector(std::initializer_list<T> args) : Vector() {
 
 template <typename T, int INIT_CAP>
 Vector<T, INIT_CAP>::Vector(const Vector &other) : Vector() {
-  std::cout << "COPY CTOR\n";
   alloc(other.size());
   for (const auto &elm : other) {
     // Don't check capacity because we just allocated all. Will speed up a lot.
@@ -95,13 +94,11 @@ Vector<T, INIT_CAP>::Vector(const Vector &other) : Vector() {
 
 template <typename T, int INIT_CAP>
 Vector<T, INIT_CAP>::Vector(Vector &&other) : Vector() {
-  std::cout << "MOVE CTOR\n";
   *this = std::move(other);
 }
 
 template <typename T, int INIT_CAP>
 Vector<T, INIT_CAP>::Vector(int size, T val) : Vector() {
-  std::cout << "size,val CTOR\n";
   alloc(size);
   for (decltype(size) i = 0; i < size; i++) {
     _append(val, false);
@@ -110,7 +107,6 @@ Vector<T, INIT_CAP>::Vector(int size, T val) : Vector() {
 
 template <typename T, int INIT_CAP>
 Vector<T, INIT_CAP>::Vector(int size, T *values) : Vector() {
-  std::cout << "size,*values CTOR\n";
   alloc(size);
   for (decltype(size) i = 0; i < size; i++) {
     _append(values[i], false);
@@ -120,7 +116,6 @@ Vector<T, INIT_CAP>::Vector(int size, T *values) : Vector() {
 template <typename T, int INIT_CAP>
 template <typename Iter>
 Vector<T, INIT_CAP>::Vector(Iter first, Iter last) : Vector() {
-  std::cout << "first,last CTOR\n";
   for (; first != last; first++) {
     append(*first);
   }
