@@ -21,6 +21,22 @@ include(CTest)
 enable_testing()
 add_subdirectory(tests)
 
+# Add a target to generate API documentation with Doxygen.
+find_package(Doxygen)
+if (DOXYGEN_FOUND)
+  configure_file(
+    ${PROJECT_SOURCE_DIR}/doc/doxyfile.in
+    ${CMAKE_CURRENT_BINARY_DIR}/doxyfile @ONLY
+    )
+  add_custom_target(
+    doc ${DOXYGEN_EXECUTABLE}
+    ${CMAKE_CURRENT_BINARY_DIR}/doxyfile
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Generating API documentation with Doxygen"
+    VERBATIM
+    )
+endif()
+
 message(STATUS "--------------------------------------------------")
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "--------------------------------------------------")
