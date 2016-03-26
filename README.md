@@ -6,3 +6,4 @@ Contains the following data structures so far:
 - [HashMap](cods/HashMap.h "HashMap")
 - [Set](cods/Set.h "Set")
 - [Queue](cods/Queue.h "Queue")
+- [Stack](cods/Stack.h "Stack")
