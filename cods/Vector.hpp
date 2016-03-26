@@ -351,6 +351,11 @@ Vector<T, INIT_CAP>::cend() const {
 }
 
 template <typename T, int INIT_CAP>
+std::vector<T> Vector<T, INIT_CAP>::toStdVector() const {
+  return std::vector<T>(begin(), end());
+}
+
+template <typename T, int INIT_CAP>
 T &Vector<T, INIT_CAP>::operator[](int pos) {
   return at(pos);
 }

@@ -506,6 +506,15 @@ TEST(Vector, removeLast) {
   EXPECT_EQ(vec.size(), 0);
 }
 
+TEST(Vector, toStdVector) {
+  Vector<int> vec({1, 2, 3});
+  std::vector<int> vec2 = vec.toStdVector();
+  ASSERT_EQ(vec.size(), vec2.size());
+  EXPECT_EQ(vec[0], vec2[0]);
+  EXPECT_EQ(vec[1], vec2[1]);
+  EXPECT_EQ(vec[2], vec2[2]);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

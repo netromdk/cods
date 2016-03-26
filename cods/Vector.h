@@ -1,6 +1,7 @@
 #ifndef CODS_VECTOR_H
 #define CODS_VECTOR_H
 
+#include <vector>
 #include <iterator>
 #include <type_traits> // conditional
 #include <initializer_list>
@@ -123,6 +124,8 @@ public:
   Iterator end();
   ConstIterator end() const;
   ConstIterator cend() const;
+
+  std::vector<T> toStdVector() const;
 
   T &operator[](int pos);
   const T &operator[](int pos) const;
