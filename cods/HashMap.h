@@ -6,6 +6,7 @@
 
 #include <utility> // pair
 #include <cstddef> // size_t
+#include <functional> // hash
 #include <initializer_list>
 
 CODS_BEGIN_NAMESPACE

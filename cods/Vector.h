@@ -2,7 +2,11 @@
 #define CODS_VECTOR_H
 
 #include <vector>
+#include <cassert>
+#include <cstring>  // memcpy
+#include <utility>  // swap
 #include <iterator>
+#include <iostream> // cout, endl
 #include <type_traits> // conditional
 #include <initializer_list>
 

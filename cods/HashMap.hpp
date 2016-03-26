@@ -1,5 +1,3 @@
-#include <functional> // hash
-
 template <typename Key, typename T, int INIT_CAP>
 HashMap<Key, T, INIT_CAP>::Bucket::Bucket(const Key &key, const T &value) : key_(key) {
   setValue(value);

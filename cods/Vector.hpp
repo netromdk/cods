@@ -1,8 +1,3 @@
-#include <cassert>
-#include <cstring>  // memcpy
-#include <utility>  // swap
-#include <iostream> // cout, endl
-
 template <typename T, int INIT_CAP>
 template <bool IS_CONST>
 Vector<T, INIT_CAP>::_Iterator<IS_CONST>::_Iterator(PtrType vec, int pos)
