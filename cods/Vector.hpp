@@ -281,6 +281,23 @@ void Vector<T, INIT_CAP>::removeAt(int pos) {
 }
 
 template <typename T, int INIT_CAP>
+T Vector<T, INIT_CAP>::takeFirst() {
+  return takeAt(0);
+}
+
+template <typename T, int INIT_CAP>
+T Vector<T, INIT_CAP>::takeLast() {
+  return takeAt(size() - 1);
+}
+
+template <typename T, int INIT_CAP>
+T Vector<T, INIT_CAP>::takeAt(int pos) {
+  auto value = at(pos);
+  removeAt(pos);
+  return value;
+}
+
+template <typename T, int INIT_CAP>
 typename Vector<T, INIT_CAP>::Iterator
 Vector<T, INIT_CAP>::erase(Iterator pos) {
   removeAt(pos.pos());

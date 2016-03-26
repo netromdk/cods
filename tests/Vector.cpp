@@ -442,6 +442,41 @@ TEST(Vector, at) {
   EXPECT_EQ(vec.at(2), 3);
 }
 
+TEST(Vector, takeAt) {
+  Vector<int> vec({1, 2, 3});
+  EXPECT_EQ(vec.takeAt(0), 1);
+  EXPECT_EQ(vec.size(), 2);
+
+  EXPECT_EQ(vec.takeAt(1), 3);
+  EXPECT_EQ(vec.size(), 1);
+
+  EXPECT_EQ(vec.takeAt(0), 2);
+  EXPECT_EQ(vec.size(), 0);
+}
+
+TEST(Vector, takeFirst) {
+  Vector<int> vec({1, 2, 3});
+  EXPECT_EQ(vec.takeFirst(), 1);
+  EXPECT_EQ(vec.size(), 2);
+
+  EXPECT_EQ(vec.takeFirst(), 2);
+  EXPECT_EQ(vec.size(), 1);
+
+  EXPECT_EQ(vec.takeFirst(), 3);
+  EXPECT_EQ(vec.size(), 0);
+}
+
+TEST(Vector, takeLast) {
+  Vector<int> vec({1, 2, 3});
+  EXPECT_EQ(vec.takeLast(), 3);
+  EXPECT_EQ(vec.size(), 2);
+
+  EXPECT_EQ(vec.takeLast(), 2);
+  EXPECT_EQ(vec.size(), 1);
+
+  EXPECT_EQ(vec.takeLast(), 1);
+  EXPECT_EQ(vec.size(), 0);
+}
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

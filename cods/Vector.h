@@ -107,6 +107,10 @@ public:
   void remove(const T &val);
   void removeAt(int pos);
 
+  T takeFirst();
+  T takeLast();
+  T takeAt(int pos);
+
   /// Erase iterator and return iterator to next value or \p end().
   Iterator erase(Iterator pos);
 
