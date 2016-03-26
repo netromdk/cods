@@ -8,10 +8,7 @@ void Queue<T>::enqueue(const T &value) {
 
 template <typename T>
 T Queue<T>::dequeue() {
-  auto it = Queue<T>::begin();
-  auto value = *it;
-  Queue<T>::erase(it);
-  return value;
+  return Queue<T>::takeFirst();
 }
 
 template <typename T>

@@ -8,10 +8,7 @@ void Stack<T>::push(const T &value) {
 
 template <typename T>
 T Stack<T>::pop() {
-  auto it = Stack<T>::begin();
-  auto value = *it;
-  Stack<T>::erase(it);
-  return value;
+  return Stack<T>::takeFirst();
 }
 
 template <typename T>
