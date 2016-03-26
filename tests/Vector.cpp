@@ -70,7 +70,8 @@ TEST(Vector, ctor4) {
   EXPECT_EQ(vec.size(), svec.size());
   EXPECT_EQ(vec.capacity(), svec.size());
 
-  for (int i = 0; i < svec.size(); i++) {
+  auto size = svec.size();
+  for (decltype(size) i = 0; i < size; i++) {
     EXPECT_EQ(vec[i], svec[i]);
   }
 }
