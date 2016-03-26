@@ -1,6 +1,7 @@
 #include <array>
 #include <vector>
 #include <utility> // move
+#include <algorithm> // sort
 
 #include "gtest/gtest.h"
 
