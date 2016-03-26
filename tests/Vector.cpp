@@ -528,6 +528,23 @@ TEST(Vector, data) {
   EXPECT_EQ(data[0], 42);
 }
 
+TEST(Vector, stdSort) {
+  Vector<int> vec;
+
+  // 5, 4, 3, 2, 1
+  for (auto i = 5; i > 0; i--) {
+    vec << i;
+  }
+
+  std::sort(vec.begin(), vec.end());
+
+  // Make sure it is now: 1, 2, 3, 4, 5
+  auto size = vec.size();
+  for (decltype(size) i = 0; i < size; i++) {
+    EXPECT_EQ(vec[i], i + 1);
+  }
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

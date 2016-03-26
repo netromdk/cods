@@ -56,6 +56,34 @@ Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator--(int) {
 
 template <typename T, int INIT_CAP>
 template <bool IS_CONST>
+typename Vector<T, INIT_CAP>::template _Iterator<IS_CONST>
+Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator+(int pos) const {
+  return _Iterator(vec, pos_ + pos);
+}
+
+template <typename T, int INIT_CAP>
+template <bool IS_CONST>
+typename Vector<T, INIT_CAP>::template _Iterator<IS_CONST>&
+Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator+=(int pos) {
+  pos_ += pos;
+  return *this;
+}
+
+template <typename T, int INIT_CAP>
+template <bool IS_CONST>
+int Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator-(const _Iterator &other) const {
+  return pos() - other.pos();
+}
+
+template <typename T, int INIT_CAP>
+template <bool IS_CONST>
+typename Vector<T, INIT_CAP>::template _Iterator<IS_CONST>
+Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator-(int pos) const {
+  return _Iterator(vec, pos_ - pos);
+}
+
+template <typename T, int INIT_CAP>
+template <bool IS_CONST>
 bool Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator==(const _Iterator &other) const {
   return pos() == other.pos();
 }
@@ -64,6 +92,30 @@ template <typename T, int INIT_CAP>
 template <bool IS_CONST>
 bool Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator!=(const _Iterator &other) const {
   return !(*this == other);
+}
+
+template <typename T, int INIT_CAP>
+template <bool IS_CONST>
+bool Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator<(const _Iterator &other) const {
+  return pos() < other.pos();
+}
+
+template <typename T, int INIT_CAP>
+template <bool IS_CONST>
+bool Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator<=(const _Iterator &other) const {
+  return pos() <= other.pos();
+}
+
+template <typename T, int INIT_CAP>
+template <bool IS_CONST>
+bool Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator>(const _Iterator &other) const {
+  return pos() > other.pos();
+}
+
+template <typename T, int INIT_CAP>
+template <bool IS_CONST>
+bool Vector<T, INIT_CAP>::_Iterator<IS_CONST>::operator>=(const _Iterator &other) const {
+  return pos() >= other.pos();
 }
 
 template <typename T, int INIT_CAP>

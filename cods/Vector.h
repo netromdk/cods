@@ -40,8 +40,20 @@ class Vector {
     _Iterator &operator--();
     _Iterator operator--(int);
 
+    _Iterator operator+(int) const;
+    _Iterator &operator+=(int);
+
+    int operator-(const _Iterator &other) const;
+    _Iterator operator-(int pos) const;
+
     bool operator==(const _Iterator &other) const;
     bool operator!=(const _Iterator &other) const;
+
+    bool operator<(const _Iterator &other) const;
+    bool operator<=(const _Iterator &other) const;
+
+    bool operator>(const _Iterator &other) const;
+    bool operator>=(const _Iterator &other) const;
 
     int pos() const;
 
