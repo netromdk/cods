@@ -4,6 +4,8 @@
 #include "cods/Global.h"
 #include "cods/HashMap.h"
 
+#include <initializer_list>
+
 CODS_BEGIN_NAMESPACE
 
 /// Implementation of Set container where there can be no duplicate values.
@@ -46,6 +48,8 @@ public:
   using ConstIterator = _Iterator<true>;
 
   Set();
+
+  Set(std::initializer_list<T> args);
 
   // Copy-constructor.
   Set(const Set &other);

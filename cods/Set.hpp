@@ -70,6 +70,14 @@ template <typename T>
 Set<T>::Set() : map() { }
 
 template <typename T>
+Set<T>::Set(std::initializer_list<T> args) : map() {
+  reserve(args.size());
+  for (const auto &elm : args) {
+    insert(elm);
+  }
+}
+
+template <typename T>
 Set<T>::Set(const Set &other) : map(other.map) { }
 
 template <typename T>

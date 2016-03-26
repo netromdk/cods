@@ -284,6 +284,14 @@ TEST(Set, moveAssignment) {
   EXPECT_EQ(set2, tmp);
 }
 
+TEST(Set, initializerList) {
+  Set<int> set({1, 1, 2, 2, 3, 3});
+  EXPECT_EQ(set.size(), 3);
+  EXPECT_TRUE(set.contains(1));
+  EXPECT_TRUE(set.contains(2));
+  EXPECT_TRUE(set.contains(3));
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
