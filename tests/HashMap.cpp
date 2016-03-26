@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "cods/HashMap.h"
-using namespace cods;
+CODS_USING_NAMESPACE
 
 TEST(HashMap, instantiate) {
   HashMap<std::string, int> map;

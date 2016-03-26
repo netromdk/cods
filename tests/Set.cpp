@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "cods/Set.h"
-using namespace cods;
+CODS_USING_NAMESPACE
 
 TEST(Set, instantiate) {
   Set<int> set;

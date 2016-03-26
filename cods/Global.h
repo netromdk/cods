@@ -6,4 +6,6 @@
 #define CODS_BEGIN_NAMESPACE namespace CODS_NAMESPACE {
 #define CODS_END_NAMESPACE }
 
+#define CODS_USING_NAMESPACE using namespace CODS_NAMESPACE;
+
 #endif // CODS_GLOBAL_H

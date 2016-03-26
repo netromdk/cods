@@ -3,7 +3,7 @@
 using namespace std;
 
 #include "cods/Vector.h"
-using namespace cods;
+CODS_USING_NAMESPACE
 
 int main(int argc, char **argv) {
   // First constructor.
