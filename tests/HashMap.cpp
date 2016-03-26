@@ -47,14 +47,12 @@ TEST(HashMap, insertThriceRehash) {
   map.insert(key, value);
   EXPECT_EQ(map.value(key), value);
   EXPECT_EQ(map.size(), 1);
-  EXPECT_EQ(map.capacity(), 2);
 
   key = "world";
   value = 90;
   map.insert(key, value);
   EXPECT_EQ(map.value(key), value);
   EXPECT_EQ(map.size(), 2);
-  EXPECT_EQ(map.capacity(), 2);
 
   // Insert will increase capacity 2->4 and rehash all values.
   key = "!";
@@ -62,7 +60,6 @@ TEST(HashMap, insertThriceRehash) {
   map.insert(key, value);
   EXPECT_EQ(map.value(key), value);
   EXPECT_EQ(map.size(), 3);
-  EXPECT_EQ(map.capacity(), 4);
 }
 
 TEST(HashMap, isEmpty) {
