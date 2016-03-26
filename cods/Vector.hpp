@@ -78,7 +78,7 @@ int Vector<T, INIT_CAP>::_Iterator<IS_CONST>::pos() const {
 }
 
 template <typename T, int INIT_CAP>
-Vector<T, INIT_CAP>::Vector() : items(0), cap(0), data(nullptr) { }
+Vector<T, INIT_CAP>::Vector() : items(0), cap(0), data_(nullptr) { }
 
 template <typename T, int INIT_CAP>
 Vector<T, INIT_CAP>::Vector(std::initializer_list<T> args) : Vector() {
@@ -154,13 +154,13 @@ int Vector<T, INIT_CAP>::capacity() const {
 template <typename T, int INIT_CAP>
 T &Vector<T, INIT_CAP>::at(int pos) {
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
-  return data[pos];
+  return data_[pos];
 }
 
 template <typename T, int INIT_CAP>
 const T &Vector<T, INIT_CAP>::at(int pos) const {
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
-  return data[pos];
+  return data_[pos];
 }
 
 template <typename T, int INIT_CAP>
@@ -185,7 +185,7 @@ void Vector<T, INIT_CAP>::insert(int pos, const T &value) {
   checkAlloc();
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
   shiftLeft(pos); // Effectively moving right.
-  data[pos] = value;
+  data_[pos] = value;
   items++;
 }
 
@@ -200,7 +200,7 @@ Vector<T, INIT_CAP>::insert(Iterator before, const T &value) {
 template <typename T, int INIT_CAP>
 bool Vector<T, INIT_CAP>::contains(const T &val) const {
   for (decltype(items) i = 0; i < items; i++) {
-    if (data[i] == val) {
+    if (data_[i] == val) {
       return true;
     }
   }
@@ -211,7 +211,7 @@ template <typename T, int INIT_CAP>
 int Vector<T, INIT_CAP>::indexOf(const T &value, int from) const {
   assert(from >= 0 && from < items && "'from' out of bounds!");
   for (decltype(items) i = from; i < items; i++) {
-    if (data[i] == value) {
+    if (data_[i] == value) {
       return i;
     }
   }
@@ -223,7 +223,7 @@ int Vector<T, INIT_CAP>::lastIndexOf(const T &value, int from) const {
   assert(from >= -1 && from < items && "'from' out of bounds!");
   if (from == -1) from = items - 1;
   for (decltype(items) i = from; i >= 0; i--) {
-    if (data[i] == value) {
+    if (data_[i] == value) {
       return i;
     }
   }
@@ -238,7 +238,7 @@ void Vector<T, INIT_CAP>::print() const {
     cout << "empty";
   }
   for (decltype(cap) i = 0; i < cap; i++) {
-    cout << convert(data[i]);
+    cout << convert(data_[i]);
     if (i < cap - 1) {
       cout << ", ";
     }
@@ -248,9 +248,9 @@ void Vector<T, INIT_CAP>::print() const {
 
 template <typename T, int INIT_CAP>
 void Vector<T, INIT_CAP>::clear() {
-  if (data) {
-    delete[] data;
-    data = nullptr;
+  if (data_) {
+    delete[] data_;
+    data_ = nullptr;
   }
   items = cap = 0;
 }
@@ -285,7 +285,7 @@ void Vector<T, INIT_CAP>::removeLast() {
 template <typename T, int INIT_CAP>
 void Vector<T, INIT_CAP>::removeAt(int pos) {
   assert(pos >= 0 && pos < cap && "Position out of bounds!");
-  data[pos] = T();
+  data_[pos] = T();
   items--;
   shiftRight(pos); // Effectively moving left.
 }
@@ -351,6 +351,21 @@ Vector<T, INIT_CAP>::cend() const {
 }
 
 template <typename T, int INIT_CAP>
+T *Vector<T, INIT_CAP>::data() {
+  return data_;
+}
+
+template <typename T, int INIT_CAP>
+const T *Vector<T, INIT_CAP>::data() const {
+  return data_;
+}
+
+template <typename T, int INIT_CAP>
+const T *Vector<T, INIT_CAP>::constData() const {
+  return data_;
+}
+
+template <typename T, int INIT_CAP>
 std::vector<T> Vector<T, INIT_CAP>::toStdVector() const {
   return std::vector<T>(begin(), end());
 }
@@ -401,7 +416,7 @@ bool Vector<T, INIT_CAP>::operator==(const Vector &other) const {
     return false;
   }
   for (decltype(items) i = 0; i < items; i++) {
-    if (data[i] != other[i]) {
+    if (data_[i] != other[i]) {
       return false;
     }
   }
@@ -429,12 +444,12 @@ typename Vector<T, INIT_CAP>::Vector&
 Vector<T, INIT_CAP>::operator=(Vector &&other) {
   clear();
 
-  data = other.data;
+  data_ = other.data_;
   items = other.items;
   cap = other.cap;
 
   // Nullify original container.
-  other.data = nullptr;
+  other.data_ = nullptr;
   other.items = other.cap = 0;
   return *this;
 }
@@ -454,10 +469,10 @@ void Vector<T, INIT_CAP>::alloc(int size) {
     fillDefault(newData, newCap);
   }
   if (items > 0) {
-    memcpy(newData, data, items * sizeof(T));
-    delete[] data;
+    memcpy(newData, data_, items * sizeof(T));
+    delete[] data_;
   }
-  data = newData;
+  data_ = newData;
   cap = newCap;
 }
 
@@ -474,27 +489,27 @@ void Vector<T, INIT_CAP>::_append(const T &val, bool check) {
   if (check) {
     checkAlloc();
   }
-  data[items++] = val;
+  data_[items++] = val;
 }
 
 template <typename T, int INIT_CAP>
 void Vector<T, INIT_CAP>::shiftRight(int pos) {
   for (decltype(pos) i = pos; i < items; i++) {
-    std::swap(data[i], data[i+1]);
+    std::swap(data_[i], data_[i+1]);
   }
 }
 
 template <typename T, int INIT_CAP>
 void Vector<T, INIT_CAP>::shiftLeft(int pos) {
   for (decltype(pos) i = items; i >= pos; i--) {
-    std::swap(data[i], data[i+1]);
+    std::swap(data_[i], data_[i+1]);
   }
 }
 
 template <typename T, int INIT_CAP>
 void Vector<T, INIT_CAP>::removeFrom(const T &val, int pos) {
   for (decltype(pos) i = pos; i < items; i++) {
-    auto &item = data[i];
+    auto &item = data_[i];
     if (item == val) {
       item = T(); // Clear.
       items--;

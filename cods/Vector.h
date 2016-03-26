@@ -125,6 +125,10 @@ public:
   ConstIterator end() const;
   ConstIterator cend() const;
 
+  T *data();
+  const T *data() const;
+  const T *constData() const;
+
   std::vector<T> toStdVector() const;
 
   T &operator[](int pos);
@@ -169,7 +173,7 @@ private:
   inline ConstIterator createIterator(int pos) const;
 
   int items, cap;
-  T *data;
+  T *data_;
 };
 
 #include "cods/Vector.hpp"

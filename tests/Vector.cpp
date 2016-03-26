@@ -515,6 +515,18 @@ TEST(Vector, toStdVector) {
   EXPECT_EQ(vec[2], vec2[2]);
 }
 
+TEST(Vector, data) {
+  Vector<int> vec({1, 2, 3});
+
+  auto *data = vec.data();
+  EXPECT_EQ(data[0], 1);
+  EXPECT_EQ(data[1], 2);
+  EXPECT_EQ(data[2], 3);
+
+  data[0] = 42;
+  EXPECT_EQ(data[0], 42);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
