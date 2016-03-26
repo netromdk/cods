@@ -152,6 +152,18 @@ int Vector<T, INIT_CAP>::capacity() const {
 }
 
 template <typename T, int INIT_CAP>
+T &Vector<T, INIT_CAP>::at(int pos) {
+  assert(pos >= 0 && pos < cap && "Position out of bounds!");
+  return data[pos];
+}
+
+template <typename T, int INIT_CAP>
+const T &Vector<T, INIT_CAP>::at(int pos) const {
+  assert(pos >= 0 && pos < cap && "Position out of bounds!");
+  return data[pos];
+}
+
+template <typename T, int INIT_CAP>
 void Vector<T, INIT_CAP>::append(const T &val) {
   _append(val);
 }
@@ -313,14 +325,12 @@ Vector<T, INIT_CAP>::cend() const {
 
 template <typename T, int INIT_CAP>
 T &Vector<T, INIT_CAP>::operator[](int pos) {
-  assert(pos >= 0 && pos < cap && "Position out of bounds!");
-  return data[pos];
+  return at(pos);
 }
 
 template <typename T, int INIT_CAP>
 const T &Vector<T, INIT_CAP>::operator[](int pos) const {
-  assert(pos >= 0 && pos < cap && "Position out of bounds!");
-  return data[pos];
+  return at(pos);
 }
 
 template <typename T, int INIT_CAP>

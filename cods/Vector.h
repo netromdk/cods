@@ -77,6 +77,9 @@ public:
   int size() const;
   int capacity() const;
 
+  T &at(int pos);
+  const T &at(int pos) const;
+
   /// Insert value at the end.
   void append(const T &val);
 

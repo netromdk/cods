@@ -435,6 +435,13 @@ TEST(Vector, initializerList) {
   EXPECT_EQ(vec[2], 3);
 }
 
+TEST(Vector, at) {
+  Vector<int> vec({1, 2, 3});
+  EXPECT_EQ(vec.at(0), 1);
+  EXPECT_EQ(vec.at(1), 2);
+  EXPECT_EQ(vec.at(2), 3);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
