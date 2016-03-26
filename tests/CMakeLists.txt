@@ -3,6 +3,10 @@ include_directories(
   gtest/include
   )
 
+if (LINUX)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+endif()
+
 add_library(
   gtest
   gtest/src/gtest-all.cc
