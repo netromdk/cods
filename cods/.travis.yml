@@ -1,0 +1,31 @@
+language: cpp
+
+matrix:
+  include:
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-4.8']
+      env:
+        - COMP=g++-4.8
+
+    - os: osx
+      compiler: clang
+      env:
+        - COMP=clang++ V='Apple LLVM 6.0' # Apple LLVM version 6.0 (clang-600.0.54) (based on LLVM 3.5svn)
+
+before_install:
+  - echo $LANG
+  - echo $LC_ALL
+  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get purge -y cmake; echo y | sudo add-apt-repository ppa:smspillaz/cmake-3.0.2; sudo apt-get update && sudo apt-get install -y cmake; fi
+
+before_script: CXX=$COMP cmake .
+
+script:
+  - VERBOSE=1 make && make test
+
+branches:
+  only:
+    - master
