@@ -1,14 +1,14 @@
 #ifndef CODS_VECTOR_H
 #define CODS_VECTOR_H
 
-#include <vector>
 #include <cassert>
-#include <cstring>  // memcpy
-#include <utility>  // swap
-#include <iterator>
-#include <iostream> // cout, endl
-#include <type_traits> // conditional
+#include <cstring> // memcpy
 #include <initializer_list>
+#include <iostream> // cout, endl
+#include <iterator>
+#include <type_traits> // conditional
+#include <utility>     // swap
+#include <vector>
 
 #include "cods/Utility.h"
 
@@ -22,8 +22,8 @@ class Vector {
   /// Const and non-const iterator class.
   template <bool IS_CONST = true>
   class _Iterator : public std::iterator<std::bidirectional_iterator_tag, T> {
-    using PtrType = typename std::conditional<IS_CONST, const Vector*, Vector*>::type;
-    using ValueType = typename std::conditional<IS_CONST, const T&, T&>::type;
+    using PtrType = typename std::conditional<IS_CONST, const Vector *, Vector *>::type;
+    using ValueType = typename std::conditional<IS_CONST, const T &, T &>::type;
 
   public:
     _Iterator(PtrType vec, int pos);
@@ -250,21 +250,24 @@ private:
 
 #include "cods/Vector.hpp"
 
-} // cods
+} // namespace cods
 
 /// Define hashing of the Vector class.
 namespace std {
-  template <typename T>
-  struct hash<cods::Vector<T>> {
-    std::size_t operator()(const cods::Vector<T> &vec) const {
-      std::size_t res = 0;
-      auto size = vec.size();
-      for (decltype(size) i = 0; i < size; i++) {
-        res ^= (std::hash<T>()(vec[i]) << i);
-      }
-      return res;
+
+template <typename T>
+struct hash<cods::Vector<T>> {
+  std::size_t operator()(const cods::Vector<T> &vec) const
+  {
+    std::size_t res = 0;
+    auto size = vec.size();
+    for (decltype(size) i = 0; i < size; i++) {
+      res ^= (std::hash<T>()(vec[i]) << i);
     }
-  };
-}
+    return res;
+  }
+};
+
+} // namespace std
 
 #endif // CODS_VECTOR_H

@@ -20,6 +20,6 @@ public:
 
 #include "cods/Queue.hpp"
 
-} // cods
+} // namespace cods
 
 #endif // CODS_QUEUE_H

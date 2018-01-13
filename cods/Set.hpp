@@ -1,76 +1,82 @@
 template <typename T>
 template <bool IS_CONST>
-Set<T>::_Iterator<IS_CONST>::_Iterator(IterType it)
-  : it(it)
-{ }
+Set<T>::_Iterator<IS_CONST>::_Iterator(IterType it) : it(it)
+{
+}
 
 template <typename T>
 template <bool IS_CONST>
-Set<T>::_Iterator<IS_CONST>::_Iterator(const _Iterator<false> &other)
-  : it(other.it)
-{ }
+Set<T>::_Iterator<IS_CONST>::_Iterator(const _Iterator<false> &other) : it(other.it)
+{
+}
 
 template <typename T>
 template <bool IS_CONST>
-typename Set<T>::template _Iterator<IS_CONST>::ValueType
-Set<T>::_Iterator<IS_CONST>::operator*() const {
+typename Set<T>::template _Iterator<IS_CONST>::ValueType Set<T>::_Iterator<IS_CONST>::
+operator*() const
+{
   return it.key();
 }
 
 template <typename T>
 template <bool IS_CONST>
-typename Set<T>::template _Iterator<IS_CONST>&
-Set<T>::_Iterator<IS_CONST>::operator++() {
+typename Set<T>::template _Iterator<IS_CONST> &Set<T>::_Iterator<IS_CONST>::operator++()
+{
   ++it;
   return *this;
 }
 
 template <typename T>
 template <bool IS_CONST>
-typename Set<T>::template _Iterator<IS_CONST>
-Set<T>::_Iterator<IS_CONST>::operator++(int) {
+typename Set<T>::template _Iterator<IS_CONST> Set<T>::_Iterator<IS_CONST>::operator++(int)
+{
   return ++_Iterator(it);
 }
 
 template <typename T>
 template <bool IS_CONST>
-typename Set<T>::template _Iterator<IS_CONST>&
-Set<T>::_Iterator<IS_CONST>::operator--() {
+typename Set<T>::template _Iterator<IS_CONST> &Set<T>::_Iterator<IS_CONST>::operator--()
+{
   --it;
   return *this;
 }
 
 template <typename T>
 template <bool IS_CONST>
-typename Set<T>::template _Iterator<IS_CONST>
-Set<T>::_Iterator<IS_CONST>::operator--(int) {
+typename Set<T>::template _Iterator<IS_CONST> Set<T>::_Iterator<IS_CONST>::operator--(int)
+{
   return --_Iterator(it);
 }
 
 template <typename T>
 template <bool IS_CONST>
-bool Set<T>::_Iterator<IS_CONST>::operator==(const _Iterator &other) const {
+bool Set<T>::_Iterator<IS_CONST>::operator==(const _Iterator &other) const
+{
   return it == other.it;
 }
 
 template <typename T>
 template <bool IS_CONST>
-bool Set<T>::_Iterator<IS_CONST>::operator!=(const _Iterator &other) const {
+bool Set<T>::_Iterator<IS_CONST>::operator!=(const _Iterator &other) const
+{
   return !(*this == other);
 }
 
 template <typename T>
 template <bool IS_CONST>
-typename Set<T>::template _Iterator<IS_CONST>::IterType
-Set<T>::_Iterator<IS_CONST>::iter() const {
+typename Set<T>::template _Iterator<IS_CONST>::IterType Set<T>::_Iterator<IS_CONST>::iter() const
+{
   return it;
 }
 
 template <typename T>
-Set<T>::Set() : map() { }
+Set<T>::Set() : map()
+{
+}
 
 template <typename T>
-Set<T>::Set(std::initializer_list<T> args) : map() {
+Set<T>::Set(std::initializer_list<T> args) : map()
+{
   reserve(args.size());
   for (const auto &elm : args) {
     insert(elm);
@@ -78,13 +84,18 @@ Set<T>::Set(std::initializer_list<T> args) : map() {
 }
 
 template <typename T>
-Set<T>::Set(const Set &other) : map(other.map) { }
+Set<T>::Set(const Set &other) : map(other.map)
+{
+}
 
 template <typename T>
-Set<T>::Set(Set &&other) : map(std::move(other.map)) { }
+Set<T>::Set(Set &&other) : map(std::move(other.map))
+{
+}
 
 template <typename T>
-Set<T> Set<T>::fromVector(const Vector<T> &vector) {
+Set<T> Set<T>::fromVector(const Vector<T> &vector)
+{
   Set<T> set;
   set.reserve(vector.size());
   for (const auto &elm : vector) {
@@ -94,34 +105,39 @@ Set<T> Set<T>::fromVector(const Vector<T> &vector) {
 }
 
 template <typename T>
-bool Set<T>::isEmpty() const {
+bool Set<T>::isEmpty() const
+{
   return map.isEmpty();
 }
 
 template <typename T>
-int Set<T>::size() const {
+int Set<T>::size() const
+{
   return map.size();
 }
 
 template <typename T>
-int Set<T>::capacity() const {
+int Set<T>::capacity() const
+{
   return map.capacity();
 }
 
 template <typename T>
-void Set<T>::clear() {
+void Set<T>::clear()
+{
   map.clear();
 }
 
 template <typename T>
-typename Set<T>::Iterator
-Set<T>::insert(const T &value) {
+typename Set<T>::Iterator Set<T>::insert(const T &value)
+{
   map[value] = true;
   return map.find(value);
 }
 
 template <typename T>
-bool Set<T>::remove(const T &value) {
+bool Set<T>::remove(const T &value)
+{
   if (map.contains(value)) {
     map.remove(value);
     return true;
@@ -130,22 +146,26 @@ bool Set<T>::remove(const T &value) {
 }
 
 template <typename T>
-void Set<T>::reserve(int capacity) {
+void Set<T>::reserve(int capacity)
+{
   map.reserve(capacity);
 }
 
 template <typename T>
-void Set<T>::shrinkToFit() {
+void Set<T>::shrinkToFit()
+{
   map.shrinkToFit();
 }
 
 template <typename T>
-bool Set<T>::contains(const T &value) const {
+bool Set<T>::contains(const T &value) const
+{
   return map.contains(value);
 }
 
 template <typename T>
-bool Set<T>::contains(const Set &other) const {
+bool Set<T>::contains(const Set &other) const
+{
   for (const auto &elm : other) {
     if (!contains(elm)) {
       return false;
@@ -155,7 +175,8 @@ bool Set<T>::contains(const Set &other) const {
 }
 
 template <typename T>
-Set<T> &Set<T>::intersect(const Set<T> &other) {
+Set<T> &Set<T>::intersect(const Set<T> &other)
+{
   for (auto it = begin(); it != end(); ++it) {
     if (!other.contains(*it)) {
       erase(it);
@@ -165,7 +186,8 @@ Set<T> &Set<T>::intersect(const Set<T> &other) {
 }
 
 template <typename T>
-Set<T> &Set<T>::subtract(const Set<T> &other) {
+Set<T> &Set<T>::subtract(const Set<T> &other)
+{
   for (auto it = begin(); it != end(); ++it) {
     if (other.contains(*it)) {
       erase(it);
@@ -175,7 +197,8 @@ Set<T> &Set<T>::subtract(const Set<T> &other) {
 }
 
 template <typename T>
-Set<T> &Set<T>::unite(const Set<T> &other) {
+Set<T> &Set<T>::unite(const Set<T> &other)
+{
   for (const auto &elm : other) {
     insert(elm);
   }
@@ -183,139 +206,165 @@ Set<T> &Set<T>::unite(const Set<T> &other) {
 }
 
 template <typename T>
-typename Set<T>::Iterator Set<T>::find(const T &value) {
+typename Set<T>::Iterator Set<T>::find(const T &value)
+{
   return Iterator(map.find(value));
 }
 
 template <typename T>
-typename Set<T>::ConstIterator Set<T>::find(const T &value) const {
+typename Set<T>::ConstIterator Set<T>::find(const T &value) const
+{
   return find(value);
 }
 
 template <typename T>
-Vector<T> Set<T>::values() const {
+Vector<T> Set<T>::values() const
+{
   return map.keys();
 }
 
 template <typename T>
-Vector<T> Set<T>::toVector() const {
+Vector<T> Set<T>::toVector() const
+{
   return values();
 }
 
 template <typename T>
-typename Set<T>::Iterator Set<T>::erase(Iterator pos) {
+typename Set<T>::Iterator Set<T>::erase(Iterator pos)
+{
   return map.erase(pos.iter());
 }
 
 template <typename T>
-typename Set<T>::Iterator Set<T>::begin() {
+typename Set<T>::Iterator Set<T>::begin()
+{
   return Iterator(map.begin());
 }
 
 template <typename T>
-typename Set<T>::ConstIterator Set<T>::begin() const {
+typename Set<T>::ConstIterator Set<T>::begin() const
+{
   return ConstIterator(map.begin());
 }
 
 template <typename T>
-typename Set<T>::ConstIterator Set<T>::cbegin() const {
+typename Set<T>::ConstIterator Set<T>::cbegin() const
+{
   return ConstIterator(map.cbegin());
 }
 
 template <typename T>
-typename Set<T>::Iterator Set<T>::end() {
+typename Set<T>::Iterator Set<T>::end()
+{
   return Iterator(map.end());
 }
 
 template <typename T>
-typename Set<T>::ConstIterator Set<T>::end() const {
+typename Set<T>::ConstIterator Set<T>::end() const
+{
   return ConstIterator(map.end());
 }
 
 template <typename T>
-typename Set<T>::ConstIterator Set<T>::cend() const {
+typename Set<T>::ConstIterator Set<T>::cend() const
+{
   return ConstIterator(map.cend());
 }
 
 template <typename T>
-Set<T> &Set<T>::operator<<(const T &value) {
+Set<T> &Set<T>::operator<<(const T &value)
+{
   insert(value);
   return *this;
 }
 
 template <typename T>
-Set<T> Set<T>::operator&(const Set &other) const {
+Set<T> Set<T>::operator&(const Set &other) const
+{
   Set<T> set(*this);
   return set.intersect(other);
 }
 
 template <typename T>
-Set<T> &Set<T>::operator&=(const Set &other) {
+Set<T> &Set<T>::operator&=(const Set &other)
+{
   return intersect(other);
 }
 
 template <typename T>
-Set<T> Set<T>::operator-(const Set &other) const {
+Set<T> Set<T>::operator-(const Set &other) const
+{
   Set<T> set(*this);
   return set.subtract(other);
 }
 
 template <typename T>
-Set<T> &Set<T>::operator-=(const Set &other) {
+Set<T> &Set<T>::operator-=(const Set &other)
+{
   return subtract(other);
 }
 
 template <typename T>
-Set<T> Set<T>::operator+(const Set &other) const {
+Set<T> Set<T>::operator+(const Set &other) const
+{
   Set<T> set(*this);
   return set.unite(other);
 }
 
 template <typename T>
-Set<T> Set<T>::operator|(const Set &other) const {
+Set<T> Set<T>::operator|(const Set &other) const
+{
   return Set<T>(*this) + other;
 }
 
 template <typename T>
-Set<T> &Set<T>::operator+=(const Set &other) {
+Set<T> &Set<T>::operator+=(const Set &other)
+{
   return unite(other);
 }
 
 template <typename T>
-Set<T> &Set<T>::operator|=(const Set &other) {
+Set<T> &Set<T>::operator|=(const Set &other)
+{
   return unite(other);
 }
 
 template <typename T>
-Set<T> &Set<T>::operator+=(const T &value) {
+Set<T> &Set<T>::operator+=(const T &value)
+{
   insert(value);
   return *this;
 }
 
 template <typename T>
-Set<T> &Set<T>::operator|=(const T &value) {
+Set<T> &Set<T>::operator|=(const T &value)
+{
   insert(value);
   return *this;
 }
 
 template <typename T>
-bool Set<T>::operator==(const Set &other) const {
+bool Set<T>::operator==(const Set &other) const
+{
   return values() == other.values();
 }
 
 template <typename T>
-bool Set<T>::operator!=(const Set &other) const {
+bool Set<T>::operator!=(const Set &other) const
+{
   return !(*this == other);
 }
 
 template <typename T>
-Set<T> &Set<T>::operator=(const Set &other) {
+Set<T> &Set<T>::operator=(const Set &other)
+{
   map = other.map;
   return *this;
 }
 
 template <typename T>
-Set<T> &Set<T>::operator=(Set &&other) {
+Set<T> &Set<T>::operator=(Set &&other)
+{
   map = std::move(other.map);
   return *this;
 }

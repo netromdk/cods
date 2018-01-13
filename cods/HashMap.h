@@ -3,10 +3,10 @@
 
 #include "cods/Vector.h"
 
-#include <utility> // pair
-#include <cstddef> // size_t
+#include <cstddef>    // size_t
 #include <functional> // hash
 #include <initializer_list>
+#include <utility> // pair
 
 namespace cods {
 
@@ -35,9 +35,9 @@ class HashMap {
   template <bool IS_CONST = true>
   class _Iterator : public std::iterator<std::bidirectional_iterator_tag, T> {
     using PtrType =
-      typename std::conditional<IS_CONST, const Vector<Bucket*>*, Vector<Bucket*>*>::type;
-    using KeyType = const Key&;
-    using ValueType = typename std::conditional<IS_CONST, const T&, T&>::type;
+      typename std::conditional<IS_CONST, const Vector<Bucket *> *, Vector<Bucket *> *>::type;
+    using KeyType = const Key &;
+    using ValueType = typename std::conditional<IS_CONST, const T &, T &>::type;
 
   public:
     _Iterator(PtrType vec, int pos);
@@ -50,7 +50,7 @@ class HashMap {
 
     KeyType key() const;
 
-    _Iterator &operator++(); // prefix
+    _Iterator &operator++();   // prefix
     _Iterator operator++(int); // postfix
 
     _Iterator &operator--();
@@ -142,12 +142,12 @@ private:
   inline Iterator createIterator(int pos);
   inline ConstIterator createIterator(int pos) const;
 
-  Vector<Bucket*> buckets;
+  Vector<Bucket *> buckets;
   int items;
 };
 
 #include "cods/HashMap.hpp"
 
-} // cods
+} // namespace cods
 
 #endif // CODS_HASH_MAP_H

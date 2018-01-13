@@ -20,6 +20,6 @@ public:
 
 #include "cods/Stack.hpp"
 
-} // cods
+} // namespace cods
 
 #endif // CODS_STACK_H

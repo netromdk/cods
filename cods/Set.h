@@ -14,10 +14,9 @@ class Set {
 
   template <bool IS_CONST = true>
   class _Iterator : public std::iterator<std::bidirectional_iterator_tag, T> {
-    using IterType =
-      typename std::conditional<IS_CONST, typename Map::ConstIterator,
-                                typename Map::Iterator>::type;
-    using ValueType = const T&;
+    using IterType = typename std::conditional<IS_CONST, typename Map::ConstIterator,
+                                               typename Map::Iterator>::type;
+    using ValueType = const T &;
 
   public:
     _Iterator(IterType it);
@@ -27,7 +26,7 @@ class Set {
 
     ValueType operator*() const;
 
-    _Iterator &operator++(); // prefix
+    _Iterator &operator++();   // prefix
     _Iterator operator++(int); // postfix
 
     _Iterator &operator--();
@@ -131,6 +130,6 @@ private:
 
 #include "cods/Set.hpp"
 
-} // cods
+} // namespace cods
 
 #endif // CODS_SET_H
