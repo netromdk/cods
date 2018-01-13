@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_vector.html" title="Vector\&lt; Bucket * \&gt;" alt="" coords="5,5,139,32"/>
+<area shape="rect" id="node1" href="$classcods_1_1_vector.html" title="cods::Vector\&lt; T \&gt;" alt="" coords="5,31,107,57"/>
+<area shape="rect" id="node2" href="$classcods_1_1_queue.html" title="Implementation of a queue container extending Vector. " alt="" coords="155,5,257,32"/>
+<area shape="rect" id="node3" href="$classcods_1_1_stack.html" title="Implementation of a stack container extending Vector. " alt="" coords="157,56,255,83"/>
 </map>

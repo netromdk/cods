@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['remove',['remove',['../class_set.html#a18aad98896a284337b4d35be3c78453d',1,'Set::remove()'],['../class_vector.html#a4db0e881501677e4b18abe5a8ea14f8d',1,'Vector::remove()']]],
-  ['removeat',['removeAt',['../class_vector.html#abdcce15a2a701d9a9d71a18ac75e1650',1,'Vector']]],
-  ['removefirst',['removeFirst',['../class_vector.html#a5a70690bcb4768ac9b7344248a70a8e9',1,'Vector']]],
-  ['removelast',['removeLast',['../class_vector.html#ab27afa3f2f43637fc0f51f83a3bd99aa',1,'Vector']]],
-  ['reserve',['reserve',['../class_vector.html#aa1f52b13a5b19d674662e2fd2c85fe84',1,'Vector']]]
+  ['remove',['remove',['../classcods_1_1_set.html#a7ed9157af5d7b34372e379cce2af190d',1,'cods::Set::remove()'],['../classcods_1_1_vector.html#ada8cb4fb615d1ffcf600d2f77de909a4',1,'cods::Vector::remove()']]],
+  ['removeat',['removeAt',['../classcods_1_1_vector.html#a93e22bba28c2bf6000905049ca720443',1,'cods::Vector']]],
+  ['removefirst',['removeFirst',['../classcods_1_1_vector.html#ad6fafa1634346c887858eec7dfd6df32',1,'cods::Vector']]],
+  ['removelast',['removeLast',['../classcods_1_1_vector.html#aab3100eec31431f037f387ec655548cb',1,'cods::Vector']]],
+  ['reserve',['reserve',['../classcods_1_1_vector.html#a00ed552184ee6586b4a4f4a4978d278e',1,'cods::Vector']]]
 ];

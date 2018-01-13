@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lastindexof',['lastIndexOf',['../class_vector.html#a1bd194ad0d27613bcb4456cb42da96f3',1,'Vector']]]
+  ['lastindexof',['lastIndexOf',['../classcods_1_1_vector.html#af1638c7ff193fe054b769664ff24ac80',1,'cods::Vector']]]
 ];

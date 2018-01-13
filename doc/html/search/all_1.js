@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['begin',['begin',['../class_vector.html#a072534be3d520522256328eab8079037',1,'Vector::begin()'],['../class_vector.html#a85a8ec976e80c95890727fc79722712a',1,'Vector::begin() const ']]]
+  ['begin',['begin',['../classcods_1_1_vector.html#a5aff320df0e119faf76c699c5cfd643b',1,'cods::Vector::begin()'],['../classcods_1_1_vector.html#a88e042845b0815aeb2c4b9c35413b42b',1,'cods::Vector::begin() const']]]
 ];

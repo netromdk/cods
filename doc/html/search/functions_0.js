@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['append',['append',['../class_vector.html#a18442d7073753bec7736bb3658330d6b',1,'Vector::append(const T &amp;value)'],['../class_vector.html#a4b87d404cb06f257c26450d073cda631',1,'Vector::append(const Vector &amp;values)']]],
-  ['at',['at',['../class_vector.html#a60e65a8c0e483fa255d0662fa777a364',1,'Vector::at(int pos)'],['../class_vector.html#a04d6a1eedb47a79bf70ccca85d91ef9e',1,'Vector::at(int pos) const ']]]
+  ['append',['append',['../classcods_1_1_vector.html#acb95324c18f28ca6a70f9d8282ee3e97',1,'cods::Vector::append(const T &amp;value)'],['../classcods_1_1_vector.html#a305839386dcbbb84ced59fbc81e9c40e',1,'cods::Vector::append(const Vector &amp;values)']]],
+  ['at',['at',['../classcods_1_1_vector.html#a6fdc3e7e1c2cf910a6b0453bbb44dfd6',1,'cods::Vector::at(int pos)'],['../classcods_1_1_vector.html#a7b67c15f1e25a1c902ced94f6659aae3',1,'cods::Vector::at(int pos) const']]]
 ];

@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['operator_21_3d',['operator!=',['../class_vector.html#a911446cb9181fcba974b533147077b2b',1,'Vector']]],
-  ['operator_26',['operator&amp;',['../class_set.html#ad5401c3ae3b1108a39bd1ef480927a6b',1,'Set']]],
-  ['operator_2b',['operator+',['../class_set.html#a4cfe0bdafb36e106bd20be6b99a899cf',1,'Set::operator+()'],['../class_vector.html#a67330503ba23a121b4ea74286963d6a9',1,'Vector::operator+()']]],
-  ['operator_2b_3d',['operator+=',['../class_vector.html#ab48b7402b2468c7a6c726cefb026b706',1,'Vector::operator+=(const T &amp;value)'],['../class_vector.html#a355a627886105252d32c2348df6a664f',1,'Vector::operator+=(const Vector &amp;other)']]],
-  ['operator_2d',['operator-',['../class_set.html#a95d7605d544f5f2553b010ab1d29202d',1,'Set']]],
-  ['operator_3c_3c',['operator&lt;&lt;',['../class_vector.html#a8da812a088f43e51cfd4a0e4dc1fddb5',1,'Vector::operator&lt;&lt;(const T &amp;value)'],['../class_vector.html#ad58b6cb57ae63d228808d96cbfed0daa',1,'Vector::operator&lt;&lt;(const Vector &amp;values)']]],
-  ['operator_3d',['operator=',['../class_vector.html#a900f42a32aabee1f52533d235d5e0778',1,'Vector::operator=(const Vector &amp;other)'],['../class_vector.html#ac55801fffc2b8078c585c64eb4696714',1,'Vector::operator=(Vector &amp;&amp;other)']]],
-  ['operator_3d_3d',['operator==',['../class_vector.html#af15e0c5b5f0e4e0e39fd21cfd13281a1',1,'Vector']]],
-  ['operator_5b_5d',['operator[]',['../class_hash_map.html#af3a2ba03342fd9617b891cea83f4532d',1,'HashMap::operator[]()'],['../class_vector.html#acf1332b86ac5aa512964ec62d4a0aee2',1,'Vector::operator[](int pos)'],['../class_vector.html#a1b4db3914662b5dddbdf8d5415ca96fb',1,'Vector::operator[](int pos) const ']]]
+  ['operator_20_26',['operator &amp;',['../classcods_1_1_set.html#a5f6a263c9c1112b6bd5bc396819b69ea',1,'cods::Set']]],
+  ['operator_21_3d',['operator!=',['../classcods_1_1_vector.html#a3e5e4749640f1d3bb8eedd31fb94c59e',1,'cods::Vector']]],
+  ['operator_2b',['operator+',['../classcods_1_1_set.html#ad503ad2c462c61d3d177ea9f38ba965c',1,'cods::Set::operator+()'],['../classcods_1_1_vector.html#aa4265ed06d2ad28cd1ff3778ed5e3054',1,'cods::Vector::operator+()']]],
+  ['operator_2b_3d',['operator+=',['../classcods_1_1_vector.html#a76bc8cc23b035840125f8214abb694c5',1,'cods::Vector::operator+=(const T &amp;value)'],['../classcods_1_1_vector.html#af6c3833330d45344ba872c377c1eabda',1,'cods::Vector::operator+=(const Vector &amp;other)']]],
+  ['operator_2d',['operator-',['../classcods_1_1_set.html#a88125bdee330baf5cc5874807bc00429',1,'cods::Set']]],
+  ['operator_3c_3c',['operator&lt;&lt;',['../classcods_1_1_vector.html#a6aa77c678dce9a007215af54d3167793',1,'cods::Vector::operator&lt;&lt;(const T &amp;value)'],['../classcods_1_1_vector.html#a86e7ad2870f3677588f2e34a4b7293b8',1,'cods::Vector::operator&lt;&lt;(const Vector &amp;values)']]],
+  ['operator_3d',['operator=',['../classcods_1_1_vector.html#afec581b277b2778a960c35f5a26a83b2',1,'cods::Vector::operator=(const Vector &amp;other)'],['../classcods_1_1_vector.html#afc9843480a7b2b14cd367989a8249eb7',1,'cods::Vector::operator=(Vector &amp;&amp;other)']]],
+  ['operator_3d_3d',['operator==',['../classcods_1_1_vector.html#ad5435d0dbad5336fe4df23e6ab081612',1,'cods::Vector']]],
+  ['operator_5b_5d',['operator[]',['../classcods_1_1_hash_map.html#aebcf5d43f8f86d761a9a996984c9ca49',1,'cods::HashMap::operator[]()'],['../classcods_1_1_vector.html#a871e6dafc1ab19d95c58b8bac9967f5a',1,'cods::Vector::operator[](int pos)'],['../classcods_1_1_vector.html#a9adda3e28c484e545af1ff9b315c003c',1,'cods::Vector::operator[](int pos) const']]]
 ];

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['indexof',['indexOf',['../class_vector.html#abb8216996e7fcc0d4b47a0575bac7832',1,'Vector']]],
-  ['insert',['insert',['../class_vector.html#aa30bff85c62dd544d7ad6d875f62d0da',1,'Vector::insert(int pos, const T &amp;value)'],['../class_vector.html#aab9f0cc9db54de6f81182808e69dce19',1,'Vector::insert(Iterator before, const T &amp;value)']]],
-  ['intersect',['intersect',['../class_set.html#ac6cdc626d9f8dbf1f9a8f176ee47506f',1,'Set']]],
-  ['isempty',['isEmpty',['../class_vector.html#aa782217d012e33b9b17f1a0390ed2635',1,'Vector']]]
+  ['indexof',['indexOf',['../classcods_1_1_vector.html#ad78a53a344148770b1b41c9fc355bccc',1,'cods::Vector']]],
+  ['insert',['insert',['../classcods_1_1_vector.html#a86c82f94e989f4dc8ad55e9ad3c732b7',1,'cods::Vector::insert(int pos, const T &amp;value)'],['../classcods_1_1_vector.html#a1b2e9c9581d56f8be087e1565fdf4e06',1,'cods::Vector::insert(Iterator before, const T &amp;value)']]],
+  ['intersect',['intersect',['../classcods_1_1_set.html#a01a44afb8c28e86a416241490c00093e',1,'cods::Set']]],
+  ['isempty',['isEmpty',['../classcods_1_1_vector.html#a087a1a6ffcd8f0798109e33722182281',1,'cods::Vector']]]
 ];

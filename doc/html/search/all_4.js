@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['end',['end',['../class_vector.html#a551c213ce4a5610998d1734c6b94d172',1,'Vector::end()'],['../class_vector.html#a147eb14570ac123580fc1b121a530e4e',1,'Vector::end() const ']]],
-  ['erase',['erase',['../class_vector.html#a7d3c013279e0505f167c686f423a9468',1,'Vector']]]
+  ['end',['end',['../classcods_1_1_vector.html#abcd928d9d7b3be1e08413bd187f085ce',1,'cods::Vector::end()'],['../classcods_1_1_vector.html#adf1f9f78884bb96c21d587af02852cbe',1,'cods::Vector::end() const']]],
+  ['erase',['erase',['../classcods_1_1_vector.html#a0047dc0fc77565c9d1205be57d385158',1,'cods::Vector']]]
 ];
