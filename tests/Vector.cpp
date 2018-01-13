@@ -68,8 +68,8 @@ TEST(Vector, ctor4) {
   std::vector<int> svec{1, 3, 5};
 
   Vector<int, 3> vec(svec.begin(), svec.end());
-  EXPECT_EQ(vec.size(), svec.size());
-  EXPECT_EQ(vec.capacity(), svec.size());
+  EXPECT_EQ(vec.size(), static_cast<int>(svec.size()));
+  EXPECT_EQ(vec.capacity(), static_cast<int>(svec.size()));
 
   auto size = svec.size();
   for (decltype(size) i = 0; i < size; i++) {
@@ -511,7 +511,7 @@ TEST(Vector, removeLast) {
 TEST(Vector, toStdVector) {
   Vector<int> vec({1, 2, 3});
   std::vector<int> vec2 = vec.toStdVector();
-  ASSERT_EQ(vec.size(), vec2.size());
+  ASSERT_EQ(vec.size(), static_cast<int>(vec2.size()));
   EXPECT_EQ(vec[0], vec2[0]);
   EXPECT_EQ(vec[1], vec2[1]);
   EXPECT_EQ(vec[2], vec2[2]);
