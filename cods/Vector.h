@@ -10,10 +10,9 @@
 #include <type_traits> // conditional
 #include <initializer_list>
 
-#include "cods/Global.h"
 #include "cods/Utility.h"
 
-CODS_BEGIN_NAMESPACE
+namespace cods {
 
 /// Container class similar to \p std::vector.
 /** The template typename \p T denotes the element type of the container and the initial capacity is
@@ -251,13 +250,13 @@ private:
 
 #include "cods/Vector.hpp"
 
-CODS_END_NAMESPACE
+} // cods
 
 /// Define hashing of the Vector class.
 namespace std {
   template <typename T>
-  struct hash<CODS_NAMESPACE::Vector<T>> {
-    std::size_t operator()(const CODS_NAMESPACE::Vector<T> &vec) const {
+  struct hash<cods::Vector<T>> {
+    std::size_t operator()(const cods::Vector<T> &vec) const {
       std::size_t res = 0;
       auto size = vec.size();
       for (decltype(size) i = 0; i < size; i++) {

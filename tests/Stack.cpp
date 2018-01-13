@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "cods/Stack.h"
-CODS_USING_NAMESPACE
+using namespace cods;
 
 TEST(Stack, instantiate) {
   Stack<int> stack;

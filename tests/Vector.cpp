@@ -6,7 +6,7 @@
 #include "gtest/gtest.h"
 
 #include "cods/Vector.h"
-CODS_USING_NAMESPACE
+using namespace cods;
 
 TEST(Vector, instantiate) {
   Vector<int> vec;

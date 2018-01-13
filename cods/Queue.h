@@ -1,10 +1,9 @@
 #ifndef CODS_QUEUE_H
 #define CODS_QUEUE_H
 
-#include "cods/Global.h"
 #include "cods/Vector.h"
 
-CODS_BEGIN_NAMESPACE
+namespace cods {
 
 /// Implementation of a queue container extending Vector.
 template <typename T> ///< Item type.
@@ -21,6 +20,6 @@ public:
 
 #include "cods/Queue.hpp"
 
-CODS_END_NAMESPACE
+} // cods
 
 #endif // CODS_QUEUE_H

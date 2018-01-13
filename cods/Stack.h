@@ -1,10 +1,9 @@
 #ifndef CODS_STACK_H
 #define CODS_STACK_H
 
-#include "cods/Global.h"
 #include "cods/Vector.h"
 
-CODS_BEGIN_NAMESPACE
+namespace cods {
 
 /// Implementation of a stack container extending Vector.
 template <typename T> ///< Item type.
@@ -21,6 +20,6 @@ public:
 
 #include "cods/Stack.hpp"
 
-CODS_END_NAMESPACE
+} // cods
 
 #endif // CODS_STACK_H

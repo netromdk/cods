@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "cods/Queue.h"
-CODS_USING_NAMESPACE
+using namespace cods;
 
 TEST(Queue, instantiate) {
   Queue<int> queue;

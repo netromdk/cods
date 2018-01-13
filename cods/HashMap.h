@@ -1,7 +1,6 @@
 #ifndef CODS_HASH_MAP_H
 #define CODS_HASH_MAP_H
 
-#include "cods/Global.h"
 #include "cods/Vector.h"
 
 #include <utility> // pair
@@ -9,7 +8,7 @@
 #include <functional> // hash
 #include <initializer_list>
 
-CODS_BEGIN_NAMESPACE
+namespace cods {
 
 /// Implementation of a hash-table-based dictionary.
 template <typename Key,      ///< Key type.
@@ -149,6 +148,6 @@ private:
 
 #include "cods/HashMap.hpp"
 
-CODS_END_NAMESPACE
+} // cods
 
 #endif // CODS_HASH_MAP_H
