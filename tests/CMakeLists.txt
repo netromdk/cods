@@ -55,3 +55,8 @@ add_cods_test(
   Stack
   Stack.cpp
   )
+
+add_cods_test(
+  Deque
+  Deque.cpp
+  )

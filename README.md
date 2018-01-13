@@ -9,5 +9,6 @@ Contains the following data structures so far:
 - [Set](cods/Set.h "Set")
 - [Queue](cods/Queue.h "Queue")
 - [Stack](cods/Stack.h "Stack")
+- [Deque](cods/Deque.h "Deque")
 
 Find the current documentation [here](http://netromdk.github.io/cods/doc/html/).
