@@ -471,7 +471,7 @@ bool Vector<T, INIT_CAP>::operator!=(const Vector &other) const {
 }
 
 template <typename T, int INIT_CAP>
-typename Vector<T, INIT_CAP>::Vector&
+Vector<T, INIT_CAP>&
 Vector<T, INIT_CAP>::operator=(const Vector &other) {
   clear();
   auto size = other.size();
@@ -482,7 +482,7 @@ Vector<T, INIT_CAP>::operator=(const Vector &other) {
 }
 
 template <typename T, int INIT_CAP>
-typename Vector<T, INIT_CAP>::Vector&
+Vector<T, INIT_CAP>&
 Vector<T, INIT_CAP>::operator=(Vector &&other) {
   clear();
 
