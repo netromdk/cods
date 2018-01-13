@@ -1,4 +1,8 @@
-set(CMAKE_CXX_FLAGS "-Wall -std=c++11")
+# Require C++14 standard.
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_CXX_FLAGS "-Wall -std=c++14")
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-O3 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
@@ -24,21 +28,22 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
     COMMAND ${CMAKE_CXX_COMPILER} -dumpversion
     OUTPUT_VARIABLE GCC_VERSION
     )
-  if (NOT (GCC_VERSION VERSION_GREATER 4.7 OR GCC_VERSION VERSION_EQUAL 4.7))
-    MESSAGE(FATAL_ERROR "Requires GCC >= 4.7.")
+  if (NOT (GCC_VERSION VERSION_GREATER 5.0 OR GCC_VERSION VERSION_EQUAL 5.0))
+    MESSAGE(FATAL_ERROR "Requires GCC >= 5.0.")
   endif()
 elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
   execute_process(
     COMMAND ${CMAKE_CXX_COMPILER} -dumpversion
     OUTPUT_VARIABLE CLANG_VERSION
     )
-  if (NOT (CLANG_VERSION VERSION_GREATER 3.2 OR CLANG_VERSION VERSION_EQUAL 3.2))
-    message(FATAL_ERROR "Requires Clang >= 3.2.")
-  else()
+  if (NOT (CLANG_VERSION VERSION_GREATER 3.8 OR CLANG_VERSION VERSION_EQUAL 3.8))
+    message(FATAL_ERROR "Requires Clang >= 3.8.")
+  elseif(APPLE)
+    # Use libstdc++ on Linux but libc++ on macOS.
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
   endif()
-elseif (MSVC AND (MSVC11 OR MSVC12 OR MSVC13))
-  # C++11 support is implicitly enabled.
+elseif (MSVC AND MSVC14)
+  # C++14 support is implicitly enabled.
 else()
-  message(FATAL_ERROR "Your compiler does not support C++11 - aborting!")
+  message(FATAL_ERROR "Your compiler does not support C++14 - aborting!")
 endif()
