@@ -1,12 +1,11 @@
 #ifndef CODS_SET_H
 #define CODS_SET_H
 
-#include "cods/Global.h"
 #include "cods/HashMap.h"
 
 #include <initializer_list>
 
-CODS_BEGIN_NAMESPACE
+namespace cods {
 
 /// Implementation of Set container where there can be no duplicate values.
 template <typename T>
@@ -132,6 +131,6 @@ private:
 
 #include "cods/Set.hpp"
 
-CODS_END_NAMESPACE
+} // cods
 
 #endif // CODS_SET_H

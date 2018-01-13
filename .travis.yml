@@ -1,31 +1,45 @@
-language: cpp
+# Not using "cpp" because the default tools are so old!
+language: generic
 
 matrix:
   include:
+    # works on Precise and Trusty
     - os: linux
-      compiler: gcc
+      sudo: required
       addons:
         apt:
-          sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-4.8']
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
       env:
-        - COMP=g++-4.8
+        - CC=gcc-6
+        - CXX=g++-6
 
-    - os: osx
-      compiler: clang
+    # works on Trusty
+    - os: linux
+      sudo: required
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - clang-5.0
       env:
-        - COMP=clang++ V='Apple LLVM 6.0' # Apple LLVM version 6.0 (clang-600.0.54) (based on LLVM 3.5svn)
+        - CC=clang-5.0
+        - CXX=clang++-5.0
 
 before_install:
   - echo $LANG
   - echo $LC_ALL
-  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get purge -y cmake; echo y | sudo add-apt-repository ppa:smspillaz/cmake-3.0.2; sudo apt-get update && sudo apt-get install -y cmake; fi
+  - echo $CC
+  - echo $CXX
 
-before_script: CXX=$COMP cmake .
+before_script:
+  - cmake --system-information info.txt && cat info.txt
+  - mkdir build
+  - cd build
+  - cmake ..
 
 script:
   - VERBOSE=1 make && make test
-
-branches:
-  only:
-    - master

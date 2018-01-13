@@ -381,7 +381,7 @@ bool HashMap<Key, T, INIT_CAP>::operator!=(const HashMap &other) const {
 }
 
 template <typename Key, typename T, int INIT_CAP>
-typename HashMap<Key, T, INIT_CAP>::HashMap&
+HashMap<Key, T, INIT_CAP>&
 HashMap<Key, T, INIT_CAP>::operator=(const HashMap &other) {
   buckets.reserve(other.size());
   for (const auto &key : other.keys()) {
@@ -391,7 +391,7 @@ HashMap<Key, T, INIT_CAP>::operator=(const HashMap &other) {
 }
 
 template <typename Key, typename T, int INIT_CAP>
-typename HashMap<Key, T, INIT_CAP>::HashMap&
+HashMap<Key, T, INIT_CAP>&
 HashMap<Key, T, INIT_CAP>::operator=(HashMap &&other) {
   buckets = std::move(other.buckets);
   items = other.items;

@@ -15,8 +15,6 @@ endif()
 include(platform)
 include(target)
 
-#add_subdirectory(examples)
-
 include(CTest)
 enable_testing()
 add_subdirectory(tests)

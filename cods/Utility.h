@@ -1,9 +1,7 @@
 #include <string>
 #include <sstream>
 
-#include "cods/Global.h"
-
-CODS_BEGIN_NAMESPACE
+namespace cods {
 
 /// Convert value into a string.
 template <typename T>
@@ -13,4 +11,4 @@ std::string convert(const T &val) {
   return ss.str();
 }
 
-CODS_END_NAMESPACE
+} // cods
