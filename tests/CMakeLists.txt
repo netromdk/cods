@@ -60,3 +60,8 @@ add_cods_test(
   Deque
   Deque.cpp
   )
+
+add_cods_test(
+  PriorityQueue
+  PriorityQueue.cpp
+  )

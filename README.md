@@ -10,5 +10,6 @@ Contains the following data structures so far:
 - [Queue](cods/Queue.h "Queue")
 - [Stack](cods/Stack.h "Stack")
 - [Deque](cods/Deque.h "Deque")
+- [PriorityQueue](cods/PriorityQueue.h "PriorityQueue")
 
 Find the current documentation [here](http://netromdk.github.io/cods/doc/html/).
