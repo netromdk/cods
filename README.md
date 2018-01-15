@@ -12,5 +12,6 @@ Contains the following data structures so far:
 - [Deque](cods/Deque.h "Deque")
 - [PriorityQueue](cods/PriorityQueue.h "PriorityQueue")
 - [RingBuffer](cods/RingBuffer.h "RingBuffer")
+- [Bitset](cods/Bitset.h "Bitset")
 
 Find the current documentation [here](http://netromdk.github.io/cods/doc/html/).

@@ -70,3 +70,8 @@ add_cods_test(
   RingBuffer
   RingBuffer.cpp
   )
+
+add_cods_test(
+  Bitset
+  Bitset.cpp
+  )
