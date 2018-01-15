@@ -546,6 +546,14 @@ TEST(Vector, stdSort) {
   }
 }
 
+TEST(Vector, stdCopyBack)
+{
+  Vector<int> vec({1, 2, 3});
+  decltype(vec) vec2;
+  std::copy(vec.cbegin(), vec.cend(), std::back_inserter(vec2));
+  EXPECT_EQ(vec, vec2);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

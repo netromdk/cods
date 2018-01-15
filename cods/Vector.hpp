@@ -276,6 +276,12 @@ typename Vector<T, INIT_CAP>::Iterator Vector<T, INIT_CAP>::insert(Iterator befo
 }
 
 template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::push_back(const T &val)
+{
+  append(val);
+}
+
+template <typename T, int INIT_CAP>
 bool Vector<T, INIT_CAP>::contains(const T &val) const
 {
   for (decltype(items) i = 0; i < items; i++) {

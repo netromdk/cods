@@ -66,6 +66,11 @@ public:
   using Iterator = _Iterator<false>;
   using ConstIterator = _Iterator<true>;
 
+  /// Compatibility with std.
+  //@{
+  using value_type = T;
+  //@}
+
   /// Create empty vector with no capacity.
   Vector();
 
@@ -119,6 +124,14 @@ public:
 
   /// Insert \p value before iterator \p before.
   Iterator insert(Iterator before, const T &value);
+
+  /// Compatibility with std.
+  //@{
+
+  /// Insert \p value at the end.
+  void push_back(const T &value);
+
+  //@}
 
   /// Check if vector contains \p value.
   bool contains(const T &value) const;
