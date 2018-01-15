@@ -3,12 +3,14 @@
 #include "cods/HashMap.h"
 using namespace cods;
 
-TEST(HashMap, instantiate) {
+TEST(HashMap, instantiate)
+{
   HashMap<std::string, int> map;
   HashMap<std::string, int, 10> map2;
 }
 
-TEST(HashMap, copyCtor) {
+TEST(HashMap, copyCtor)
+{
   HashMap<int, int> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -18,7 +20,8 @@ TEST(HashMap, copyCtor) {
   EXPECT_TRUE(map == map2);
 }
 
-TEST(HashMap, moveCtor) {
+TEST(HashMap, moveCtor)
+{
   HashMap<int, int> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -31,7 +34,8 @@ TEST(HashMap, moveCtor) {
   EXPECT_TRUE(map2 == temp);
 }
 
-TEST(HashMap, insertAndGet) {
+TEST(HashMap, insertAndGet)
+{
   HashMap<std::string, int> map;
   std::string key = "hello";
   int value = 42;
@@ -40,7 +44,8 @@ TEST(HashMap, insertAndGet) {
   EXPECT_EQ(map.size(), 1);
 }
 
-TEST(HashMap, insertThriceRehash) {
+TEST(HashMap, insertThriceRehash)
+{
   HashMap<std::string, int, 2> map;
   std::string key = "hello";
   int value = 42;
@@ -62,7 +67,8 @@ TEST(HashMap, insertThriceRehash) {
   EXPECT_EQ(map.size(), 3);
 }
 
-TEST(HashMap, isEmpty) {
+TEST(HashMap, isEmpty)
+{
   HashMap<int, int> map;
   EXPECT_TRUE(map.isEmpty());
 
@@ -73,7 +79,8 @@ TEST(HashMap, isEmpty) {
   EXPECT_TRUE(map.isEmpty());
 }
 
-TEST(HashMap, clear) {
+TEST(HashMap, clear)
+{
   HashMap<int, int> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -85,7 +92,8 @@ TEST(HashMap, clear) {
   EXPECT_EQ(map.capacity(), 0);
 }
 
-TEST(HashMap, contains) {
+TEST(HashMap, contains)
+{
   HashMap<int, int> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -97,13 +105,15 @@ TEST(HashMap, contains) {
   EXPECT_FALSE(map.contains(4));
 }
 
-TEST(HashMap, getDefaultValue) {
+TEST(HashMap, getDefaultValue)
+{
   HashMap<int, int> map;
   EXPECT_FALSE(map.contains(1));
   EXPECT_EQ(map.value(1, 42), 42);
 }
 
-TEST(HashMap, remove) {
+TEST(HashMap, remove)
+{
   HashMap<int, int> map;
   map.insert(1, 42);
   EXPECT_EQ(map.size(), 1);
@@ -113,7 +123,8 @@ TEST(HashMap, remove) {
   EXPECT_TRUE(map.isEmpty());
 }
 
-TEST(HashMap, key) {
+TEST(HashMap, key)
+{
   HashMap<int, int> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -122,7 +133,8 @@ TEST(HashMap, key) {
   EXPECT_EQ(map.key(20, 42), 42);
 }
 
-TEST(HashMap, keys) {
+TEST(HashMap, keys)
+{
   HashMap<int, int> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -136,7 +148,8 @@ TEST(HashMap, keys) {
   EXPECT_EQ(keys[2], 3);
 }
 
-TEST(HashMap, values) {
+TEST(HashMap, values)
+{
   HashMap<int, int> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -150,7 +163,8 @@ TEST(HashMap, values) {
   EXPECT_EQ(values[2], 1);
 }
 
-TEST(HashMap, reserve) {
+TEST(HashMap, reserve)
+{
   HashMap<int, int, 1> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -165,7 +179,8 @@ TEST(HashMap, reserve) {
   EXPECT_EQ(map.capacity(), 10);
 }
 
-TEST(HashMap, shrinkToFit) {
+TEST(HashMap, shrinkToFit)
+{
   HashMap<int, int, 2> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -178,7 +193,8 @@ TEST(HashMap, shrinkToFit) {
   EXPECT_EQ(map.capacity(), 3);
 }
 
-TEST(HashMap, squareBracketsOperator) {
+TEST(HashMap, squareBracketsOperator)
+{
   HashMap<int, int> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -197,7 +213,8 @@ TEST(HashMap, squareBracketsOperator) {
   EXPECT_EQ(map[42], 10);
 }
 
-TEST(HashMap, equalsOperator) {
+TEST(HashMap, equalsOperator)
+{
   HashMap<int, int> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -213,7 +230,8 @@ TEST(HashMap, equalsOperator) {
   EXPECT_FALSE(map == map3);
 }
 
-TEST(HashMap, notEqualsOperator) {
+TEST(HashMap, notEqualsOperator)
+{
   HashMap<int, int> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -229,7 +247,8 @@ TEST(HashMap, notEqualsOperator) {
   EXPECT_TRUE(map != map3);
 }
 
-TEST(HashMap, insertCollision) {
+TEST(HashMap, insertCollision)
+{
   HashMap<int, int> map;
   map.insert(1, 1);
   map.insert(1, 2);
@@ -238,7 +257,8 @@ TEST(HashMap, insertCollision) {
   EXPECT_EQ(map[1], 42);
 }
 
-TEST(HashMap, insertVectorKey) {
+TEST(HashMap, insertVectorKey)
+{
   Vector<int> vec;
   vec << 1 << 2 << 3;
 
@@ -248,7 +268,8 @@ TEST(HashMap, insertVectorKey) {
   EXPECT_EQ(map[vec], 42);
 }
 
-TEST(HashMap, insertMulti) {
+TEST(HashMap, insertMulti)
+{
   HashMap<int, int> map;
   map.insertMulti(1, 1);
   map.insertMulti(1, 2);
@@ -257,7 +278,8 @@ TEST(HashMap, insertMulti) {
   EXPECT_EQ(map[1], 42);
 }
 
-TEST(HashMap, multiValues) {
+TEST(HashMap, multiValues)
+{
   HashMap<int, int> map;
   map.insertMulti(1, 1);
   map.insertMulti(1, 2);
@@ -275,7 +297,8 @@ TEST(HashMap, multiValues) {
   EXPECT_EQ(map.values(), vec);
 }
 
-TEST(HashMap, count) {
+TEST(HashMap, count)
+{
   HashMap<int, int> map;
   map.insert(1, 3);
   map.insert(2, 2);
@@ -285,7 +308,8 @@ TEST(HashMap, count) {
   EXPECT_EQ(map.count(1), 2);
 }
 
-TEST(HashMap, iterator) {
+TEST(HashMap, iterator)
+{
   HashMap<int, int> map;
   map.insert(10, 1);
   map.insert(20, 2);
@@ -313,7 +337,8 @@ TEST(HashMap, iterator) {
   EXPECT_EQ(*++(--(--map.end())), 3);
 }
 
-TEST(HashMap, find) {
+TEST(HashMap, find)
+{
   HashMap<int, int> map;
   map.insert(10, 1);
   map.insert(20, 2);
@@ -322,7 +347,8 @@ TEST(HashMap, find) {
   EXPECT_EQ(*map.find(20), 2);
 }
 
-TEST(HashMap, insertIteartor) {
+TEST(HashMap, insertIteartor)
+{
   HashMap<int, int> map;
   auto it = map.insert(1, 1);
   EXPECT_EQ(*it, 1);
@@ -337,7 +363,8 @@ TEST(HashMap, insertIteartor) {
   EXPECT_EQ(*it, 42);
 }
 
-TEST(HashMap, erase) {
+TEST(HashMap, erase)
+{
   HashMap<int, int> map;
   map.insert(1, 1);
   map.insert(2, 2);
@@ -356,7 +383,8 @@ TEST(HashMap, erase) {
   EXPECT_EQ(it, map.end());
 }
 
-TEST(HashMap, assignment) {
+TEST(HashMap, assignment)
+{
   HashMap<int, int> map;
   map.insert(1, 1);
   map.insert(2, 2);
@@ -367,7 +395,8 @@ TEST(HashMap, assignment) {
   EXPECT_EQ(map, map2);
 }
 
-TEST(HashMap, moveAssignment) {
+TEST(HashMap, moveAssignment)
+{
   HashMap<int, int> map;
   map.insert(1, 1);
   map.insert(2, 2);
@@ -381,7 +410,8 @@ TEST(HashMap, moveAssignment) {
   EXPECT_EQ(map2, tmp);
 }
 
-TEST(HashMap, initializerList) {
+TEST(HashMap, initializerList)
+{
   HashMap<int, int> map({std::make_pair(1, 1), std::make_pair(2, 2), std::make_pair(3, 3)});
   EXPECT_EQ(map.size(), 3);
   EXPECT_EQ(map[1], 1);
@@ -389,7 +419,8 @@ TEST(HashMap, initializerList) {
   EXPECT_EQ(map[3], 3);
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
 }

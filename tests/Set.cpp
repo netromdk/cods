@@ -3,28 +3,33 @@
 #include "cods/Set.h"
 using namespace cods;
 
-TEST(Set, instantiate) {
+TEST(Set, instantiate)
+{
   Set<int> set;
 }
 
-TEST(Set, isEmpty) {
+TEST(Set, isEmpty)
+{
   Set<int> set;
   EXPECT_TRUE(set.isEmpty());
 }
 
-TEST(Set, size) {
+TEST(Set, size)
+{
   Set<int> set;
   EXPECT_EQ(set.size(), 0);
 }
 
-TEST(Set, insert) {
+TEST(Set, insert)
+{
   Set<int> set;
   set.insert(1);
   set.insert(1);
   EXPECT_EQ(set.size(), 1); // No duplicates.
 }
 
-TEST(Set, remove) {
+TEST(Set, remove)
+{
   Set<int> set;
   EXPECT_FALSE(set.remove(1));
   set.insert(1);
@@ -34,7 +39,8 @@ TEST(Set, remove) {
   EXPECT_TRUE(set.isEmpty());
 }
 
-TEST(Set, toVector) {
+TEST(Set, toVector)
+{
   Set<int> set;
   set.insert(1);
   set.insert(2);
@@ -50,7 +56,8 @@ TEST(Set, toVector) {
   EXPECT_EQ(vec, vec2);
 }
 
-TEST(Set, streamOperator) {
+TEST(Set, streamOperator)
+{
   Set<int> set;
   set << 1 << 1 << 1;
   EXPECT_EQ(set.size(), 1);
@@ -60,7 +67,8 @@ TEST(Set, streamOperator) {
   EXPECT_EQ(vec[0], 1);
 }
 
-TEST(Set, clear) {
+TEST(Set, clear)
+{
   Set<int> set;
   set << 1 << 2 << 3;
   EXPECT_EQ(set.size(), 3);
@@ -69,7 +77,8 @@ TEST(Set, clear) {
   EXPECT_TRUE(set.isEmpty());
 }
 
-TEST(Set, contains) {
+TEST(Set, contains)
+{
   Set<int> set;
   set << 1 << 2 << 3;
   EXPECT_TRUE(set.contains(1));
@@ -85,13 +94,15 @@ TEST(Set, contains) {
   EXPECT_FALSE(set2.contains(set));
 }
 
-TEST(Set, reserve) {
+TEST(Set, reserve)
+{
   Set<int> set;
   set.reserve(100);
   EXPECT_EQ(set.capacity(), 100);
 }
 
-TEST(Set, shrinkToFit) {
+TEST(Set, shrinkToFit)
+{
   Set<int> set;
   set.reserve(100);
   EXPECT_EQ(set.capacity(), 100);
@@ -101,7 +112,8 @@ TEST(Set, shrinkToFit) {
   EXPECT_EQ(set.capacity(), 3);
 }
 
-TEST(Set, iterator) {
+TEST(Set, iterator)
+{
   Set<int> set;
   set << 1 << 2 << 3;
 
@@ -114,7 +126,8 @@ TEST(Set, iterator) {
   }
 }
 
-TEST(Set, insertIterator) {
+TEST(Set, insertIterator)
+{
   Set<int> set;
   set << 10 << 20 << 30;
   auto it = set.insert(1);
@@ -124,7 +137,8 @@ TEST(Set, insertIterator) {
   EXPECT_EQ(*it, 1);
 }
 
-TEST(Set, erase) {
+TEST(Set, erase)
+{
   Set<int> set;
   set << 1 << 2 << 3;
 
@@ -141,7 +155,8 @@ TEST(Set, erase) {
   EXPECT_EQ(it, set.end());
 }
 
-TEST(Set, find) {
+TEST(Set, find)
+{
   Set<int> set;
   set << 1 << 2 << 3;
 
@@ -161,7 +176,8 @@ TEST(Set, find) {
   EXPECT_EQ(it, set.end());
 }
 
-TEST(Set, fromVector) {
+TEST(Set, fromVector)
+{
   Vector<int> vec;
   vec << 1 << 2 << 3;
 
@@ -169,7 +185,8 @@ TEST(Set, fromVector) {
   EXPECT_EQ(set.toVector(), vec);
 }
 
-TEST(Set, intersect) {
+TEST(Set, intersect)
+{
   Set<int> set;
   set << 1 << 2 << 3;
 
@@ -183,7 +200,8 @@ TEST(Set, intersect) {
   EXPECT_EQ(set, set2);
 }
 
-TEST(Set, subtract) {
+TEST(Set, subtract)
+{
   Set<int> set;
   set << 1 << 2 << 3;
 
@@ -202,7 +220,8 @@ TEST(Set, subtract) {
   EXPECT_EQ(vec[1], 3);
 }
 
-TEST(Set, unite) {
+TEST(Set, unite)
+{
   Set<int> set;
   set << 1 << 2 << 3;
 
@@ -231,7 +250,8 @@ TEST(Set, unite) {
   EXPECT_EQ(vec[3], 42);
 }
 
-TEST(Set, operatorPlusEquals) { // and |=
+TEST(Set, operatorPlusEquals)
+{ // and |=
   Set<int> set;
   set |= 1;
   set |= 1;
@@ -244,7 +264,8 @@ TEST(Set, operatorPlusEquals) { // and |=
   EXPECT_EQ(vec[1], 2);
 }
 
-TEST(Set, copyCtor) {
+TEST(Set, copyCtor)
+{
   Set<int> set;
   set << 1 << 2 << 3;
 
@@ -252,7 +273,8 @@ TEST(Set, copyCtor) {
   EXPECT_EQ(set, set2);
 }
 
-TEST(Set, moveCtor) {
+TEST(Set, moveCtor)
+{
   Set<int> set;
   set << 1 << 2 << 3;
 
@@ -263,7 +285,8 @@ TEST(Set, moveCtor) {
   EXPECT_EQ(set2, tmp);
 }
 
-TEST(Set, assignment) {
+TEST(Set, assignment)
+{
   Set<int> set;
   set << 1 << 2 << 3;
 
@@ -272,7 +295,8 @@ TEST(Set, assignment) {
   EXPECT_EQ(set, set2);
 }
 
-TEST(Set, moveAssignment) {
+TEST(Set, moveAssignment)
+{
   Set<int> set;
   set << 1 << 2 << 3;
 
@@ -284,7 +308,8 @@ TEST(Set, moveAssignment) {
   EXPECT_EQ(set2, tmp);
 }
 
-TEST(Set, initializerList) {
+TEST(Set, initializerList)
+{
   Set<int> set({1, 1, 2, 2, 3, 3});
   EXPECT_EQ(set.size(), 3);
   EXPECT_TRUE(set.contains(1));
@@ -292,7 +317,8 @@ TEST(Set, initializerList) {
   EXPECT_TRUE(set.contains(3));
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
 }

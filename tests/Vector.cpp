@@ -1,19 +1,21 @@
-#include <array>
-#include <vector>
-#include <utility> // move
 #include <algorithm> // sort
+#include <array>
+#include <utility> // move
+#include <vector>
 
 #include "gtest/gtest.h"
 
 #include "cods/Vector.h"
 using namespace cods;
 
-TEST(Vector, instantiate) {
+TEST(Vector, instantiate)
+{
   Vector<int> vec;
   Vector<int, 3> vec2;
 }
 
-TEST(Vector, copyCtor) {
+TEST(Vector, copyCtor)
+{
   Vector<int> vec;
   vec << 1 << 2 << 3;
 
@@ -21,7 +23,8 @@ TEST(Vector, copyCtor) {
   EXPECT_TRUE(vec == vec2);
 }
 
-TEST(Vector, moveCtor) {
+TEST(Vector, moveCtor)
+{
   Vector<int> vec;
   vec << 1 << 2 << 3;
 
@@ -32,13 +35,15 @@ TEST(Vector, moveCtor) {
   EXPECT_TRUE(vec2 == temp);
 }
 
-TEST(Vector, ctor1) {
+TEST(Vector, ctor1)
+{
   Vector<int> vec;
   EXPECT_EQ(vec.size(), 0);
   EXPECT_EQ(vec.capacity(), 0);
 }
 
-TEST(Vector, ctor2) {
+TEST(Vector, ctor2)
+{
   int amount = 3, value = 9;
   Vector<int> vec(amount, value);
   EXPECT_EQ(vec.size(), amount);
@@ -51,7 +56,8 @@ TEST(Vector, ctor2) {
   }
 }
 
-TEST(Vector, ctor3) {
+TEST(Vector, ctor3)
+{
   constexpr int amount = 3;
   std::array<int, amount> arr{{1, 3, 5}};
 
@@ -64,7 +70,8 @@ TEST(Vector, ctor3) {
   }
 }
 
-TEST(Vector, ctor4) {
+TEST(Vector, ctor4)
+{
   std::vector<int> svec{1, 3, 5};
 
   Vector<int, 3> vec(svec.begin(), svec.end());
@@ -77,7 +84,8 @@ TEST(Vector, ctor4) {
   }
 }
 
-TEST(Vector, append) {
+TEST(Vector, append)
+{
   Vector<int, 2> vec;
   vec.append(1);
   EXPECT_EQ(vec[0], 1);
@@ -97,7 +105,8 @@ TEST(Vector, append) {
   EXPECT_EQ(vec.capacity(), 4);
 }
 
-TEST(Vector, appendVector) {
+TEST(Vector, appendVector)
+{
   Vector<int> vec, vec2;
   vec2 << 1 << 2 << 3;
 
@@ -109,7 +118,8 @@ TEST(Vector, appendVector) {
   EXPECT_EQ(vec, vec2);
 }
 
-TEST(Vector, prepend) {
+TEST(Vector, prepend)
+{
   Vector<int, 2> vec;
   vec.prepend(1);
   EXPECT_EQ(vec[0], 1);
@@ -130,7 +140,8 @@ TEST(Vector, prepend) {
   EXPECT_EQ(vec.capacity(), 4);
 }
 
-TEST(Vector, insert) {
+TEST(Vector, insert)
+{
   Vector<int, 2> vec;
   vec.insert(0, 1);
   EXPECT_EQ(vec[0], 1);
@@ -151,7 +162,8 @@ TEST(Vector, insert) {
   EXPECT_EQ(vec.capacity(), 4);
 }
 
-TEST(Vector, insertIterator) {
+TEST(Vector, insertIterator)
+{
   Vector<int> vec;
   auto it1 = vec.insert(vec.begin(), 1);
   auto it2 = vec.insert(it1, 2);
@@ -162,7 +174,8 @@ TEST(Vector, insertIterator) {
   EXPECT_EQ(vec.size(), 3);
 }
 
-TEST(Vector, clear) {
+TEST(Vector, clear)
+{
   Vector<int> vec;
   vec.append(1);
   vec.append(2);
@@ -174,7 +187,8 @@ TEST(Vector, clear) {
   EXPECT_EQ(vec.capacity(), 0);
 }
 
-TEST(Vector, reserve) {
+TEST(Vector, reserve)
+{
   Vector<int, 1> vec;
   vec.append(1);
   vec.append(2);
@@ -189,7 +203,8 @@ TEST(Vector, reserve) {
   EXPECT_EQ(vec.capacity(), 10);
 }
 
-TEST(Vector, shrinkToFit) {
+TEST(Vector, shrinkToFit)
+{
   Vector<int, 1> vec;
   vec.append(1);
   vec.append(2);
@@ -201,7 +216,8 @@ TEST(Vector, shrinkToFit) {
   EXPECT_EQ(vec.capacity(), vec.size());
 }
 
-TEST(Vector, remove) {
+TEST(Vector, remove)
+{
   Vector<int> vec;
   vec.append(1);
   vec.append(2);
@@ -217,7 +233,8 @@ TEST(Vector, remove) {
   EXPECT_EQ(vec.size(), 1);
 }
 
-TEST(Vector, removeAt) {
+TEST(Vector, removeAt)
+{
   Vector<int> vec;
   vec.append(1);
   vec.append(2);
@@ -233,7 +250,8 @@ TEST(Vector, removeAt) {
   EXPECT_EQ(vec.size(), 1);
 }
 
-TEST(Vector, isEmpty) {
+TEST(Vector, isEmpty)
+{
   Vector<int> vec;
   EXPECT_TRUE(vec.isEmpty());
 
@@ -244,7 +262,8 @@ TEST(Vector, isEmpty) {
   EXPECT_TRUE(vec.isEmpty());
 }
 
-TEST(Vector, contains) {
+TEST(Vector, contains)
+{
   Vector<int> vec;
   EXPECT_FALSE(vec.contains(1));
 
@@ -253,7 +272,8 @@ TEST(Vector, contains) {
   EXPECT_FALSE(vec.contains(4));
 }
 
-TEST(Vector, streamOperator) {
+TEST(Vector, streamOperator)
+{
   Vector<int> vec;
   vec << 1 << 2 << 3;
   EXPECT_EQ(vec.size(), 3);
@@ -262,7 +282,8 @@ TEST(Vector, streamOperator) {
   EXPECT_EQ(vec[2], 3);
 }
 
-TEST(Vector, equalsOperator) {
+TEST(Vector, equalsOperator)
+{
   Vector<int> vec;
   vec << 1 << 2 << 3;
 
@@ -278,7 +299,8 @@ TEST(Vector, equalsOperator) {
   EXPECT_FALSE(vec == vec4);
 }
 
-TEST(Vector, notEqualsOperator) {
+TEST(Vector, notEqualsOperator)
+{
   Vector<int> vec;
   vec << 1 << 2 << 3;
 
@@ -294,7 +316,8 @@ TEST(Vector, notEqualsOperator) {
   EXPECT_TRUE(vec != vec4);
 }
 
-TEST(Vector, hash) {
+TEST(Vector, hash)
+{
   Vector<int> vec;
   vec << 1 << 2 << 3;
   auto h = std::hash<decltype(vec)>()(vec);
@@ -306,7 +329,8 @@ TEST(Vector, hash) {
   EXPECT_NE(h, h2);
 }
 
-TEST(Vector, iterator) {
+TEST(Vector, iterator)
+{
   Vector<int> vec;
   vec << 1 << 2 << 3;
 
@@ -333,7 +357,8 @@ TEST(Vector, iterator) {
   EXPECT_EQ(*++(--(--vec.end())), 3);
 }
 
-TEST(Vector, refAssign) {
+TEST(Vector, refAssign)
+{
   Vector<int> vec;
   vec << 1 << 2 << 3;
 
@@ -343,7 +368,8 @@ TEST(Vector, refAssign) {
   EXPECT_EQ(vec[0], 42);
 }
 
-TEST(Vector, indexOf) {
+TEST(Vector, indexOf)
+{
   Vector<int> vec;
   vec << 1 << 2 << 3;
 
@@ -354,7 +380,8 @@ TEST(Vector, indexOf) {
   EXPECT_EQ(vec.indexOf(2, 2), -1);
 }
 
-TEST(Vector, lastIndexOf) {
+TEST(Vector, lastIndexOf)
+{
   Vector<int> vec;
   vec << 1 << 2 << 2 << 3 << 1;
 
@@ -366,14 +393,16 @@ TEST(Vector, lastIndexOf) {
   EXPECT_EQ(vec.lastIndexOf(2, 2), 2);
 }
 
-TEST(Vector, assignOperator) {
+TEST(Vector, assignOperator)
+{
   Vector<int> vec, vec2;
   vec << 1 << 2 << 3;
   vec2 = vec;
   EXPECT_EQ(vec, vec2);
 }
 
-TEST(Vector, moveAssignOperator) {
+TEST(Vector, moveAssignOperator)
+{
   Vector<int> vec, vec2, tmp;
   vec << 1 << 2 << 3;
   tmp = vec;
@@ -382,7 +411,8 @@ TEST(Vector, moveAssignOperator) {
   EXPECT_TRUE(vec.isEmpty());
 }
 
-TEST(Vector, plusEqualsOperator) {
+TEST(Vector, plusEqualsOperator)
+{
   Vector<int> vec;
   vec += 1;
   vec += 2;
@@ -400,7 +430,8 @@ TEST(Vector, plusEqualsOperator) {
   EXPECT_EQ(vec2[2], 3);
 }
 
-TEST(Vector, plusOperator) {
+TEST(Vector, plusOperator)
+{
   Vector<int> vec, vec2;
   vec << 1 << 2;
   vec2 << vec;
@@ -412,7 +443,8 @@ TEST(Vector, plusOperator) {
   EXPECT_EQ(both[3], 2);
 }
 
-TEST(Vector, erase) {
+TEST(Vector, erase)
+{
   Vector<int> vec;
   vec << 1 << 2 << 3;
 
@@ -429,7 +461,8 @@ TEST(Vector, erase) {
   EXPECT_EQ(it, vec.end());
 }
 
-TEST(Vector, initializerList) {
+TEST(Vector, initializerList)
+{
   Vector<int> vec({1, 2, 3});
   EXPECT_EQ(vec.size(), 3);
   EXPECT_EQ(vec[0], 1);
@@ -437,14 +470,16 @@ TEST(Vector, initializerList) {
   EXPECT_EQ(vec[2], 3);
 }
 
-TEST(Vector, at) {
+TEST(Vector, at)
+{
   Vector<int> vec({1, 2, 3});
   EXPECT_EQ(vec.at(0), 1);
   EXPECT_EQ(vec.at(1), 2);
   EXPECT_EQ(vec.at(2), 3);
 }
 
-TEST(Vector, takeAt) {
+TEST(Vector, takeAt)
+{
   Vector<int> vec({1, 2, 3});
   EXPECT_EQ(vec.takeAt(0), 1);
   EXPECT_EQ(vec.size(), 2);
@@ -456,7 +491,8 @@ TEST(Vector, takeAt) {
   EXPECT_EQ(vec.size(), 0);
 }
 
-TEST(Vector, takeFirst) {
+TEST(Vector, takeFirst)
+{
   Vector<int> vec({1, 2, 3});
   EXPECT_EQ(vec.takeFirst(), 1);
   EXPECT_EQ(vec.size(), 2);
@@ -468,7 +504,8 @@ TEST(Vector, takeFirst) {
   EXPECT_EQ(vec.size(), 0);
 }
 
-TEST(Vector, takeLast) {
+TEST(Vector, takeLast)
+{
   Vector<int> vec({1, 2, 3});
   EXPECT_EQ(vec.takeLast(), 3);
   EXPECT_EQ(vec.size(), 2);
@@ -480,7 +517,8 @@ TEST(Vector, takeLast) {
   EXPECT_EQ(vec.size(), 0);
 }
 
-TEST(Vector, removeFirst) {
+TEST(Vector, removeFirst)
+{
   Vector<int> vec({1, 2, 3});
   vec.removeFirst();
   EXPECT_EQ(vec.size(), 2);
@@ -494,7 +532,8 @@ TEST(Vector, removeFirst) {
   EXPECT_EQ(vec.size(), 0);
 }
 
-TEST(Vector, removeLast) {
+TEST(Vector, removeLast)
+{
   Vector<int> vec({1, 2, 3});
   vec.removeLast();
   EXPECT_EQ(vec.size(), 2);
@@ -508,7 +547,8 @@ TEST(Vector, removeLast) {
   EXPECT_EQ(vec.size(), 0);
 }
 
-TEST(Vector, toStdVector) {
+TEST(Vector, toStdVector)
+{
   Vector<int> vec({1, 2, 3});
   std::vector<int> vec2 = vec.toStdVector();
   ASSERT_EQ(vec.size(), static_cast<int>(vec2.size()));
@@ -517,7 +557,8 @@ TEST(Vector, toStdVector) {
   EXPECT_EQ(vec[2], vec2[2]);
 }
 
-TEST(Vector, data) {
+TEST(Vector, data)
+{
   Vector<int> vec({1, 2, 3});
 
   auto *data = vec.data();
@@ -529,7 +570,8 @@ TEST(Vector, data) {
   EXPECT_EQ(data[0], 42);
 }
 
-TEST(Vector, stdSort) {
+TEST(Vector, stdSort)
+{
   Vector<int> vec;
 
   // 5, 4, 3, 2, 1
@@ -567,7 +609,8 @@ TEST(Vector, stdCopyFront)
   EXPECT_EQ(vec, vec2);
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
 }

@@ -3,18 +3,21 @@
 #include "cods/Queue.h"
 using namespace cods;
 
-TEST(Queue, instantiate) {
+TEST(Queue, instantiate)
+{
   Queue<int> queue;
 }
 
-TEST(Queue, enqueue) {
+TEST(Queue, enqueue)
+{
   Queue<int> queue;
   queue.enqueue(42);
   queue.enqueue(21);
   EXPECT_EQ(queue.size(), 2);
 }
 
-TEST(Queue, dequeue) {
+TEST(Queue, dequeue)
+{
   Queue<int> queue;
   queue.enqueue(1);
   queue.enqueue(2);
@@ -33,7 +36,8 @@ TEST(Queue, dequeue) {
   EXPECT_TRUE(queue.isEmpty());
 }
 
-TEST(Queue, head) {
+TEST(Queue, head)
+{
   Queue<int> queue;
   queue.enqueue(42);
   EXPECT_EQ(queue.size(), 1);
@@ -54,7 +58,8 @@ TEST(Queue, head) {
   EXPECT_EQ(queue.size(), 1);
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
 }

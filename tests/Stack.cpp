@@ -3,18 +3,21 @@
 #include "cods/Stack.h"
 using namespace cods;
 
-TEST(Stack, instantiate) {
+TEST(Stack, instantiate)
+{
   Stack<int> stack;
 }
 
-TEST(Stack, push) {
+TEST(Stack, push)
+{
   Stack<int> stack;
   stack.push(42);
   stack.push(21);
   EXPECT_EQ(stack.size(), 2);
 }
 
-TEST(Stack, pop) {
+TEST(Stack, pop)
+{
   Stack<int> stack;
   stack.push(1);
   stack.push(2);
@@ -33,7 +36,8 @@ TEST(Stack, pop) {
   EXPECT_TRUE(stack.isEmpty());
 }
 
-TEST(Stack, top) {
+TEST(Stack, top)
+{
   Stack<int> stack;
   stack.push(42);
   EXPECT_EQ(stack.size(), 1);
@@ -54,7 +58,8 @@ TEST(Stack, top) {
   EXPECT_EQ(stack.size(), 1);
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());
 }
