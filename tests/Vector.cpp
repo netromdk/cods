@@ -554,6 +554,19 @@ TEST(Vector, stdCopyBack)
   EXPECT_EQ(vec, vec2);
 }
 
+TEST(Vector, stdCopyFront)
+{
+  Vector<int> vec({1, 2, 3});
+  decltype(vec) vec2;
+
+  // This effectively reverses the order.
+  std::copy(vec.cbegin(), vec.cend(), std::front_inserter(vec2));
+
+  // Reverse back to test values.
+  std::reverse(vec2.begin(), vec2.end());
+  EXPECT_EQ(vec, vec2);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return (RUN_ALL_TESTS());

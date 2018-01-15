@@ -282,6 +282,12 @@ void Vector<T, INIT_CAP>::push_back(const T &val)
 }
 
 template <typename T, int INIT_CAP>
+void Vector<T, INIT_CAP>::push_front(const T &val)
+{
+  prepend(val);
+}
+
+template <typename T, int INIT_CAP>
 bool Vector<T, INIT_CAP>::contains(const T &val) const
 {
   for (decltype(items) i = 0; i < items; i++) {

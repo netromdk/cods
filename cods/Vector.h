@@ -131,6 +131,9 @@ public:
   /// Insert \p value at the end.
   void push_back(const T &value);
 
+  /// Insert \p value at the beginning.
+  void push_front(const T &value);
+
   //@}
 
   /// Check if vector contains \p value.
