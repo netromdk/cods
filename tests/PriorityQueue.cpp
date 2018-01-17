@@ -10,6 +10,31 @@ TEST(PriorityQueue, instantiate)
   PriorityQueue<int> queue;
 }
 
+TEST(PriorityQueue, copyCtor)
+{
+  PriorityQueue<int> queue;
+  queue.insert(1, 0);
+  queue.insert(2, 1);
+  queue.insert(3, 2);
+
+  decltype(queue) queue2(queue);
+  EXPECT_TRUE(queue == queue2);
+}
+
+TEST(PriorityQueue, moveCtor)
+{
+  PriorityQueue<int> queue;
+  queue.insert(1, 0);
+  queue.insert(2, 1);
+  queue.insert(3, 2);
+
+  decltype(queue) temp(queue);
+
+  decltype(queue) queue2(std::move(queue));
+  EXPECT_TRUE(queue.isEmpty());
+  EXPECT_TRUE(queue2 == temp);
+}
+
 TEST(PriorityQueue, size)
 {
   PriorityQueue<int> queue;

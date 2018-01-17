@@ -4,12 +4,9 @@ PriorityQueue<T, P>::PriorityQueue() : size_(0), high(), low()
 }
 
 template <typename T, typename P>
-PriorityQueue<T, P>::PriorityQueue(const PriorityQueue<T, P> &other) : PriorityQueue()
+PriorityQueue<T, P>::PriorityQueue(PriorityQueue &&other) : PriorityQueue()
 {
-  map = other.map;
-  size_ = other.size_;
-  high = other.high;
-  low = other.low;
+  *this = std::move(other);
 }
 
 template <typename T, typename P>
@@ -80,6 +77,44 @@ const T &PriorityQueue<T, P>::peekLow() const
 {
   assert(!isEmpty() && "Container is empty!");
   return map[low].at(0);
+}
+
+template <typename T, typename P>
+bool PriorityQueue<T, P>::operator==(const PriorityQueue &other) const
+{
+  return map == other.map;
+}
+
+template <typename T, typename P>
+bool PriorityQueue<T, P>::operator!=(const PriorityQueue &other) const
+{
+  return !(*this == other);
+}
+
+template <typename T, typename P>
+PriorityQueue<T, P> &PriorityQueue<T, P>::operator=(const PriorityQueue &other)
+{
+  map = other.map;
+  size_ = other.size_;
+  high = other.high;
+  low = other.low;
+  return *this;
+}
+
+template <typename T, typename P>
+PriorityQueue<T, P> &PriorityQueue<T, P>::operator=(PriorityQueue &&other)
+{
+  map = other.map;
+  size_ = other.size_;
+  high = other.high;
+  low = other.low;
+
+  // Nullify original container.
+  other.map.clear();
+  other.size_ = 0;
+  other.high = T();
+  other.low = T();
+  return *this;
 }
 
 template <typename T, typename P>

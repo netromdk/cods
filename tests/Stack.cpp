@@ -8,6 +8,31 @@ TEST(Stack, instantiate)
   Stack<int> stack;
 }
 
+TEST(Stack, copyCtor)
+{
+  Stack<int> stack;
+  stack.push(1);
+  stack.push(2);
+  stack.push(3);
+
+  decltype(stack) stack2(stack);
+  EXPECT_TRUE(stack == stack2);
+}
+
+TEST(Stack, moveCtor)
+{
+  Stack<int> stack;
+  stack.push(1);
+  stack.push(2);
+  stack.push(3);
+
+  decltype(stack) temp(stack);
+
+  decltype(stack) stack2(std::move(stack));
+  EXPECT_TRUE(stack.isEmpty());
+  EXPECT_TRUE(stack2 == temp);
+}
+
 TEST(Stack, push)
 {
   Stack<int> stack;

@@ -14,6 +14,8 @@ template <typename T, ///< Item type.
 class RingBuffer {
 public:
   RingBuffer();
+  RingBuffer(const RingBuffer &other) = default;
+  RingBuffer(RingBuffer &&other) = default;
 
   int size() const;
   int capacity() const;
@@ -30,6 +32,9 @@ public:
 
   T &operator[](int pos);
   const T &operator[](int pos) const;
+
+  bool operator==(const RingBuffer &other) const;
+  bool operator!=(const RingBuffer &other) const;
 
   Vector<T, CAP> toVector() const;
 

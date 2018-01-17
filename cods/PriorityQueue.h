@@ -3,6 +3,7 @@
 
 #include <algorithm> // max, min, sort
 #include <cassert>
+#include <utility>
 
 #include "cods/HashMap.h"
 #include "cods/Vector.h"
@@ -16,7 +17,8 @@ template <typename T,       ///< Item type.
 class PriorityQueue {
 public:
   PriorityQueue();
-  PriorityQueue(const PriorityQueue<T, P> &other);
+  PriorityQueue(const PriorityQueue &other) = default;
+  PriorityQueue(PriorityQueue &&other);
 
   int size() const;
   bool isEmpty() const;
@@ -34,6 +36,12 @@ public:
   T &peekLow();
   const T &peekLow() const;
   //@}
+
+  bool operator==(const PriorityQueue &other) const;
+  bool operator!=(const PriorityQueue &other) const;
+
+  PriorityQueue &operator=(const PriorityQueue &other);
+  PriorityQueue &operator=(PriorityQueue &&other);
 
 private:
   enum class Priority { HIGH, LOW };

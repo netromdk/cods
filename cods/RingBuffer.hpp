@@ -69,6 +69,18 @@ const T &RingBuffer<T, CAP>::operator[](int pos) const
 }
 
 template <typename T, int CAP>
+bool RingBuffer<T, CAP>::operator==(const RingBuffer &other) const
+{
+  return vec == other.vec;
+}
+
+template <typename T, int CAP>
+bool RingBuffer<T, CAP>::operator!=(const RingBuffer &other) const
+{
+  return !(*this == other);
+}
+
+template <typename T, int CAP>
 Vector<T, CAP> RingBuffer<T, CAP>::toVector() const
 {
   return vec;

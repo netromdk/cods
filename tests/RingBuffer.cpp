@@ -8,6 +8,31 @@ TEST(RingBuffer, instantiate)
   RingBuffer<int, 3> buf;
 }
 
+TEST(RingBuffer, copyCtor)
+{
+  RingBuffer<int, 3> buf;
+  buf.insert(1);
+  buf.insert(2);
+  buf.insert(3);
+
+  decltype(buf) buf2(buf);
+  EXPECT_TRUE(buf == buf2);
+}
+
+TEST(RingBuffer, moveCtor)
+{
+  RingBuffer<int, 3> buf;
+  buf.insert(1);
+  buf.insert(2);
+  buf.insert(3);
+
+  decltype(buf) temp(buf);
+
+  decltype(buf) buf2(std::move(buf));
+  EXPECT_TRUE(buf.isEmpty());
+  EXPECT_TRUE(buf2 == temp);
+}
+
 TEST(RingBuffer, size)
 {
   RingBuffer<int, 3> buf;

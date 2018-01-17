@@ -27,6 +27,12 @@ public:
   /// Create bitset with all zeroes.
   Bitset();
 
+  /// Copy-constructor.
+  Bitset(const Bitset &other) = default;
+
+  /// Move-constructor.
+  Bitset(Bitset &&other) = default;
+
   /// Create bitset with bits from \p num.
   Bitset(const NumType num);
 

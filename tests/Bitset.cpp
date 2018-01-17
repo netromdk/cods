@@ -8,6 +8,22 @@ TEST(Bitset, instantiate)
   Bitset<12> bs;
 }
 
+TEST(Bitset, copyCtor)
+{
+  Bitset<4> bs("1010");
+  decltype(bs) bs2(bs);
+  EXPECT_TRUE(bs == bs2);
+}
+
+TEST(Bitset, moveCtor)
+{
+  Bitset<4> bs("1010");
+  decltype(bs) temp(bs);
+
+  decltype(bs) bs2(std::move(bs));
+  EXPECT_TRUE(bs2 == temp);
+}
+
 TEST(Bitset, size)
 {
   Bitset<4> bs;
