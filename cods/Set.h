@@ -132,4 +132,10 @@ private:
 
 } // namespace cods
 
+template <typename T>
+inline std::ostream &operator<<(std::ostream &os, const cods::Set<T> &set)
+{
+  return os << set.toVector();
+}
+
 #endif // CODS_SET_H

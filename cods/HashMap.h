@@ -150,4 +150,14 @@ private:
 
 } // namespace cods
 
+template <typename Key, typename T, int INIT_CAP>
+inline std::ostream &operator<<(std::ostream &os, const cods::HashMap<Key, T, INIT_CAP> &map)
+{
+  os << "[";
+  for (auto it = map.cbegin(); it != map.cend(); ++it) {
+    os << " (" << it.key() << " -> " << it.value() << ") ";
+  }
+  return os << "]";
+}
+
 #endif // CODS_HASH_MAP_H

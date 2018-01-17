@@ -16,6 +16,7 @@ template <typename T,       ///< Item type.
 class PriorityQueue {
 public:
   PriorityQueue();
+  PriorityQueue(const PriorityQueue<T, P> &other);
 
   int size() const;
   bool isEmpty() const;
@@ -49,5 +50,19 @@ private:
 #include "cods/PriorityQueue.hpp"
 
 } // namespace cods
+
+template <typename T, typename P>
+inline std::ostream &operator<<(std::ostream &os, const cods::PriorityQueue<T, P> &queue)
+{
+  os << "[";
+  auto copy = queue;
+  while (!copy.isEmpty()) {
+    os << copy.popLow();
+    if (copy.size() >= 1) {
+      os << ", ";
+    }
+  }
+  return os << "]";
+}
 
 #endif // CODS_PRIORITY_QUEUE_H

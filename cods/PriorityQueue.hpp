@@ -4,6 +4,15 @@ PriorityQueue<T, P>::PriorityQueue() : size_(0), high(), low()
 }
 
 template <typename T, typename P>
+PriorityQueue<T, P>::PriorityQueue(const PriorityQueue<T, P> &other) : PriorityQueue()
+{
+  map = other.map;
+  size_ = other.size_;
+  high = other.high;
+  low = other.low;
+}
+
+template <typename T, typename P>
 int PriorityQueue<T, P>::size() const
 {
   return size_;

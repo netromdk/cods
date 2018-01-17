@@ -194,12 +194,6 @@ typename Bitset<B>::NumType Bitset<B>::toNum() const
 }
 
 template <int B>
-void Bitset<B>::print() const
-{
-  std::cout << toString() << std::endl;
-}
-
-template <int B>
 int Bitset<B>::indexFromBits(int bits) const
 {
   if (bits == 0) return 0;

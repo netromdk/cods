@@ -84,8 +84,6 @@ public:
   /// Converts bitset into the number it represents.
   NumType toNum() const;
 
-  void print() const;
-
 private:
   /// Returns the index of the \p NumType that contains the \p bits as position.
   int indexFromBits(int bits) const;
@@ -105,5 +103,11 @@ private:
 #include "cods/Bitset.hpp"
 
 } // namespace cods
+
+template <int B>
+inline std::ostream &operator<<(std::ostream &os, const cods::Bitset<B> &bs)
+{
+  return os << "\"" << bs.toString() << "\"";
+}
 
 #endif // CODS_BITSET_H

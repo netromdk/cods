@@ -147,9 +147,6 @@ public:
   /** If nothing is found then it returns \p -1. */
   int lastIndexOf(const T &value, int from = -1) const;
 
-  /// Print vector to stdout.
-  void print() const;
-
   /// Clear and empty vector.
   void clear();
 
@@ -285,5 +282,19 @@ struct hash<cods::Vector<T>> {
 };
 
 } // namespace std
+
+template <typename T, int INIT_CAP>
+inline std::ostream &operator<<(std::ostream &os, const cods::Vector<T, INIT_CAP> &vec)
+{
+  os << "[";
+  const auto cap = vec.capacity();
+  for (int i = 0; i < cap; i++) {
+    os << cods::convert(vec[i]);
+    if (i < cap - 1) {
+      os << ", ";
+    }
+  }
+  return os << "]";
+}
 
 #endif // CODS_VECTOR_H

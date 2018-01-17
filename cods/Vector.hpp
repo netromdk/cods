@@ -324,23 +324,6 @@ int Vector<T, INIT_CAP>::lastIndexOf(const T &value, int from) const
 }
 
 template <typename T, int INIT_CAP>
-void Vector<T, INIT_CAP>::print() const
-{
-  using namespace std;
-  cout << "[ ";
-  if (isEmpty()) {
-    cout << "empty";
-  }
-  for (decltype(cap) i = 0; i < cap; i++) {
-    cout << convert(data_[i]);
-    if (i < cap - 1) {
-      cout << ", ";
-    }
-  }
-  cout << " ]" << endl;
-}
-
-template <typename T, int INIT_CAP>
 void Vector<T, INIT_CAP>::clear()
 {
   if (data_) {

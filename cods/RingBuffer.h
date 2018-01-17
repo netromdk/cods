@@ -49,4 +49,10 @@ private:
 
 } // namespace cods
 
+template <typename T, int CAP>
+inline std::ostream &operator<<(std::ostream &os, const cods::RingBuffer<T, CAP> &buf)
+{
+  return os << buf.toVector();
+}
+
 #endif // CODS_RING_BUFFER_H
