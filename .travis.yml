@@ -42,4 +42,4 @@ before_script:
   - cmake ..
 
 script:
-  - VERBOSE=1 make && make test
+  - VERBOSE=1 make && ctest -L test --output-on-failure
