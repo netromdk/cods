@@ -186,7 +186,7 @@ TEST(HashMap, shrinkToFit)
   map.insert(2, 2);
   map.insert(3, 1);
   EXPECT_EQ(map.size(), 3);
-  EXPECT_EQ(map.capacity(), 4);
+  EXPECT_EQ(map.capacity(), 8);
 
   map.shrinkToFit();
   EXPECT_EQ(map.size(), 3);

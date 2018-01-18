@@ -101,8 +101,8 @@ TEST(Vector, append)
   EXPECT_EQ(vec[2], 3);
   EXPECT_EQ(vec.size(), 3);
 
-  // Went from size 2->3 so capacity is changed from 2->4 because the multiplier is 2.
-  EXPECT_EQ(vec.capacity(), 4);
+  // Went from size 2->3 so capacity is changed from 2->8 because the multiplier is 4.
+  EXPECT_EQ(vec.capacity(), 8);
 }
 
 TEST(Vector, appendVector)
@@ -137,7 +137,7 @@ TEST(Vector, prepend)
   EXPECT_EQ(vec[1], 2);
   EXPECT_EQ(vec[2], 1);
   EXPECT_EQ(vec.size(), 3);
-  EXPECT_EQ(vec.capacity(), 4);
+  EXPECT_EQ(vec.capacity(), 8);
 }
 
 TEST(Vector, insert)
@@ -159,7 +159,7 @@ TEST(Vector, insert)
   EXPECT_EQ(vec[1], 3);
   EXPECT_EQ(vec[2], 2);
   EXPECT_EQ(vec.size(), 3);
-  EXPECT_EQ(vec.capacity(), 4);
+  EXPECT_EQ(vec.capacity(), 8);
 }
 
 TEST(Vector, insertIterator)

@@ -581,8 +581,8 @@ void Vector<T, INIT_CAP>::alloc(int size)
 template <typename T, int INIT_CAP>
 void Vector<T, INIT_CAP>::checkAlloc()
 {
-  if (items != cap) return;
-  alloc(cap == 0 ? INIT_CAP : cap * 2);
+  if (items < cap) return;
+  alloc(cap == 0 ? INIT_CAP : cap * 4);
 }
 
 /// Appends value but only checks capacity if check is set.
