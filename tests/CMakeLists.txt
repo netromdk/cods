@@ -21,6 +21,10 @@ macro(add_cods_test name)
     NAME ${name}
     COMMAND ${name}
     )
+  set_tests_properties(
+    ${name}
+    PROPERTIES LABELS "test"
+    )
   target_link_libraries(
     ${name}
     gtest
@@ -30,6 +34,8 @@ macro(add_cods_test name)
     ..
     )
 endmacro(add_cods_test)
+
+# Tests
 
 add_cods_test(
   Vector
@@ -74,4 +80,34 @@ add_cods_test(
 add_cods_test(
   Bitset
   Bitset.cpp
+  )
+
+# Performance tests
+
+macro(add_cods_perf name)
+  add_executable(
+    ${name}
+    ${ARGV}
+    )
+  add_test(
+    NAME ${name}
+    COMMAND ${name}
+    )
+  set_tests_properties(
+    ${name}
+    PROPERTIES LABELS "perf"
+    )
+  target_link_libraries(
+    ${name}
+    gtest
+    )
+  include_directories(
+    gtest/include
+    ..
+    )
+endmacro(add_cods_perf)
+
+add_cods_perf(
+  PerfVector
+  PerfVector.cpp
   )
