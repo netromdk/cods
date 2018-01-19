@@ -1,5 +1,8 @@
 #include "gtest/gtest.h"
 
+#include <algorithm>
+#include <string>
+
 #include "cods/HashMap.h"
 using namespace cods;
 
@@ -417,6 +420,18 @@ TEST(HashMap, initializerList)
   EXPECT_EQ(map[1], 1);
   EXPECT_EQ(map[2], 2);
   EXPECT_EQ(map[3], 3);
+}
+
+TEST(HashMap, unorderedKeys)
+{
+  HashMap<std::string, int> map;
+  map.insert("hello", 1);
+  map.insert("123", 2);
+  map.insert("   ", 3);
+
+  auto sortedKeys = map.keys();
+  std::sort(sortedKeys.begin(), sortedKeys.end());
+  EXPECT_NE(map.keys(), sortedKeys);
 }
 
 int main(int argc, char **argv)
