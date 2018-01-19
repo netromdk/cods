@@ -125,6 +125,7 @@ T PriorityQueue<T, P>::pop(Priority priority)
   }
 
   const auto priv = (priority == Priority::HIGH ? high : low);
+  assert(map.contains(priv) && "Priority not found in queue!");
 
   auto &vec = map[priv];
   const auto value = vec.takeFirst();
@@ -138,12 +139,15 @@ T PriorityQueue<T, P>::pop(Priority priority)
     if (!isEmpty()) {
       auto keys = map.keys();
       std::sort(keys.begin(), keys.end());
+
       if (priority == Priority::HIGH) {
         high = keys.takeLast();
       }
       else {
         low = keys.takeFirst();
       }
+
+      assert(low <= high && "Lowest priority > highest priority!");
     }
   }
 
