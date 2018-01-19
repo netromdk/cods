@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
 
+#include <bitset>
+
 #include "cods/Bitset.h"
 using namespace cods;
 
@@ -233,6 +235,17 @@ TEST(Bitset, toNum)
 
   Bitset<8> bs2(42);
   EXPECT_EQ(bs2.toNum(), 42ULL);
+}
+
+TEST(Bitset, stdBitsetCompare)
+{
+  const auto num = 0xFEEDFACE;
+  const auto bits = sizeof(num) * 8;
+  Bitset<bits> bs(num);
+  std::bitset<bits> bs2(num);
+  EXPECT_EQ(bs.toString(), bs2.to_string());
+  EXPECT_EQ(bs.toNum(), num);
+  EXPECT_EQ(bs.toNum(), bs2.to_ullong());
 }
 
 int main(int argc, char **argv)
