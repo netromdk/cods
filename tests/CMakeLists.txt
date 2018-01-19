@@ -111,3 +111,8 @@ add_cods_perf(
   PerfVector
   PerfVector.cpp
   )
+
+add_cods_perf(
+  PerfHashMap
+  PerfHashMap.cpp
+  )
