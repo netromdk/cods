@@ -143,6 +143,13 @@ Bitset<B> Bitset<B>::operator&(const Bitset<B> &other) const
 }
 
 template <int B>
+Bitset<B> &Bitset<B>::operator&=(const Bitset<B> &other)
+{
+  *this = *this & other;
+  return *this;
+}
+
+template <int B>
 Bitset<B> Bitset<B>::operator|(const Bitset<B> &other) const
 {
   Bitset<B> res = *this;
@@ -154,6 +161,13 @@ Bitset<B> Bitset<B>::operator|(const Bitset<B> &other) const
 }
 
 template <int B>
+Bitset<B> &Bitset<B>::operator|=(const Bitset<B> &other)
+{
+  *this = *this | other;
+  return *this;
+}
+
+template <int B>
 Bitset<B> Bitset<B>::operator^(const Bitset<B> &other) const
 {
   Bitset<B> res = *this;
@@ -162,6 +176,82 @@ Bitset<B> Bitset<B>::operator^(const Bitset<B> &other) const
     return true;
   });
   return res;
+}
+
+template <int B>
+Bitset<B> &Bitset<B>::operator^=(const Bitset<B> &other)
+{
+  *this = *this ^ other;
+  return *this;
+}
+
+template <int B>
+Bitset<B> Bitset<B>::operator~() const
+{
+  Bitset<B> res = *this;
+  invokeOnAll([&res](int pos) {
+    res.set(pos, !res.test(pos));
+    return true;
+  });
+  return res;
+}
+
+template <int B>
+Bitset<B> Bitset<B>::operator>>(int pos) const
+{
+  if (pos == 0) {
+    return *this;
+  }
+
+  if (B == 1 || none()) {
+    return Bitset<B>();
+  }
+
+  auto copy = *this;
+  while (pos-- > 0) {
+    for (int i = 1; i < B; i++) {
+      copy.set(i - 1, copy.test(i));
+    }
+    copy.reset(B - 1);
+  }
+
+  return copy;
+}
+
+template <int B>
+Bitset<B> &Bitset<B>::operator>>=(int pos)
+{
+  *this = *this >> pos;
+  return *this;
+}
+
+template <int B>
+Bitset<B> Bitset<B>::operator<<(int pos) const
+{
+  if (pos == 0) {
+    return *this;
+  }
+
+  if (B == 1 || none()) {
+    return Bitset<B>();
+  }
+
+  auto copy = *this;
+  while (pos-- > 0) {
+    for (int i = B - 1; i > 0; i--) {
+      copy.set(i, copy.test(i - 1));
+    }
+    copy.reset(0);
+  }
+
+  return copy;
+}
+
+template <int B>
+Bitset<B> &Bitset<B>::operator<<=(int pos)
+{
+  *this = *this << pos;
+  return *this;
 }
 
 template <int B>

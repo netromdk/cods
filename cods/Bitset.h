@@ -43,6 +43,7 @@ public:
   /// Size in bits.
   int size() const;
 
+  /// Tests whether \p pos bit is true or false.
   bool test(int pos) const;
   bool operator[](int pos) const;
 
@@ -72,17 +73,43 @@ public:
   /// Amount of bits that is \p true.
   int count() const;
 
-  bool operator==(const Bitset<B> &other) const;
-  bool operator!=(const Bitset<B> &other) const;
+  Bitset &operator=(const Bitset &other) = default;
+
+  bool operator==(const Bitset &other) const;
+  bool operator!=(const Bitset &other) const;
 
   /// Returns the bitwise AND of \p and \p other.
-  Bitset<B> operator&(const Bitset<B> &other) const;
+  Bitset operator&(const Bitset &other) const;
+
+  /// Applies bitwise AND of \p this and \p other and returns reference to this.
+  Bitset &operator&=(const Bitset &other);
 
   /// Returns the bitwise OR of \p and \p other.
-  Bitset<B> operator|(const Bitset<B> &other) const;
+  Bitset operator|(const Bitset &other) const;
+
+  /// Applies bitwise OR of \p this and \p other and returns reference to this.
+  Bitset &operator|=(const Bitset &other);
 
   /// Returns the bitwise XOR of \p and \p other.
-  Bitset<B> operator^(const Bitset<B> &other) const;
+  Bitset operator^(const Bitset &other) const;
+
+  /// Applies bitwise XOR of \p this and \p other and returns reference to this.
+  Bitset &operator^=(const Bitset &other);
+
+  /// Returns the bitwise NOT of \p this.
+  Bitset operator~() const;
+
+  /// Returns the bitwise SHIFT of \p this by \p pos to the right.
+  Bitset operator>>(int pos) const;
+
+  /// Applies bitwise SHIFT of \p this by \p pos to the right.
+  Bitset &operator>>=(int pos);
+
+  /// Returns the bitwise SHIFT of \p this by \p pos to the left.
+  Bitset operator<<(int pos) const;
+
+  /// Applies bitwise SHIFT of \p this by \p pos to the left.
+  Bitset &operator<<=(int pos);
 
   /// Create string from bitset using \p zero and \p one.
   std::string toString(const char zero = '0', const char one = '1') const;

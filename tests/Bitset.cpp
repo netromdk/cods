@@ -208,25 +208,109 @@ TEST(Bitset, operatorNotEquals)
   EXPECT_TRUE(bs1 != bs2);
 }
 
-TEST(Bitset, operatorAND)
+TEST(Bitset, operatorAnd)
 {
   Bitset<4> bs1("0110");
   Bitset<4> bs2("0011");
   EXPECT_EQ(bs1 & bs2, Bitset<4>("0010"));
 }
 
-TEST(Bitset, operatorOR)
+TEST(Bitset, operatorAndAssign)
+{
+  Bitset<4> bs1("0110");
+  Bitset<4> bs2("0011");
+  auto &ref = bs1 &= bs2;
+  EXPECT_EQ(ref, Bitset<4>("0010"));
+  EXPECT_EQ(ref, bs1);
+}
+
+TEST(Bitset, operatorOr)
 {
   Bitset<4> bs1("0110");
   Bitset<4> bs2("0011");
   EXPECT_EQ(bs1 | bs2, Bitset<4>("0111"));
 }
 
-TEST(Bitset, operatorXOR)
+TEST(Bitset, operatorOrAssign)
+{
+  Bitset<4> bs1("0110");
+  Bitset<4> bs2("0011");
+  auto &ref = bs1 |= bs2;
+  EXPECT_EQ(ref, Bitset<4>("0111"));
+  EXPECT_EQ(ref, bs1);
+}
+
+TEST(Bitset, operatorXor)
 {
   Bitset<4> bs1("0110");
   Bitset<4> bs2("0011");
   EXPECT_EQ(bs1 ^ bs2, Bitset<4>("0101"));
+}
+
+TEST(Bitset, operatorXorAssign)
+{
+  Bitset<4> bs1("0110");
+  Bitset<4> bs2("0011");
+  auto &ref = bs1 ^= bs2;
+  EXPECT_EQ(ref, Bitset<4>("0101"));
+  EXPECT_EQ(ref, bs1);
+}
+
+TEST(Bitset, operatorNot)
+{
+  Bitset<4> bs("0110");
+  EXPECT_EQ(~bs, Bitset<4>("1001"));
+}
+
+TEST(Bitset, operatorShiftRight)
+{
+  Bitset<4> bs("1110");
+  EXPECT_EQ(bs >> 0, Bitset<4>("1110"));
+  EXPECT_EQ(bs >> 1, Bitset<4>("0111"));
+  EXPECT_EQ(bs >> 2, Bitset<4>("0011"));
+  EXPECT_EQ(bs >> 3, Bitset<4>("0001"));
+
+  Bitset<1> bs2("1");
+  EXPECT_EQ(bs2 >> 1, Bitset<1>("0"));
+  EXPECT_EQ(bs2 >> 2, Bitset<1>("0"));
+
+  Bitset<100> bs3;
+  bs3.flip(99); // 10000...0
+  EXPECT_FALSE(bs3.test(0));
+  auto res = bs3 >> 99;
+  EXPECT_TRUE(res.test(0));
+}
+
+TEST(Bitset, operatorShiftRightAssign)
+{
+  Bitset<4> bs("1110");
+  auto &ref = bs >>= 2;
+  EXPECT_EQ(ref, Bitset<4>("0011"));
+  EXPECT_EQ(ref, bs);
+}
+
+TEST(Bitset, operatorShiftLeft)
+{
+  Bitset<4> bs("0111");
+  EXPECT_EQ(bs << 0, Bitset<4>("0111"));
+  EXPECT_EQ(bs << 1, Bitset<4>("1110"));
+  EXPECT_EQ(bs << 2, Bitset<4>("1100"));
+  EXPECT_EQ(bs << 3, Bitset<4>("1000"));
+
+  Bitset<100> bs2;
+  bs2.flip(0); // 00...01
+  EXPECT_TRUE(bs2.test(0));
+  auto res = bs2 << 99; // 100...0
+  EXPECT_FALSE(res.test(0));
+  EXPECT_TRUE(res.test(99));
+}
+
+TEST(Bitset, operatorShiftLeftAssign)
+{
+  Bitset<4> bs("0111");
+  auto &ref = bs <<= 2;
+  EXPECT_EQ(ref, Bitset<4>("1100"));
+  EXPECT_EQ(ref, bs);
 }
 
 TEST(Bitset, toString)
