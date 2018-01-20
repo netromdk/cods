@@ -5,7 +5,7 @@
 
 #include <algorithm> // reverse
 #include <cassert>
-#include <cmath> // ceil, pow
+#include <cmath> // floor, pow
 #include <cstdint>
 #include <functional>
 #include <iostream> // cout, endl

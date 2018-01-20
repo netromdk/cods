@@ -181,6 +181,17 @@ TEST(Bitset, flip)
   EXPECT_FALSE(bs[3]);
 }
 
+TEST(Bitset, flipFirstBitOfSecondNum)
+{
+  Bitset<100> bs;
+  EXPECT_FALSE(bs.test(0));
+  bs.flip(64);
+  EXPECT_TRUE(bs.test(64));
+
+  // The first bit was flipped because indexFromBits(64) returned 0 instead of 1 earlier!
+  EXPECT_FALSE(bs.test(0));
+}
+
 TEST(Bitset, operatorEquals)
 {
   Bitset<4> bs1("0110");

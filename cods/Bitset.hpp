@@ -198,7 +198,7 @@ int Bitset<B>::indexFromBits(int bits) const
 {
   if (bits == 0) return 0;
   const auto amount = static_cast<double>(bits) / (static_cast<double>(BITS_PER_NUM));
-  return static_cast<int>(std::ceil(amount)) - 1;
+  return static_cast<int>(std::floor(amount));
 }
 
 template <int B>
