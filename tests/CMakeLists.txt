@@ -82,6 +82,11 @@ add_cods_test(
   Bitset.cpp
   )
 
+add_cods_test(
+  Pair
+  Pair.cpp
+  )
+
 # Performance tests
 
 macro(add_cods_perf name)

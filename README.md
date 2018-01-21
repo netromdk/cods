@@ -13,5 +13,6 @@ Contains the following data structures so far:
 - [PriorityQueue](cods/PriorityQueue.h "PriorityQueue")
 - [RingBuffer](cods/RingBuffer.h "RingBuffer")
 - [Bitset](cods/Bitset.h "Bitset")
+- [Pair](cods/Pair.h "Pair")
 
 Find the current documentation [here](http://netromdk.github.io/cods/doc/html/).
