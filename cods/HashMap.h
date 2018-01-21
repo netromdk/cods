@@ -1,6 +1,7 @@
 #ifndef CODS_HASH_MAP_H
 #define CODS_HASH_MAP_H
 
+#include "cods/Pair.h"
 #include "cods/Vector.h"
 
 #include <cstddef>    // size_t
@@ -74,7 +75,7 @@ public:
   HashMap();
 
   /// Create map with initializer list.
-  HashMap(std::initializer_list<std::pair<Key, T>> args);
+  HashMap(std::initializer_list<Pair<Key, T>> args);
 
   /// Copy-constructor.
   HashMap(const HashMap &other);

@@ -153,7 +153,7 @@ HashMap<Key, T, INIT_CAP>::HashMap() : buckets(), items(0)
 }
 
 template <typename Key, typename T, int INIT_CAP>
-HashMap<Key, T, INIT_CAP>::HashMap(std::initializer_list<std::pair<Key, T>> args) : HashMap()
+HashMap<Key, T, INIT_CAP>::HashMap(std::initializer_list<Pair<Key, T>> args) : HashMap()
 {
   for (const auto &pair : args) {
     insert(pair.first, pair.second);

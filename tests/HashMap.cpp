@@ -415,7 +415,7 @@ TEST(HashMap, moveAssignment)
 
 TEST(HashMap, initializerList)
 {
-  HashMap<int, int> map({std::make_pair(1, 1), std::make_pair(2, 2), std::make_pair(3, 3)});
+  HashMap<int, int> map({makePair(1, 1), makePair(2, 2), makePair(3, 3)});
   EXPECT_EQ(map.size(), 3);
   EXPECT_EQ(map[1], 1);
   EXPECT_EQ(map[2], 2);
